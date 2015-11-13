@@ -1,13 +1,7 @@
-asm/*.o
-asm/add_main
-asm/add.6
-vec/.ninja_deps
-vec/.ninja_log
-vec/*.o
-vec/main
+c/apps/uzrm/out
+sqlite/*.o
 sqlite/.ninja_deps
 sqlite/.ninja_log
-sqlite/*.o
 sqlite/out
 sqlite/create_users_db
 sqlite/create_user_table
