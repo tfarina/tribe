@@ -336,6 +336,10 @@
 				RelativePath="app.ico"
 				>
 			</File>
+			<File
+				RelativePath=".\tribeapp.ico"
+				>
+			</File>
 		</Filter>
 		<File
 			RelativePath=".\tribe.manifest"
