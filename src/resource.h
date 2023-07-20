@@ -27,6 +27,7 @@
 #define IDC_VERSION_NUMBER              2006
 #define IDC_PROPPAGE_NAME_EDIT_LASTNAME 2007
 #define IDC_PROPPAGE_NAME_EDIT_EMAIL    2008
+#define IDC_VERSION_NUMBER2             2008
 #define IDC_PROPPAGE_NAME_STATIC_EMAIL  2009
 #define IDM_SELECTALL                   32772
 #define IDM_NEW_CONTACT                 32774
