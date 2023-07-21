@@ -29,12 +29,11 @@
 #define IDC_PROPPAGE_NAME_EDIT_LASTNAME 2011
 #define IDC_PROPPAGE_NAME_EDIT_EMAIL    2012
 #define IDC_PROPPAGE_NAME_STATIC_EMAIL  2013
-#define IDM_SELECTALL                   32772
-#define IDM_NEW_CONTACT                 32774
-#define ID_FILE_PROPERTIES              32777
-#define IDM_PROPERTIES                  32778
-#define IDM_DELETE                      32779
-#define IDM_HELP_CHM                    32780
+#define IDM_SELECTALL                   32771
+#define IDM_NEW_CONTACT                 32772
+#define IDM_PROPERTIES                  32773
+#define IDM_DELETE                      32774
+#define IDM_HELP_CHM                    32775
 #define IDC_STATIC                      -1
 
 // Next default values for new objects
@@ -44,7 +43,7 @@
 #define _APS_NO_MFC                     1
 #define _APS_3D_CONTROLS                     1
 #define _APS_NEXT_RESOURCE_VALUE        108
-#define _APS_NEXT_COMMAND_VALUE         32781
+#define _APS_NEXT_COMMAND_VALUE         32776
 #define _APS_NEXT_CONTROL_VALUE         2014
 #define _APS_NEXT_SYMED_VALUE           2103
 #endif
