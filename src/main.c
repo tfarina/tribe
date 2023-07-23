@@ -852,6 +852,32 @@ AboutDlgProc(
 	switch (uMsg)
 	{
 		case WM_INITDIALOG:
+			{
+				char szFile[MAX_PATH];
+				DWORD dwBogus;
+				DWORD dwVerInfoSize;
+				LPVOID lpInfo;
+				UINT uLen = 0;
+				LPSTR pszVersion = NULL;
+
+				GetModuleFileName(NULL, szFile, sizeof(szFile));
+
+				dwVerInfoSize = GetFileVersionInfoSize(szFile, &dwBogus);
+				if (dwVerInfoSize)
+				{
+					lpInfo = LocalAlloc(LMEM_ZEROINIT, dwVerInfoSize);
+					if (lpInfo)
+					{
+						if (GetFileVersionInfoA(szFile, dwBogus, dwVerInfoSize, lpInfo))
+						{
+							if (VerQueryValueA(lpInfo, "\\StringFileInfo\\040904b0\\FileVersion", (LPVOID *)&pszVersion, &uLen) && uLen)
+							{
+								SetDlgItemText(hDlg, IDC_VERSION_NUMBER_LABEL, pszVersion);
+							}
+						}
+					}
+				}
+			}
 			return TRUE;
 
 		case WM_COMMAND:
