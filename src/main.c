@@ -859,6 +859,7 @@ AboutDlgProc(
 				LPVOID lpInfo;
 				UINT uLen = 0;
 				LPSTR pszVersion = NULL;
+				LPSTR pszCopyright = NULL;
 
 				GetModuleFileName(NULL, szFile, sizeof(szFile));
 
@@ -873,6 +874,10 @@ AboutDlgProc(
 							if (VerQueryValueA(lpInfo, "\\StringFileInfo\\040904b0\\FileVersion", (LPVOID *)&pszVersion, &uLen) && uLen)
 							{
 								SetDlgItemText(hDlg, IDC_VERSION_NUMBER_LABEL, pszVersion);
+							}
+							if (VerQueryValueA(lpInfo, "\\StringFileInfo\\040904b0\\LegalCopyright", (LPVOID *)&pszCopyright, &uLen) && uLen)
+							{
+								SetDlgItemText(hDlg, IDC_COPYRIGHT_LABEL, pszCopyright);
 							}
 						}
 					}

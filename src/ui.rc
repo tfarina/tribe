@@ -99,7 +99,7 @@ BEGIN
     LTEXT           "Tribe",IDC_STATIC,39,9,131,8
     LTEXT           "Version",IDC_VERSION_LABEL,39,21,23,8
     LTEXT           "0.0.0.0",IDC_VERSION_NUMBER_LABEL,66,21,23,8
-    LTEXT           "Copyright (C) 2022",IDC_STATIC,39,32,119,8
+    LTEXT           "Copyright (C) 2022",IDC_COPYRIGHT_LABEL,39,32,119,8
     DEFPUSHBUTTON   "OK",IDOK,174,7,50,14
 END
 
