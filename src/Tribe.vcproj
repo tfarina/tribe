@@ -186,7 +186,7 @@
 			/>
 			<Tool
 				Name="VCManifestTool"
-				AdditionalManifestFiles="./tribe.manifest"
+				AdditionalManifestFiles="tribe.exe.manifest"
 				EmbedManifest="true"
 			/>
 			<Tool
@@ -342,7 +342,7 @@
 			</File>
 		</Filter>
 		<File
-			RelativePath=".\tribe.manifest"
+			RelativePath=".\tribe.exe.manifest"
 			>
 		</File>
 	</Files>
