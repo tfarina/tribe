@@ -23,7 +23,7 @@ db_init(void)
 	rc = sqlite3_open(dbname, &hdb);
 	if (rc != SQLITE_OK)
 	{
-		fprintf(stderr, "Failed to open SQLite database %s: %s\n", dbname,
+		fprintf(stderr, "Failed to open the SQLite database at %s: %s\n", dbname,
 			sqlite3_errmsg(hdb));
 		sqlite3_close(hdb);
 		return -1;
