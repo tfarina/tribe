@@ -752,6 +752,7 @@ MainWndProc(
 								ListView_DeleteItem(g_hwndListView, iSelIndex);
 							}
 						}
+						SetFocus(g_hwndListView);
 					}
 					break;
 
