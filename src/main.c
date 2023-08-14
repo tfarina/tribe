@@ -707,9 +707,6 @@ MainWndProc(
 	LPARAM lParam
 	)
 {
-	PAINTSTRUCT ps;
-	HDC hdc;
-
 	switch (uMsg)
 	{
 		case WM_CREATE:
@@ -801,9 +798,14 @@ MainWndProc(
 
 
 		case WM_PAINT:
-			hdc = BeginPaint(hWnd, &ps);
-			/* TODO: figure out why this is needed to repaint the listview */
-			EndPaint(hWnd, &ps);
+			{
+				PAINTSTRUCT ps;
+				HDC hdc;
+
+				/* TODO: Why do we need this code to make the listview repaint? */
+				hdc = BeginPaint(hWnd, &ps);
+				EndPaint(hWnd, &ps);
+			}
 			break;
 
 
