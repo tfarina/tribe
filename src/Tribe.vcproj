@@ -187,7 +187,7 @@
 			<Tool
 				Name="VCManifestTool"
 				AdditionalManifestFiles="tribe.exe.manifest"
-				EmbedManifest="true"
+				EmbedManifest="false"
 			/>
 			<Tool
 				Name="VCXDCMakeTool"
