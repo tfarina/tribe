@@ -636,7 +636,7 @@ ShowContactPropertiesDialog(
 }
 
 static void
-UpdateMenuStates(
+UpdateUI(
 	void
 	)
 {
@@ -665,7 +665,7 @@ HandleListViewNotifications(
 	switch (nmListView->hdr.code)
 	{
 	case LVN_KEYDOWN:
-		UpdateMenuStates();
+		UpdateUI();
 		switch (((LV_KEYDOWN *) nmListView)->wVKey)
 		{
 		case VK_DELETE:
@@ -685,7 +685,7 @@ HandleListViewNotifications(
 		}
 		break;
 	case NM_CLICK:
-		UpdateMenuStates();
+		UpdateUI();
 		break;
 	}
 }
