@@ -324,6 +324,14 @@ PopulateListView(
 		}
 		lvI.iItem++;
 	}
+
+	ListView_SetItemState(
+		g_hwndListView,
+		0,
+		LVIS_FOCUSED | LVIS_SELECTED,
+		LVIS_FOCUSED | LVIS_SELECTED);
+
+	ListView_EnsureVisible(g_hwndListView, 0, FALSE);
 }
 
 void
