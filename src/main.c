@@ -37,13 +37,11 @@ typedef struct _CONTACT
 	TCHAR szEmail[MAX_LOADSTRING];
 } CONTACT, *LPCONTACT;
 
-/* Global Variables */
-HINSTANCE g_hInst;     /* Handle to module instance */
-
-HWND g_hwndMain;         /* Handle to main window */
-HWND g_hwndStatusBar;
-HWND g_hwndListView;
-HWND g_hwndToolbar;
+HINSTANCE g_hInst;     /* Instance handle to this app */
+HWND g_hwndMain;       /* Window handle to this app */
+HWND g_hwndStatusBar;  /* Window handle to status window */
+HWND g_hwndListView;   /* Window handle to list view */
+HWND g_hwndToolbar;    /* Window handle to toolbar */
 
 LPTSTR g_szClassName = TEXT("TribeAB");  /* Window class name */
 
@@ -51,7 +49,6 @@ LONG g_hStatus;
 
 static alpm_list_t *contactList = NULL;
 
-/* Function prototypes */
 BOOL
 InitWindowClass(
 	HINSTANCE
