@@ -136,7 +136,7 @@ WinMain(
 	}
 
 	/* Create the main window */
-	if (!CreateMainWindow(hInstance, nCmdShow)) 
+	if (!CreateMainWindow(hInstance, nCmdShow))
 	{
 		return FALSE;
 	}
@@ -151,9 +151,9 @@ WinMain(
 	hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDR_MAINWND_ACCEL));
 
 	/* Main Message Loop */
-	while (GetMessage(&msg, NULL, 0, 0)) 
+	while (GetMessage(&msg, NULL, 0, 0))
 	{
-		if (!TranslateAccelerator(g_hwndMain, hAccelTable, &msg)) 
+		if (!TranslateAccelerator(g_hwndMain, hAccelTable, &msg))
 		{
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
