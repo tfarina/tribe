@@ -86,6 +86,11 @@ void
 SelectAllItems(
 	void
 	);
+static
+void
+UpdateUI(
+	void
+	);
 LRESULT CALLBACK
 MainWndProc(
 	HWND,
@@ -480,6 +485,8 @@ CreateChildrenControls(
 	CreateListView(hWndParent);
 
 	PopulateListView();
+
+	UpdateUI();
 }
 
 void
