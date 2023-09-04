@@ -746,8 +746,15 @@ MainWndProc(
 				case IDC_TB_DELETE:
 				case IDM_DELETE:
 					{
+						int numSelected;
 						TCHAR szBuf[MAX_STRING_RES_LENGTH];
 						TCHAR szCaption[MAX_STRING_RES_LENGTH];
+
+						numSelected = ListView_GetSelectedCount(g_hwndListView);
+						if (numSelected < 1)
+						{
+							break;
+						}
 
 						LoadString(g_hInst, IDS_CONFIRM_DELETE_ITEM_MSG, szBuf, ARRAYSIZE(szBuf));
 						LoadString(g_hInst, IDS_CONFIRM_DELETE_ITEM_CAPTION, szCaption, ARRAYSIZE(szCaption));
