@@ -770,6 +770,7 @@ MainWndProc(
 							}
 						}
 						SetFocus(g_hwndListView);
+						UpdateUI();
 					}
 					break;
 
