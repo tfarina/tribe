@@ -17,6 +17,7 @@
 #include "arraysize.h"
 
 #define MAX_LOADSTRING 100
+#define MAX_STRING_RES_LENGTH 255
 #define MAX_EDIT_LENGTH 100
 
 /* Initial window size. */
@@ -227,7 +228,7 @@ CreateMainWindow(
 	int nCmdShow
 	)
 {
-	TCHAR szTitle[MAX_LOADSTRING];  /* Title bar text */
+	TCHAR szTitle[MAX_STRING_RES_LENGTH];  /* Title bar text */
 	HMENU hMenu;
 
 	LoadString(hInstance, IDS_APP_NAME, szTitle, ARRAYSIZE(szTitle));
@@ -593,7 +594,7 @@ fnNamePageProc(
 				GetDlgItemText(hWndDlg, IDC_PROPPAGE_NAME_EDIT_FIRSTNAME, szFirstName, ARRAYSIZE(szFirstName));
 				if (!lstrlen(szFirstName))
 				{
-					TCHAR szMsg[MAX_LOADSTRING];
+					TCHAR szMsg[MAX_STRING_RES_LENGTH];
 
 					LoadString(g_hInst, IDS_NEEDS_FIRSTNAME, szMsg, ARRAYSIZE(szMsg));
 					MessageBox(hWndDlg, szMsg, szCaption, MB_ICONEXCLAMATION | MB_OK);
@@ -745,8 +746,8 @@ MainWndProc(
 				case IDC_TB_DELETE:
 				case IDM_DELETE:
 					{
-						TCHAR szBuf[MAX_LOADSTRING];
-						TCHAR szCaption[MAX_LOADSTRING];
+						TCHAR szBuf[MAX_STRING_RES_LENGTH];
+						TCHAR szCaption[MAX_STRING_RES_LENGTH];
 
 						LoadString(g_hInst, IDS_CONFIRM_DELETE_ITEM_MSG, szBuf, ARRAYSIZE(szBuf));
 						LoadString(g_hInst, IDS_CONFIRM_DELETE_ITEM_CAPTION, szCaption, ARRAYSIZE(szCaption));
