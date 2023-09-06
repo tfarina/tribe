@@ -220,7 +220,7 @@
 	<Files>
 		<Filter
 			Name="Source Files"
-			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
+			Filter="cpp;c;cc;cxx;def;r;odl;idl;hpj;bat"
 			>
 			<File
 				RelativePath="alpm_list.c"
@@ -286,26 +286,6 @@
 					/>
 				</FileConfiguration>
 			</File>
-			<File
-				RelativePath="ui.rc"
-				>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCResourceCompilerTool"
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCResourceCompilerTool"
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -334,7 +314,7 @@
 		</Filter>
 		<Filter
 			Name="Resource Files"
-			Filter="ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe"
+			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe"
 			>
 			<File
 				RelativePath="app.ico"
@@ -343,6 +323,26 @@
 			<File
 				RelativePath=".\tribeapp.ico"
 				>
+			</File>
+			<File
+				RelativePath="ui.rc"
+				>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCResourceCompilerTool"
+						PreprocessorDefinitions=""
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCResourceCompilerTool"
+						PreprocessorDefinitions=""
+					/>
+				</FileConfiguration>
 			</File>
 		</Filter>
 		<File
