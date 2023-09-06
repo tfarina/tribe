@@ -774,9 +774,11 @@ MainWndProc(
 							int iSelIndex;
 
 							iSelIndex = ListView_GetNextItem(g_hwndListView, -1, LVNI_SELECTED);
-							if (iSelIndex != -1)
+							while (iSelIndex != -1)
 							{
 								ListView_DeleteItem(g_hwndListView, iSelIndex);
+
+								iSelIndex = ListView_GetNextItem(g_hwndListView, -1, LVNI_SELECTED);
 							}
 						}
 						SetFocus(g_hwndListView);
