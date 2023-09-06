@@ -579,7 +579,9 @@ fnNamePageProc(
 	)
 {
 	TCHAR szBuf[] = TEXT("Not implemented yet!");
-	TCHAR szCaption[] = TEXT("Address Book");
+	TCHAR szCaption[MAX_STRING_RES_LENGTH];
+
+	LoadString(g_hInst, IDS_APP_NAME, szCaption, ARRAYSIZE(szCaption));
 
 	switch (uMsg)
 	{
@@ -684,19 +686,25 @@ HandleListViewNotifications(
 		case VK_DELETE:
 			{
 				TCHAR szBuf[] = TEXT("Not implemented yet!");
-				TCHAR szCaption[] = TEXT("Address Book");
+				TCHAR szCaption[MAX_STRING_RES_LENGTH];
+
+				LoadString(g_hInst, IDS_APP_NAME, szCaption, ARRAYSIZE(szCaption));
 				MessageBox(hWnd, szBuf, szCaption, MB_ICONWARNING | MB_OK);
 			}
 			break;
+
 		case VK_RETURN:
 			{
 				TCHAR szBuf[] = TEXT("Not implemented yet!");
-				TCHAR szCaption[] = TEXT("Address Book");
+				TCHAR szCaption[MAX_STRING_RES_LENGTH];
+
+				LoadString(g_hInst, IDS_APP_NAME, szCaption, ARRAYSIZE(szCaption));
 				MessageBox(hWnd, szBuf, szCaption, MB_ICONWARNING | MB_OK);
 			}
 			break;
 		}
 		break;
+
 	case NM_CLICK:
 		UpdateUI();
 		break;
@@ -738,7 +746,9 @@ MainWndProc(
 				case IDM_PROPERTIES:
 					{
 						TCHAR szBuf[] = TEXT("Not implemented yet!");
-						TCHAR szCaption[] = TEXT("Address Book");
+						TCHAR szCaption[MAX_STRING_RES_LENGTH];
+
+						LoadString(g_hInst, IDS_APP_NAME, szCaption, ARRAYSIZE(szCaption));
 						MessageBox(hWnd, szBuf, szCaption, MB_ICONWARNING | MB_OK);
 					}
 					break;
