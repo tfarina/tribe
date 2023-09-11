@@ -317,10 +317,6 @@
 			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe"
 			>
 			<File
-				RelativePath="app.ico"
-				>
-			</File>
-			<File
 				RelativePath=".\tribeapp.ico"
 				>
 			</File>
