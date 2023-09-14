@@ -487,6 +487,8 @@ CreateChildrenControls(
 
 	PopulateListView();
 
+	SetFocus(g_hwndListView);
+
 	UpdateUI();
 }
 
