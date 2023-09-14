@@ -321,7 +321,7 @@
 				>
 			</File>
 			<File
-				RelativePath="ui.rc"
+				RelativePath="tribe.rc"
 				>
 				<FileConfiguration
 					Name="Release|Win32"

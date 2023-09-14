@@ -1,6 +1,6 @@
 //{{NO_DEPENDENCIES}}
 // Microsoft Visual C++ generated include file.
-// Used by ui.rc
+// Used by tribe.rc
 //
 #define IDI_APP_ICON                    2
 #define IDD_ABOUTBOX                    3

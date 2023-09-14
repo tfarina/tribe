@@ -113,7 +113,7 @@ SOURCE=.\sqlite3.c
 # End Source File
 # Begin Source File
 
-SOURCE=.\ui.rc
+SOURCE=.\tribe.rc
 # End Source File
 # End Group
 # Begin Group "Header Files"
