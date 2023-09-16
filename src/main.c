@@ -769,7 +769,7 @@ MainWndProc(
 						}
 
 						LoadString(g_hInst, IDS_CONFIRM_DELETE_ITEM_MSG, szBuf, ARRAYSIZE(szBuf));
-						LoadString(g_hInst, IDS_CONFIRM_DELETE_ITEM_CAPTION, szCaption, ARRAYSIZE(szCaption));
+						LoadString(g_hInst, IDS_APP_NAME, szCaption, ARRAYSIZE(szCaption));
 
 						if (MessageBox(hWnd, szBuf, szCaption, MB_YESNO | MB_DEFBUTTON2 | MB_ICONEXCLAMATION) == IDYES)
 						{
