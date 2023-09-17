@@ -129,13 +129,14 @@ BEGIN
     "#include ""windows.h""\r\n"
     "#undef APSTUDIO_HIDDEN_SYMBOLS\r\n"
     "#include ""resource.h""\r\n"
-    "\0"
+    "\r\n"
+    "/* Include version stamping information */\r\n"
+    "#include ""tribe.rcv""\r\n"
 END
 
 3 TEXTINCLUDE 
 BEGIN
     "\r\n"
-    "\0"
 END
 
 1 TEXTINCLUDE 
@@ -196,12 +197,12 @@ BEGIN
         BEGIN
             VALUE "CompanyName", " "
             VALUE "FileDescription", "Tribe"
-            VALUE "FileVersion", APP_STR_VERSION
+            VALUE "FileVersion", "0.1.0.0"
             VALUE "InternalName", "Tribe"
             VALUE "LegalCopyright", "Copyright © 2022"
             VALUE "OriginalFilename", "tribe.exe"
             VALUE "ProductName", "Tribe"
-            VALUE "ProductVersion", APP_STR_VERSION
+            VALUE "ProductVersion", "0.1.0.0"
         END
     END
     BLOCK "VarFileInfo"
@@ -229,15 +230,4 @@ END
 #endif    // English (U.S.) resources
 /////////////////////////////////////////////////////////////////////////////
 
-
-
-#ifndef APSTUDIO_INVOKED
-/////////////////////////////////////////////////////////////////////////////
-//
-// Generated from the TEXTINCLUDE 3 resource.
-//
-
-
-/////////////////////////////////////////////////////////////////////////////
-#endif    // not APSTUDIO_INVOKED
 
