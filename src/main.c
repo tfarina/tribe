@@ -198,12 +198,12 @@ InitWindowClass(
 	wcex.hIcon			= LoadIcon(hInstance, MAKEINTRESOURCE(IDI_APP_ICON));
 	wcex.hCursor		= LoadCursor(NULL, IDC_ARROW);
 	wcex.hbrBackground	= (HBRUSH)(COLOR_BTNFACE+1);
-	wcex.lpszMenuName	= NULL; /*(LPCSTR)IDR_MENUBAR;*/
+	wcex.lpszMenuName	= NULL;
 	wcex.lpszClassName	= g_szClassName;
 	wcex.hIconSm		= LoadImage(hInstance,
 								    MAKEINTRESOURCE(IDI_APP_ICON),
 									IMAGE_ICON, 16, 16,
-									LR_DEFAULTCOLOR); /*LoadIcon(hInstance, (LPCTSTR)IDI_SMALL);*/
+									LR_DEFAULTCOLOR);
 
 	if (!RegisterClassEx(&wcex))
 	{
