@@ -171,7 +171,7 @@ END
 // RT_MANIFEST
 //
 
-CREATEPROCESS_MANFIEST_RESOURCE_ID RT_MANIFEST             "tribe.exe.manifest"
+CREATEPROCESS_MANIFEST_RESOURCE_ID RT_MANIFEST             "tribe.exe.manifest"
 
 /////////////////////////////////////////////////////////////////////////////
 //
