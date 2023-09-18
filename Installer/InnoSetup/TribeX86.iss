@@ -3,7 +3,7 @@
 
 #define MyAppName "Tribe"
 #define MyAppRootDirectory "..\.."
-#define MyAppOutputDirectory MyAppRootDirectory + "\Output"
+#define MyAppOutputDirectory "."
 #define MyAppVersion GetFileProductVersion("..\..\src\Release\tribe.exe")
 #define MyAppExeName "tribe.exe"
 
