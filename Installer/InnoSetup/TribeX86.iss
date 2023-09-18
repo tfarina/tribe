@@ -31,7 +31,7 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 [Files]
 Source: "..\..\src\Release\tribe.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\..\src\Release\tribe.exe.manifest"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\..\src\Release\tribe.chm"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\..\help\chm\tribe.chm"; DestDir: "{app}"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
