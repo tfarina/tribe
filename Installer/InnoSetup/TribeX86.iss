@@ -22,6 +22,7 @@ OutputBaseFilename={#MyAppName}-{#MyAppVersion}-Setup
 Compression=lzma
 SolidCompression=yes
 VersionInfoDescription="Tribe Installer"
+DisableWelcomePage=no
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
