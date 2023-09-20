@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="8.00"
-	Name="Tribe"
+	Name="tribe"
 	ProjectGUID="{F9472281-A5E4-4666-9E87-81B7CD1A8FA7}"
-	RootNamespace="Tribe"
+	RootNamespace="tribe"
 	>
 	<Platforms>
 		<Platform
@@ -42,7 +42,7 @@
 				MkTypLibCompatible="true"
 				SuppressStartupBanner="true"
 				TargetEnvironment="1"
-				TypeLibraryName=".\Release/Tribe.tlb"
+				TypeLibraryName=".\Release/tribe.tlb"
 				HeaderFileName=""
 			/>
 			<Tool
@@ -55,7 +55,7 @@
 				EnableFunctionLevelLinking="true"
 				UsePrecompiledHeader="0"
 				PrecompiledHeaderThrough="stdafx.h"
-				PrecompiledHeaderFile=".\Release/Tribe.pch"
+				PrecompiledHeaderFile=".\Release/tribe.pch"
 				AssemblerListingLocation=".\Release/"
 				ObjectFile=".\Release/"
 				ProgramDataBaseFileName=".\Release/"
@@ -81,7 +81,7 @@
 				SuppressStartupBanner="true"
 				GenerateManifest="false"
 				ManifestFile=""
-				ProgramDatabaseFile=".\Release/Tribe.pdb"
+				ProgramDatabaseFile=".\Release/tribe.pdb"
 				SubSystem="2"
 				TargetMachine="1"
 			/>
@@ -99,7 +99,7 @@
 			<Tool
 				Name="VCBscMakeTool"
 				SuppressStartupBanner="true"
-				OutputFile=".\Release/Tribe.bsc"
+				OutputFile=".\Release/tribe.bsc"
 			/>
 			<Tool
 				Name="VCFxCopTool"
@@ -142,7 +142,7 @@
 				MkTypLibCompatible="true"
 				SuppressStartupBanner="true"
 				TargetEnvironment="1"
-				TypeLibraryName=".\Debug/Tribe.tlb"
+				TypeLibraryName=".\Debug/tribe.tlb"
 				HeaderFileName=""
 			/>
 			<Tool
@@ -152,7 +152,7 @@
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
-				PrecompiledHeaderFile=".\Debug/Tribe.pch"
+				PrecompiledHeaderFile=".\Debug/tribe.pch"
 				AssemblerListingLocation=".\Debug/"
 				ObjectFile=".\Debug/"
 				ProgramDataBaseFileName=".\Debug/"
@@ -199,7 +199,7 @@
 			<Tool
 				Name="VCBscMakeTool"
 				SuppressStartupBanner="true"
-				OutputFile=".\Debug/Tribe.bsc"
+				OutputFile=".\Debug/tribe.bsc"
 			/>
 			<Tool
 				Name="VCFxCopTool"
