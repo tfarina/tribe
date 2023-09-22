@@ -10,3 +10,10 @@ support installed. Once you have Visual Studio installed:
 * Clone Tribe through ```git clone https://github.com/tfarina/Tribe.git```
 * Open `src\tribe.sln` in Visual Studio
 * Build Solution
+
+## Usage
+
+Simply run from Debug or Release directory:
+```shell
+tribe
+```
