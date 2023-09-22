@@ -1,4 +1,5 @@
 #define VI_STR_PRODUCTVERSION "0.1.0.0"
+#define VI_STR_FILEVERSION VI_STR_PRODUCTVERSION
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -24,7 +25,7 @@ BEGIN
         BEGIN
             VALUE "CompanyName", " "
             VALUE "FileDescription", "Tribe"
-            VALUE "FileVersion", "0.1.0.0"
+            VALUE "FileVersion", VI_STR_FILEVERSION
             VALUE "InternalName", "Tribe"
             VALUE "LegalCopyright", "Copyright © 2022"
             VALUE "OriginalFilename", "tribe.exe"
