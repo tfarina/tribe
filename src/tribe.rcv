@@ -1,4 +1,4 @@
-#define APP_STR_VERSION "0.1.0.0"
+#define VI_STR_PRODUCTVERSION "0.1.0.0"
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -29,7 +29,7 @@ BEGIN
             VALUE "LegalCopyright", "Copyright © 2022"
             VALUE "OriginalFilename", "tribe.exe"
             VALUE "ProductName", "Tribe"
-            VALUE "ProductVersion", APP_STR_VERSION 
+            VALUE "ProductVersion", VI_STR_PRODUCTVERSION 
         END
     END
     BLOCK "VarFileInfo"
