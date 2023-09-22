@@ -21,7 +21,7 @@ OutputDir={#MyAppOutputDirectory}
 OutputBaseFilename={#MyAppName}-{#MyAppVersion}-Setup
 Compression=lzma
 SolidCompression=yes
-VersionInfoDescription="Tribe Installer"
+VersionInfoDescription="{#MyAppName} Installer"
 VersionInfoVersion={#MyAppVersion}
 DisableWelcomePage=no
 
