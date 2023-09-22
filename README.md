@@ -17,3 +17,6 @@ Simply run from Debug or Release directory:
 ```shell
 tribe
 ```
+
+## License
+This project is licensed under the GNU GPL license. See COPYING file for details.
