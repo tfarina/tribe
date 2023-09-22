@@ -29,7 +29,7 @@ BEGIN
             VALUE "LegalCopyright", "Copyright © 2022"
             VALUE "OriginalFilename", "tribe.exe"
             VALUE "ProductName", "Tribe"
-            VALUE "ProductVersion", "0.1.0.0"
+            VALUE "ProductVersion", APP_STR_VERSION 
         END
     END
     BLOCK "VarFileInfo"
