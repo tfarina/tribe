@@ -1,6 +1,8 @@
 #define VI_STR_PRODUCTVERSION "0.1.0.0"
 #define VI_STR_FILEVERSION VI_STR_PRODUCTVERSION
 
+#define VI_STR_PRODUCTNAME "Tribe"
+
 /////////////////////////////////////////////////////////////////////////////
 //
 // Version
@@ -29,7 +31,7 @@ BEGIN
             VALUE "InternalName", "Tribe"
             VALUE "LegalCopyright", "Copyright © 2022"
             VALUE "OriginalFilename", "tribe.exe"
-            VALUE "ProductName", "Tribe"
+            VALUE "ProductName", VI_STR_PRODUCTNAME
             VALUE "ProductVersion", VI_STR_PRODUCTVERSION 
         END
     END
