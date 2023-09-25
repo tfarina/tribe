@@ -3,6 +3,7 @@
 
 #define VI_STR_PRODUCTNAME "Tribe"
 #define VI_STR_INTERNALNAME "Tribe"
+#define VI_STR_FILEDESCRIPTION "Tribe"
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -27,7 +28,7 @@ BEGIN
         BLOCK "040904b0"
         BEGIN
             VALUE "CompanyName", " "
-            VALUE "FileDescription", "Tribe"
+            VALUE "FileDescription", VI_STR_FILEDESCRIPTION
             VALUE "FileVersion", VI_STR_FILEVERSION
             VALUE "InternalName", VI_STR_INTERNALNAME
             VALUE "LegalCopyright", "Copyright © 2022"
