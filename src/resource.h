@@ -9,7 +9,6 @@
 #define IDM_STATUSBAR                   6
 #define IDM_ABOUT                       7
 #define IDR_MAINWND_ACCEL               8
-#define IDS_APP_TITLE                   100
 #define IDS_CONFIRM_DELETE_ITEM_MSG     101
 #define IDS_CONFIRM_DELETE_ITEM_CAPTION 102
 #define IDS_NEEDS_FIRSTNAME             103
