@@ -50,9 +50,9 @@ GetContactList(
 	ULONG cContacts;
 	CONTACTROW aContacts[] =
 	{
-		{ "John", "Doe", "john_doe@mail.com" },
-		{ "Jane", "Doe", "jane_doe@mail.com" },
-		{ "John", "Smith", "john_smith@mail.com" },
+		{ 0, "John", "Doe", "john_doe@mail.com" },
+		{ 1, "Jane", "Doe", "jane_doe@mail.com" },
+		{ 2, "John", "Smith", "john_smith@mail.com" },
 	};
 	LPCONTACTROW lpContactList;
 	ULONG index;
@@ -73,6 +73,9 @@ GetContactList(
 	for (index = 0; index < cContacts; index++)
 	{
 		ULONG ulLen;
+
+		lpContactList[index].id = aContacts[index].id;
+
 		ulLen = lstrlen(aContacts[index].szFirstName) + 1;
 		lpContactList[index].szFirstName = malloc(ulLen * sizeof(TCHAR));
 		lstrcpy(lpContactList[index].szFirstName, aContacts[index].szFirstName);

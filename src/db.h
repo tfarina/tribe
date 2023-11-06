@@ -6,6 +6,7 @@
 
 typedef struct _CONTACTROW
 {
+	int id;
 	TCHAR *szFirstName;
 	TCHAR *szLastName;
 	TCHAR *szEmail;
