@@ -117,21 +117,21 @@ WinMain(
 {
 	MSG msg;
 	HACCEL hAccelTable;  /* Handle to accelerator table */
-    INITCOMMONCONTROLSEX iccex;
-    int rc;
+	INITCOMMONCONTROLSEX iccex;
+	int rc;
 
 	g_hInst = hInstance;
 
 	iccex.dwSize = sizeof(INITCOMMONCONTROLSEX);
 	iccex.dwICC = ICC_ANIMATE_CLASS |
-				  ICC_BAR_CLASSES |
-				  ICC_COOL_CLASSES |
-				  ICC_DATE_CLASSES |
-				  ICC_LISTVIEW_CLASSES |
-				  ICC_NATIVEFNTCTL_CLASS |
-				  ICC_PROGRESS_CLASS |
-				  ICC_TAB_CLASSES |
-				  ICC_WIN95_CLASSES;
+		ICC_BAR_CLASSES |
+		ICC_COOL_CLASSES |
+		ICC_DATE_CLASSES |
+		ICC_LISTVIEW_CLASSES |
+		ICC_NATIVEFNTCTL_CLASS |
+		ICC_PROGRESS_CLASS |
+		ICC_TAB_CLASSES |
+		ICC_WIN95_CLASSES;
 
 	InitCommonControlsEx(&iccex);
 
