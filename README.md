@@ -19,4 +19,4 @@ tribe
 ```
 
 ## License
-This project is licensed under the GNU GPL license. See COPYING file for details.
+This project is licensed under the GNU GPL license. See [COPYING](COPYING) file for details.
