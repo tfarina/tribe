@@ -78,15 +78,36 @@ GetContactList(
 
 		ulLen = lstrlen(aContacts[index].szFirstName) + 1;
 		lpContactList[index].szFirstName = malloc(ulLen * sizeof(TCHAR));
-		lstrcpy(lpContactList[index].szFirstName, aContacts[index].szFirstName);
+		if (NULL != lpContactList[index].szFirstName)
+		{
+			lstrcpy(lpContactList[index].szFirstName, aContacts[index].szFirstName);
+		}
+		else
+		{
+			return E_OUTOFMEMORY;
+		}
 
 		ulLen = lstrlen(aContacts[index].szLastName) + 1;
 		lpContactList[index].szLastName = malloc(ulLen * sizeof(TCHAR));
-		lstrcpy(lpContactList[index].szLastName, aContacts[index].szLastName);
+		if (NULL != lpContactList[index].szLastName)
+		{
+			lstrcpy(lpContactList[index].szLastName, aContacts[index].szLastName);
+		}
+		else
+		{
+			return E_OUTOFMEMORY;
+		}
 
 		ulLen = lstrlen(aContacts[index].szEmail) + 1;
 		lpContactList[index].szEmail = malloc(ulLen * sizeof(TCHAR));
-		lstrcpy(lpContactList[index].szEmail, aContacts[index].szEmail);
+		if (NULL != lpContactList[index].szEmail)
+		{
+			lstrcpy(lpContactList[index].szEmail, aContacts[index].szEmail);
+		}
+		else
+		{
+			return E_OUTOFMEMORY;
+		}
 	}
 
 	*pnCount = cContacts;
