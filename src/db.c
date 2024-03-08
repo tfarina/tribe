@@ -44,17 +44,17 @@ db_init(void)
 HRESULT
 GetContactList(
 	ULONG *pnCount,
-	CONTACTROW **ppContacts
+	CONTACT **ppContacts
 	)
 {
 	ULONG cContacts;
-	CONTACTROW aContacts[] =
+	CONTACT aContacts[] =
 	{
 		{ 0, "John", "Doe", "john_doe@mail.com" },
 		{ 1, "Jane", "Doe", "jane_doe@mail.com" },
 		{ 2, "John", "Smith", "john_smith@mail.com" },
 	};
-	LPCONTACTROW lpContactList;
+	LPCONTACT lpContactList;
 	ULONG index;
 
 	if (NULL == pnCount || NULL == ppContacts)
@@ -64,7 +64,7 @@ GetContactList(
 
 	cContacts = ARRAYSIZE(aContacts);
 
-	lpContactList = LocalAlloc(LMEM_ZEROINIT, cContacts * sizeof(CONTACTROW));
+	lpContactList = LocalAlloc(LMEM_ZEROINIT, cContacts * sizeof(CONTACT));
 	if (NULL == lpContactList)
 	{
 		return E_OUTOFMEMORY;

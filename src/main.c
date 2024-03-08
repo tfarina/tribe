@@ -268,7 +268,7 @@ load_contacts(
 {
 	HRESULT hr;
 	ULONG cContacts;
-	LPCONTACTROW lpContacts = NULL;
+	LPCONTACT lpContacts = NULL;
 	ULONG index;
 	LPCONTACT_ITEM lpContact;
 
