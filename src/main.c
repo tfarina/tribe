@@ -307,8 +307,6 @@ PopulateListView(
 	LVITEM lvI = {0};
 	int index = 0;
 
-	load_contacts();
-
 	lvI.mask = LVIF_TEXT | LVIF_STATE | LVIF_PARAM;
 	lvI.iItem = 0;
 
@@ -484,6 +482,8 @@ CreateChildrenControls(
 	CreateStatusBar(hWndParent);
 
 	CreateListView(hWndParent);
+
+	load_contacts();
 
 	PopulateListView();
 
