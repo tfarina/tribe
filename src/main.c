@@ -31,12 +31,12 @@
 /* Defines the number of columns in the contact list view */
 #define CONTACT_LIST_COLUMN_COUNT 3
 
-typedef struct _CONTACT
+typedef struct _CONTACT_ITEM
 {
 	TCHAR szFirstName[MAX_LOADSTRING];
 	TCHAR szLastName[MAX_LOADSTRING];
 	TCHAR szEmail[MAX_LOADSTRING];
-} CONTACT, *LPCONTACT;
+} CONTACT_ITEM, *LPCONTACT_ITEM;
 
 HINSTANCE g_hInst;     /* Instance handle to this app */
 HWND g_hwndMain;       /* Window handle to this app */
@@ -270,7 +270,7 @@ load_contacts(
 	ULONG cContacts;
 	LPCONTACTROW lpContacts = NULL;
 	ULONG index;
-	LPCONTACT lpContact;
+	LPCONTACT_ITEM lpContact;
 
 	hr = GetContactList(&cContacts, &lpContacts);
 	if (FAILED(hr))
@@ -278,7 +278,7 @@ load_contacts(
 
 	for (index = 0; index < cContacts; index++)
 	{
-		lpContact = LocalAlloc(LMEM_ZEROINIT, sizeof(CONTACT));
+		lpContact = LocalAlloc(LMEM_ZEROINIT, sizeof(CONTACT_ITEM));
 		if (!lpContact)
 		{
 			/* Out of memory. */
@@ -303,7 +303,7 @@ PopulateListView(
 	)
 {
 	alpm_list_t *item;
-	LPCONTACT contact;
+	LPCONTACT_ITEM contact;
 	LVITEM lvI = {0};
 	int index = 0;
 
@@ -312,7 +312,7 @@ PopulateListView(
 
 	for (item = contactList; item; item = alpm_list_next(item))
 	{
-		contact = (LPCONTACT) item->data;
+		contact = (LPCONTACT_ITEM) item->data;
 		lvI.iSubItem = 0; /* COL_FIRST_NAME */
 		lvI.lParam = (LPARAM) contact;
 		lvI.pszText = contact->szFirstName;
