@@ -653,6 +653,18 @@ CreateContactPropertiesDialog(
 }
 
 static void
+ShowContactPropertiesDialog(
+	HWND hWnd
+	)
+{
+	TCHAR szBuf[] = TEXT("Not implemented yet!");
+	TCHAR szCaption[MAX_STRING_RES_LENGTH];
+
+	LoadString(g_hInst, IDS_APP_NAME, szCaption, ARRAYSIZE(szCaption));
+	MessageBox(hWnd, szBuf, szCaption, MB_ICONWARNING | MB_OK);
+}
+
+static void
 UpdateUI(
 	void
 	)
@@ -746,13 +758,7 @@ MainWndProc(
 
 				case IDC_TB_PROPERTIES:
 				case IDM_PROPERTIES:
-					{
-						TCHAR szBuf[] = TEXT("Not implemented yet!");
-						TCHAR szCaption[MAX_STRING_RES_LENGTH];
-
-						LoadString(g_hInst, IDS_APP_NAME, szCaption, ARRAYSIZE(szCaption));
-						MessageBox(hWnd, szBuf, szCaption, MB_ICONWARNING | MB_OK);
-					}
+					ShowContactPropertiesDialog(hWnd);
 					break;
 
 				case IDC_TB_DELETE:
