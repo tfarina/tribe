@@ -622,7 +622,7 @@ fnNamePageProc(
 }
 
 static void
-ShowContactPropertiesDialog(
+CreateContactPropertiesDialog(
 	HWND hWnd
 	)
 {
@@ -741,7 +741,7 @@ MainWndProc(
 			{
 				case IDC_TB_NEW:
 				case IDM_NEW_CONTACT:
-					ShowContactPropertiesDialog(hWnd);
+					CreateContactPropertiesDialog(hWnd);
 					break;
 
 				case IDC_TB_PROPERTIES:
