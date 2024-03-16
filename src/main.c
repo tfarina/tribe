@@ -657,8 +657,37 @@ ShowContactPropertiesDialog(
 	HWND hWnd
 	)
 {
+	int numSelected;
+	int iSelIndex;
 	TCHAR szBuf[] = TEXT("Not implemented yet!");
 	TCHAR szCaption[MAX_STRING_RES_LENGTH];
+
+	numSelected = ListView_GetSelectedCount(g_hwndListView);
+	if (numSelected == 1)
+	{
+		iSelIndex = ListView_GetNextItem(g_hwndListView, -1, LVNI_SELECTED);
+		if (iSelIndex != -1)
+		{
+			LPCONTACT_ITEM pItem = NULL;
+			LV_ITEM lvi;
+
+			lvi.mask = LVIF_PARAM;
+			lvi.iItem = iSelIndex;
+			lvi.iSubItem = 0;
+			lvi.lParam = 0;
+
+			if (ListView_GetItem(g_hwndListView, &lvi))
+				pItem = (LPCONTACT_ITEM) lvi.lParam;
+
+			if (pItem)
+			{
+				/*
+				 * TODO: Actually show the contact properties dialog for this
+				 * contact item.
+				 */
+			}
+		}
+	}
 
 	LoadString(g_hInst, IDS_APP_NAME, szCaption, ARRAYSIZE(szCaption));
 	MessageBox(hWnd, szBuf, szCaption, MB_ICONWARNING | MB_OK);
