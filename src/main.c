@@ -263,7 +263,7 @@ CreateMainWindow(
 }
 
 int
-load_contacts(
+LoadContacts(
 	void
 	)
 {
@@ -485,7 +485,7 @@ CreateChildrenControls(
 
 	CreateListView(hWndParent);
 
-	load_contacts();
+	LoadContacts();
 
 	PopulateListView();
 
