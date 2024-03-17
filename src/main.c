@@ -33,6 +33,7 @@
 
 typedef struct _CONTACT_ITEM
 {
+	int id;
 	TCHAR szFirstName[MAX_LOADSTRING];
 	TCHAR szLastName[MAX_LOADSTRING];
 	TCHAR szEmail[MAX_LOADSTRING];
@@ -284,6 +285,7 @@ load_contacts(
 			/* Out of memory. */
 			goto exit;
 		}
+		lpContact->id = lpContacts[index].id;
 		lstrcpy(lpContact->szFirstName, lpContacts[index].szFirstName);
 		lstrcpy(lpContact->szLastName, lpContacts[index].szLastName);
 		lstrcpy(lpContact->szEmail, lpContacts[index].szEmail);
