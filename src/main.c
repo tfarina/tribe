@@ -55,7 +55,7 @@ BOOL
 InitWindowClass(
 	HINSTANCE
 	);
-BOOL
+HWND
 CreateMainWindow(
 	HINSTANCE,
 	int
@@ -143,7 +143,8 @@ WinMain(
 	}
 
 	/* Create the main window */
-	if (!CreateMainWindow(hInstance, nCmdShow))
+	g_hwndMain = CreateMainWindow(hInstance, nCmdShow);
+	if (NULL == g_hwndMain)
 	{
 		return FALSE;
 	}
@@ -223,12 +224,13 @@ InitWindowClass(
  *
  *        In this function, we create and display the main program window.
  */
-BOOL
+HWND
 CreateMainWindow(
 	HINSTANCE hInstance,
 	int nCmdShow
 	)
 {
+	HWND hwndMain;
 	TCHAR szTitle[MAX_STRING_RES_LENGTH];  /* Title bar text */
 	HMENU hMenu;
 
@@ -237,7 +239,7 @@ CreateMainWindow(
 	hMenu = LoadMenu(hInstance, MAKEINTRESOURCE(IDR_MENUBAR));
 
 	/* Create the main window for this application instance. */
-	g_hwndMain = CreateWindowEx(
+	hwndMain = CreateWindowEx(
 		0,
 		g_szClassName,
 		szTitle,
@@ -251,15 +253,15 @@ CreateMainWindow(
 		hInstance,
 		NULL);
 
-	if (!g_hwndMain)
+	if (!hwndMain)
 	{
-		return FALSE;
+		return NULL;
 	}
 
-	ShowWindow(g_hwndMain, nCmdShow);
-	UpdateWindow(g_hwndMain);
+	ShowWindow(hwndMain, nCmdShow);
+	UpdateWindow(hwndMain);
 
-	return TRUE;
+	return hwndMain;
 }
 
 int
