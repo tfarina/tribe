@@ -52,7 +52,7 @@ LONG g_hStatus;
 static alpm_list_t *contactList = NULL;
 
 BOOL
-InitWindowClass(
+RegisterMainWindowClass(
 	HINSTANCE
 	);
 HWND
@@ -136,13 +136,11 @@ WinMain(
 
 	InitCommonControlsEx(&iccex);
 
-	/* Initialize the window */
-	if (!InitWindowClass(hInstance))
+	if (!RegisterMainWindowClass(hInstance))
 	{
 		return FALSE;
 	}
 
-	/* Create the main window */
 	g_hwndMain = CreateMainWindow(hInstance, nCmdShow);
 	if (NULL == g_hwndMain)
 	{
@@ -172,9 +170,9 @@ WinMain(
 }
 
 /*
- *  FUNCTION: InitWindowClass()
+ *  FUNCTION: RegisterMainWindowClass()
  *
- *  PURPOSE: Registers the window class.
+ *  PURPOSE: Registers the main window class with the system.
  *
  *  COMMENTS:
  *
@@ -185,7 +183,7 @@ WinMain(
  *    with it.
  */
 BOOL
-InitWindowClass(
+RegisterMainWindowClass(
 	HINSTANCE hInstance
 	)
 {
