@@ -756,6 +756,15 @@ HandleListViewNotifications(
 	}
 }
 
+static
+void
+MainWindow_OnDestroy(
+	HWND hwnd
+	)
+{
+	PostQuitMessage(0);
+}
+
 /*
  *  FUNCTION: MainWndProc(HWND, unsigned, WORD, LONG)
  *
@@ -890,11 +899,7 @@ MainWndProc(
 			DestroyWindow(hWnd);
 			break;
 
-
-		case WM_DESTROY:
-			PostQuitMessage(0);
-			break;
-
+		HANDLE_MSG(hWnd, WM_DESTROY, MainWindow_OnDestroy);
 
 		case WM_NOTIFY:
 			switch (wParam)
