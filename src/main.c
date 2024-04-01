@@ -484,14 +484,6 @@ CreateChildControls(
 	CreateStatusBar(hWndParent);
 
 	CreateListView(hWndParent);
-
-	LoadContacts();
-
-	PopulateListView();
-
-	SetFocus(g_hwndListView);
-
-	UpdateUI();
 }
 
 void
@@ -785,7 +777,13 @@ MainWndProc(
 	switch (uMsg)
 	{
 		case WM_CREATE:
-			CreateChildControls(hWnd);
+			{
+				CreateChildControls(hWnd);
+				LoadContacts();
+				PopulateListView();
+				SetFocus(g_hwndListView);
+				UpdateUI();
+			}
 			break;
 
 		case WM_COMMAND:
