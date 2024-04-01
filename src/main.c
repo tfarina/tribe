@@ -273,7 +273,7 @@ LoadContacts(
 	ULONG index = 0;
 	LPCONTACT_ITEM lpContact = NULL;
 
-	hr = GetContactList(&cContacts, &lpContacts);
+	hr = ABEnumContacts(&cContacts, &lpContacts);
 	if (FAILED(hr))
 		goto exit;
 

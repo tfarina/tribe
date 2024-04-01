@@ -44,7 +44,7 @@ ABInitialize(
 }
 
 HRESULT
-GetContactList(
+ABEnumContacts(
 	ULONG *pnCount,
 	CONTACT **ppContacts
 	)
