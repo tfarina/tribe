@@ -7,7 +7,9 @@
 static sqlite3 *hdb = NULL;  /* SQLite db handle */
 
 int
-ab_init(void)
+ABInitialize(
+	void
+	)
 {
 	char const dbname[] = "abdb.sqlite3";
 	char const create_sql[] =

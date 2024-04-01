@@ -12,7 +12,10 @@ typedef struct _CONTACT
 	TCHAR *szEmail;
 } CONTACT, *LPCONTACT;
 
-int ab_init(void);
+int
+ABInitialize(
+	void
+	);
 
 HRESULT
 GetContactList(
