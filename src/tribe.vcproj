@@ -223,6 +223,10 @@
 			Filter="cpp;c;cc;cxx;def;r;odl;idl;hpj;bat"
 			>
 			<File
+				RelativePath=".\ab.c"
+				>
+			</File>
+			<File
 				RelativePath="alpm_list.c"
 				>
 				<FileConfiguration
@@ -241,10 +245,6 @@
 						PreprocessorDefinitions=""
 					/>
 				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\db.c"
-				>
 			</File>
 			<File
 				RelativePath="main.c"
@@ -292,15 +292,15 @@
 			Filter="h;hpp;hxx;hm;inl"
 			>
 			<File
+				RelativePath=".\ab.h"
+				>
+			</File>
+			<File
 				RelativePath="alpm_list.h"
 				>
 			</File>
 			<File
 				RelativePath=".\arraysize.h"
-				>
-			</File>
-			<File
-				RelativePath=".\db.h"
 				>
 			</File>
 			<File

@@ -11,7 +11,7 @@
 #include <memory.h>
 #include <tchar.h>
 
-#include "db.h"
+#include "ab.h"
 #include "resource.h"
 #include "alpm_list.h"
 #include "arraysize.h"
@@ -147,7 +147,7 @@ WinMain(
 		return FALSE;
 	}
 
-	rc = db_init();
+	rc = ab_init();
 	if (rc < 0)
 	{
 		/* We should show a Message Box with an error message here. */
