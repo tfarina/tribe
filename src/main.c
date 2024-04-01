@@ -267,11 +267,11 @@ LoadContacts(
 	void
 	)
 {
-	HRESULT hr;
-	ULONG cContacts;
+	HRESULT hr = S_OK;
+	ULONG cContacts = 0;
 	LPCONTACT lpContacts = NULL;
-	ULONG index;
-	LPCONTACT_ITEM lpContact;
+	ULONG index = 0;
+	LPCONTACT_ITEM lpContact = NULL;
 
 	hr = GetContactList(&cContacts, &lpContacts);
 	if (FAILED(hr))
