@@ -61,7 +61,7 @@ CreateMainWindow(
 	int
 	);
 void
-CreateChildrenControls(
+CreateChildControls(
 	HWND
 	);
 void
@@ -475,7 +475,7 @@ CreateStatusBar(
 }
 
 void
-CreateChildrenControls(
+CreateChildControls(
 	HWND hWndParent
 	)
 {
@@ -785,7 +785,7 @@ MainWndProc(
 	switch (uMsg)
 	{
 		case WM_CREATE:
-			CreateChildrenControls(hWnd);
+			CreateChildControls(hWnd);
 			break;
 
 		case WM_COMMAND:
