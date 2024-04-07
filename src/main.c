@@ -722,11 +722,7 @@ HandleListViewNotifications(
 		{
 		case VK_DELETE:
 			{
-				TCHAR szBuf[] = TEXT("Not implemented yet!");
-				TCHAR szCaption[MAX_STRING_RES_LENGTH];
-
-				LoadString(g_hInst, IDS_APP_NAME, szCaption, ARRAYSIZE(szCaption));
-				MessageBox(hWnd, szBuf, szCaption, MB_ICONWARNING | MB_OK);
+				SendMessage(hWnd, WM_COMMAND, IDM_DELETE, 0);
 			}
 			break;
 
