@@ -262,7 +262,7 @@ CreateMainWindow(
 	return hwndMain;
 }
 
-int
+HRESULT
 LoadContacts(
 	void
 	)
@@ -293,10 +293,8 @@ LoadContacts(
 		contactList = alpm_list_add(contactList, lpContact);
 	}
 
-	return 0;
-
 exit:
-	return -1;
+	return hr;
 }
 
 void
