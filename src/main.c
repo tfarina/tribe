@@ -294,6 +294,12 @@ LoadContacts(
 	}
 
 exit:
+	if (lpContacts)
+	{
+		LocalFree(lpContacts);
+		lpContacts = NULL;
+	}
+
 	return hr;
 }
 
