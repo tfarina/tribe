@@ -282,7 +282,7 @@ LoadContacts(
 		lpContact = LocalAlloc(LMEM_ZEROINIT, sizeof(CONTACT_ITEM));
 		if (!lpContact)
 		{
-			/* Out of memory. */
+			hr = E_OUTOFMEMORY;
 			goto exit;
 		}
 		lpContact->id = lpContacts[index].id;
