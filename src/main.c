@@ -16,7 +16,7 @@
 #include "alpm_list.h"
 #include "arraysize.h"
 
-#define MAX_LOADSTRING 100
+#define MAX_COLUMN_TEXT_LENGTH 100
 #define MAX_STRING_RES_LENGTH 255
 #define MAX_EDIT_LENGTH 100
 
@@ -34,9 +34,9 @@
 typedef struct _CONTACT_ITEM
 {
 	int id;
-	TCHAR szFirstName[MAX_LOADSTRING];
-	TCHAR szLastName[MAX_LOADSTRING];
-	TCHAR szEmail[MAX_LOADSTRING];
+	TCHAR szFirstName[MAX_COLUMN_TEXT_LENGTH];
+	TCHAR szLastName[MAX_COLUMN_TEXT_LENGTH];
+	TCHAR szEmail[MAX_COLUMN_TEXT_LENGTH];
 } CONTACT_ITEM, *LPCONTACT_ITEM;
 
 HINSTANCE g_hInst;     /* Instance handle to this app */
