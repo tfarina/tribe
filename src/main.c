@@ -16,7 +16,7 @@
 #include "alpm_list.h"
 #include "arraysize.h"
 
-#define MAX_COLUMN_TEXT_LENGTH 100
+#define MAX_COLUMN_TEXT_LENGTH 64
 #define MAX_STRING_RES_LENGTH 255
 #define MAX_EDIT_LENGTH 100
 
