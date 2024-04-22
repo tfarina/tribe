@@ -39,11 +39,11 @@ typedef struct _CONTACT_ITEM
 	TCHAR szEmail[MAX_COLUMN_TEXT_LENGTH];
 } CONTACT_ITEM, *LPCONTACT_ITEM;
 
-HINSTANCE g_hInst;     /* Instance handle to this app */
-HWND g_hwndMain;       /* Window handle to this app */
-HWND g_hwndStatusBar;  /* Window handle to status window */
-HWND g_hwndListView;   /* Window handle to list view */
-HWND g_hwndToolbar;    /* Window handle to toolbar */
+HINSTANCE g_hInst;     /* Handle to this application instance */
+HWND g_hwndMain;       /* Handle to this application window */
+HWND g_hwndStatusBar;  /* Handle to status bar window */
+HWND g_hwndListView;   /* Handle to list view window */
+HWND g_hwndToolbar;    /* Handle to toolbar window*/
 
 LPTSTR g_szClassName = TEXT("TribeAB");  /* Window class name */
 
