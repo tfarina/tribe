@@ -750,6 +750,20 @@ HandleListViewNotifications(
 
 static
 void
+MainWindow_OnPaint(
+	HWND hWnd
+	)
+{
+	PAINTSTRUCT ps;
+	HDC hdc;
+
+	/* TODO: Why do we need this code to make the listview repaint? */
+	hdc = BeginPaint(hWnd, &ps);
+	EndPaint(hWnd, &ps);
+}
+
+static
+void
 MainWindow_OnDestroy(
 	HWND hwnd
 	)
@@ -875,18 +889,7 @@ MainWndProc(
 			}
 			break;
 
-
-		case WM_PAINT:
-			{
-				PAINTSTRUCT ps;
-				HDC hdc;
-
-				/* TODO: Why do we need this code to make the listview repaint? */
-				hdc = BeginPaint(hWnd, &ps);
-				EndPaint(hWnd, &ps);
-			}
-			break;
-
+		HANDLE_MSG(hWnd, WM_PAINT, MainWindow_OnPaint);
 
 		case WM_SIZE:
 			AdjustChildrenControls(hWnd);
