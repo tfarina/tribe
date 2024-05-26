@@ -219,96 +219,6 @@
 	</References>
 	<Files>
 		<Filter
-			Name="Source Files"
-			Filter="cpp;c;cc;cxx;def;r;odl;idl;hpj;bat"
-			>
-			<File
-				RelativePath=".\ab.c"
-				>
-			</File>
-			<File
-				RelativePath="alpm_list.c"
-				>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="main.c"
-				>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="sqlite3.c"
-				>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-			</File>
-		</Filter>
-		<Filter
-			Name="Header Files"
-			Filter="h;hpp;hxx;hm;inl"
-			>
-			<File
-				RelativePath=".\ab.h"
-				>
-			</File>
-			<File
-				RelativePath="alpm_list.h"
-				>
-			</File>
-			<File
-				RelativePath=".\arraysize.h"
-				>
-			</File>
-			<File
-				RelativePath="sqlite3.h"
-				>
-			</File>
-		</Filter>
-		<Filter
 			Name="resources"
 			>
 			<File
@@ -329,6 +239,38 @@
 				>
 			</File>
 		</Filter>
+		<File
+			RelativePath=".\ab.c"
+			>
+		</File>
+		<File
+			RelativePath=".\ab.h"
+			>
+		</File>
+		<File
+			RelativePath=".\alpm_list.c"
+			>
+		</File>
+		<File
+			RelativePath=".\alpm_list.h"
+			>
+		</File>
+		<File
+			RelativePath=".\arraysize.h"
+			>
+		</File>
+		<File
+			RelativePath=".\main.c"
+			>
+		</File>
+		<File
+			RelativePath=".\sqlite3.c"
+			>
+		</File>
+		<File
+			RelativePath=".\sqlite3.h"
+			>
+		</File>
 	</Files>
 	<Globals>
 	</Globals>
