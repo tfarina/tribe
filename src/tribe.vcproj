@@ -329,10 +329,6 @@
 				>
 			</File>
 		</Filter>
-		<File
-			RelativePath=".\tribe.exe.manifest"
-			>
-		</File>
 	</Files>
 	<Globals>
 	</Globals>
