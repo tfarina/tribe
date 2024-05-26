@@ -304,10 +304,6 @@
 				>
 			</File>
 			<File
-				RelativePath="resource.h"
-				>
-			</File>
-			<File
 				RelativePath="sqlite3.h"
 				>
 			</File>
@@ -321,6 +317,11 @@
 			</File>
 			<File
 				RelativePath=".\tribe.rc"
+				>
+			</File>
+			<File
+
+				RelativePath=".\resource.h"
 				>
 			</File>
 		</Filter>
