@@ -320,6 +320,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\tribe.rcv"
+				>
+			</File>
+			<File
 
 				RelativePath=".\resource.h"
 				>
