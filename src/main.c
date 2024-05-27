@@ -51,6 +51,11 @@ LONG g_hStatus;
 
 static alpm_list_t *contactList = NULL;
 
+typedef struct _PROPDLGINFO
+{
+	int nID;
+} PROPDLGINFO;
+
 BOOL
 RegisterMainWindowClass(
 	HINSTANCE
@@ -580,11 +585,21 @@ fnNamePageProc(
 {
 	TCHAR szBuf[] = TEXT("Not implemented yet!");
 	TCHAR szCaption[MAX_STRING_RES_LENGTH];
+	PROPDLGINFO *ppdi = (PROPDLGINFO *)GetWindowLongPtr(hWndDlg, GWLP_USERDATA);
 
 	LoadString(g_hInst, IDS_APP_NAME, szCaption, ARRAYSIZE(szCaption));
 
 	switch (uMsg)
 	{
+	case WM_INITDIALOG:
+		ppdi = (PROPDLGINFO *)((LPPROPSHEETPAGE)lParam)->lParam;
+		SetWindowLongPtr(hWndDlg, GWLP_USERDATA, (LONG_PTR)ppdi);
+		break;
+
+	case WM_DESTROY:
+		SetWindowLongPtr(hWndDlg, GWLP_USERDATA, (LONG_PTR)NULL);
+		break;
+
 	case WM_NOTIFY:
 		switch (((LPNMHDR)lParam)->code)
 		{
@@ -621,7 +636,8 @@ fnNamePageProc(
 
 static void
 CreateContactPropertiesDialog(
-	HWND hWnd
+	HWND hWnd,
+	PROPDLGINFO *ppdi
 	)
 {
 	PROPSHEETPAGE propSheetPage[1];
@@ -634,7 +650,7 @@ CreateContactPropertiesDialog(
 	propSheetPage[0].pszIcon = NULL;
 	propSheetPage[0].pszTitle = TEXT("Name");
 	propSheetPage[0].pfnDlgProc = fnNamePageProc;
-	propSheetPage[0].lParam = 0;
+	propSheetPage[0].lParam = (LPARAM)ppdi;
 
 	propSheetHeader.dwSize = sizeof(PROPSHEETHEADER);
 	propSheetHeader.dwFlags = PSH_PROPSHEETPAGE | PSH_NOAPPLYNOW;
@@ -805,7 +821,13 @@ MainWndProc(
 			{
 				case IDC_TB_NEW:
 				case IDM_NEW_CONTACT:
-					CreateContactPropertiesDialog(hWnd);
+					{
+						PROPDLGINFO pdi = {0};
+
+						pdi.nID = -1;
+
+						CreateContactPropertiesDialog(hWnd, &pdi);
+					}
 					break;
 
 				case IDC_TB_PROPERTIES:
