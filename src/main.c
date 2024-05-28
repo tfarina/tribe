@@ -787,6 +787,19 @@ MainWindow_OnDestroy(
 	PostQuitMessage(0);
 }
 
+static
+void
+ShowPropertiesDialog(
+	HWND hwnd
+	)
+{
+	PROPDLGINFO pdi = {0};
+
+	pdi.nID = -1;
+
+	CreateContactPropertiesDialog(hwnd, &pdi);
+}
+
 /*
  *  FUNCTION: MainWndProc(HWND, unsigned, WORD, LONG)
  *
@@ -821,13 +834,7 @@ MainWndProc(
 			{
 				case IDC_TB_NEW:
 				case IDM_NEW_CONTACT:
-					{
-						PROPDLGINFO pdi = {0};
-
-						pdi.nID = -1;
-
-						CreateContactPropertiesDialog(hWnd, &pdi);
-					}
+					ShowPropertiesDialog(hWnd);
 					break;
 
 				case IDC_TB_PROPERTIES:
@@ -917,7 +924,6 @@ MainWndProc(
 			AdjustChildrenControls(hWnd);
 			break;
 
-
 		case WM_CLOSE:
 			DestroyWindow(hWnd);
 			break;
@@ -932,7 +938,6 @@ MainWndProc(
 				break;
 			}
 			break;
-
 
 		default:
 			return DefWindowProc(hWnd, uMsg, wParam, lParam);
