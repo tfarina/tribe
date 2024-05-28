@@ -79,8 +79,6 @@
 				OutputFile=".\Release/tribe.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
-				GenerateManifest="false"
-				ManifestFile=""
 				ProgramDatabaseFile=".\Release/tribe.pdb"
 				SubSystem="2"
 				TargetMachine="1"
@@ -91,7 +89,6 @@
 			<Tool
 				Name="VCManifestTool"
 				AdditionalManifestFiles="tribe.exe.manifest"
-				EmbedManifest="false"
 			/>
 			<Tool
 				Name="VCXDCMakeTool"
@@ -178,8 +175,6 @@
 				OutputFile="Debug/tribe.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="true"
-				GenerateManifest="false"
-				ManifestFile=""
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile=".\Debug/tribe.pdb"
 				SubSystem="2"
@@ -191,7 +186,6 @@
 			<Tool
 				Name="VCManifestTool"
 				AdditionalManifestFiles="tribe.exe.manifest"
-				EmbedManifest="false"
 			/>
 			<Tool
 				Name="VCXDCMakeTool"
