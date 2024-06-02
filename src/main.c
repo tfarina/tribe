@@ -54,6 +54,7 @@ static alpm_list_t *contactList = NULL;
 typedef struct _PROPDLGINFO
 {
 	int nID;
+	CONTACT *pContact;
 } PROPDLGINFO;
 
 BOOL
@@ -793,11 +794,21 @@ ShowPropertiesDialog(
 	HWND hwnd
 	)
 {
+	HRESULT hr = S_OK;
 	PROPDLGINFO pdi = {0};
 
 	pdi.nID = -1;
 
+	hr = ABCreateContact(&pdi.pContact);
+	if (FAILED(hr))
+	{
+		goto err;
+	}
+
 	CreateContactPropertiesDialog(hwnd, &pdi);
+
+err:
+	return;
 }
 
 /*

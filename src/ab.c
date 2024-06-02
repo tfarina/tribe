@@ -6,6 +6,42 @@
 
 static sqlite3 *hdb = NULL;  /* SQLite db handle */
 
+HRESULT
+ABCreateContact(
+	CONTACT **ppContact
+	)
+{
+	CONTACT *pContact = NULL;
+	HRESULT hr = S_OK;
+
+	/* Allocate space for the CONTACT structure
+	 */
+	pContact = LocalAlloc(LMEM_ZEROINIT, sizeof(CONTACT));
+	if (NULL == pContact)
+	{
+		hr = E_OUTOFMEMORY;
+		goto err;
+	}
+
+	/* Zero init the object
+	 */
+	ZeroMemory(pContact, sizeof(CONTACT));
+
+	pContact->szFirstName = NULL;
+	pContact->szLastName = NULL;
+	pContact->szEmail = NULL;
+
+	*ppContact = pContact;
+
+	return S_OK;
+
+err:
+	LocalFree(pContact);
+	pContact = NULL;
+
+	return hr;
+}
+
 int
 ABInitialize(
 	void
