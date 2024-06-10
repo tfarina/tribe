@@ -1,4 +1,5 @@
 #define VI_STR_COMPANYNAME " "
+#define VI_STR_LEGALCOPYRIGHT "Copyright © 2022"
 
 #define VI_PRODUCTVERSION 0,1,0,0
 #define VI_FILEVERSION VI_PRODUCTVERSION
@@ -37,7 +38,7 @@ BEGIN
             VALUE "FileDescription", VI_STR_FILEDESCRIPTION
             VALUE "FileVersion", VI_STR_FILEVERSION
             VALUE "InternalName", VI_STR_INTERNALNAME
-            VALUE "LegalCopyright", "Copyright © 2022"
+            VALUE "LegalCopyright", VI_STR_LEGALCOPYRIGHT
             VALUE "OriginalFilename", VI_STR_ORIGINALFILENAME
             VALUE "ProductName", VI_STR_PRODUCTNAME
             VALUE "ProductVersion", VI_STR_PRODUCTVERSION 
