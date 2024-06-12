@@ -604,6 +604,29 @@ fnNamePageProc(
 	case WM_NOTIFY:
 		switch (((LPNMHDR)lParam)->code)
 		{
+		case PSN_KILLACTIVE:
+			{
+				TCHAR szTemp[MAX_EDIT_LENGTH];
+				szTemp[0] = '\0';
+
+				GetDlgItemText(hWndDlg, IDC_PROPPAGE_NAME_EDIT_FIRSTNAME, szTemp, ARRAYSIZE(szTemp));
+				if (lstrlen(szTemp))
+				{
+					ABContactSetFirstName(ppdi->pContact, szTemp);
+				}
+				GetDlgItemText(hWndDlg, IDC_PROPPAGE_NAME_EDIT_LASTNAME, szTemp, ARRAYSIZE(szTemp));
+				if (lstrlen(szTemp))
+				{
+					ABContactSetLastName(ppdi->pContact, szTemp);
+				}
+				GetDlgItemText(hWndDlg, IDC_PROPPAGE_NAME_EDIT_EMAIL, szTemp, ARRAYSIZE(szTemp));
+				if (lstrlen(szTemp))
+				{
+					ABContactSetEmail(ppdi->pContact, szTemp);
+				}
+			}
+			break;
+
 		case PSN_APPLY: /* OK */
 			{
 				TCHAR szFirstName[MAX_EDIT_LENGTH];
@@ -621,8 +644,11 @@ fnNamePageProc(
 					return TRUE;
 				}
 				MessageBox(hWndDlg, szBuf, szCaption, MB_ICONWARNING | MB_OK);
+
+				ABAddContactV2(ppdi->pContact);
 			}
 			break;
+
 		case PSN_RESET: /* Cancel */
 			break;
 		}

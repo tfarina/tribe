@@ -6,6 +6,74 @@
 
 static sqlite3 *hdb = NULL;  /* SQLite db handle */
 
+static
+HRESULT
+_DbInsertContact(
+	CONTACT *pContact
+	)
+{
+	int rc = 0;
+	HRESULT hr = S_OK;
+	char const szInsertSql[] =
+		"INSERT INTO contacts (fname, lname, email) VALUES (?, ?, ?)";
+	sqlite3_stmt *pInsertStmt = NULL;
+
+	rc = sqlite3_prepare_v2(hdb, szInsertSql, -1, &pInsertStmt, NULL);
+	if (rc != SQLITE_OK)
+	{
+		fprintf(stderr, "sqlite3_prepare_v2 failed: %s\n",
+			sqlite3_errmsg(hdb));
+		return E_FAIL;
+	}
+
+	rc = sqlite3_bind_text(pInsertStmt, 1, pContact->szFirstName, -1, SQLITE_STATIC);
+	if (rc != SQLITE_OK)
+	{
+		fprintf(stderr, "sqlite3_bind_text failed: %s\n",
+			sqlite3_errmsg(hdb));
+		hr = E_FAIL;
+		goto out;
+	}
+
+	rc = sqlite3_bind_text(pInsertStmt, 2, pContact->szLastName, -1, SQLITE_STATIC);
+	if (rc != SQLITE_OK)
+	{
+		fprintf(stderr, "sqlite3_bind_text failed: %s\n",
+			sqlite3_errmsg(hdb));
+		hr = E_FAIL;
+		goto out;
+	}
+
+	rc = sqlite3_bind_text(pInsertStmt, 3, pContact->szEmail, -1, SQLITE_STATIC);
+	if (rc != SQLITE_OK)
+	{
+		fprintf(stderr, "sqlite3_bind_text failed: %s\n",
+			sqlite3_errmsg(hdb));
+		hr = E_FAIL;
+		goto out;
+	}
+
+	rc = sqlite3_step(pInsertStmt);
+	if (rc != SQLITE_DONE)
+	{
+		fprintf(stderr, "sqlite3_step failed: %s\n",
+			sqlite3_errmsg(hdb));
+		hr = E_FAIL;
+	}
+
+out:
+	rc = sqlite3_finalize(pInsertStmt);
+	pInsertStmt = NULL;
+	if (rc != SQLITE_OK)
+	{
+		fprintf(stderr, "sqlite3_finalize failed: %s\n",
+			sqlite3_errmsg(hdb));
+		hr = E_FAIL;
+	}
+
+	return hr;
+}
+
 HRESULT
 ABCreateContact(
 	CONTACT **ppContact
@@ -39,6 +107,72 @@ err:
 	LocalFree(pContact);
 	pContact = NULL;
 
+	return hr;
+}
+
+HRESULT
+ABContactSetFirstName(
+	CONTACT *pContact,
+	TCHAR const *szFirstName
+	)
+{
+	HRESULT hr = S_OK;
+	SIZE_T nLen = 0;
+
+	nLen = lstrlen(szFirstName) + 1;
+	pContact->szFirstName = LocalAlloc(LMEM_ZEROINIT, nLen * sizeof(TCHAR));
+	if (!pContact->szFirstName)
+	{
+		hr = E_OUTOFMEMORY;
+		goto out;
+	}
+	CopyMemory(pContact->szFirstName, szFirstName, nLen);
+
+out:
+	return hr;
+}
+
+HRESULT
+ABContactSetLastName(
+	CONTACT *pContact,
+	TCHAR const *szLastName
+	)
+{
+	HRESULT hr = S_OK;
+	SIZE_T nLen = 0;
+
+	nLen = lstrlen(szLastName) + 1;
+	pContact->szLastName = LocalAlloc(LMEM_ZEROINIT, nLen * sizeof(TCHAR));
+	if (!pContact->szLastName)
+	{
+		hr = E_OUTOFMEMORY;
+		goto out;
+	}
+	CopyMemory(pContact->szLastName, szLastName, nLen);
+
+out:
+	return hr;
+}
+
+HRESULT
+ABContactSetEmail(
+	CONTACT *pContact,
+	TCHAR const *szEmail
+	)
+{
+	HRESULT hr = S_OK;
+	SIZE_T nLen = 0;
+
+	nLen = lstrlen(szEmail) + 1;
+	pContact->szEmail = LocalAlloc(LMEM_ZEROINIT, nLen * sizeof(TCHAR));
+	if (!pContact->szEmail)
+	{
+		hr = E_OUTOFMEMORY;
+		goto out;
+	}
+	CopyMemory(pContact->szEmail, szEmail, nLen);
+
+out:
 	return hr;
 }
 
@@ -152,4 +286,12 @@ ABEnumContacts(
 	*ppContacts = lpContactList;
 
 	return S_OK;
+}
+
+HRESULT
+ABAddContactV2(
+	CONTACT *pContact
+	)
+{
+	return _DbInsertContact(pContact);
 }

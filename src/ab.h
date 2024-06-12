@@ -17,6 +17,24 @@ ABCreateContact(
 	CONTACT **ppContact
 	);
 
+HRESULT
+ABContactSetFirstName(
+	CONTACT *pContact,
+	TCHAR const *szFirstName
+	);
+
+HRESULT
+ABContactSetLastName(
+	CONTACT *pContact,
+	TCHAR const *szLastName
+	);
+
+HRESULT
+ABContactSetEmail(
+	CONTACT *pContact,
+	TCHAR const *szEmail
+	);
+
 int
 ABInitialize(
 	void
@@ -26,6 +44,11 @@ HRESULT
 ABEnumContacts(
 	ULONG *pnCount,
 	CONTACT **ppContacts
+	);
+
+HRESULT
+ABAddContactV2(
+	CONTACT *pContact
 	);
 
 #endif  /* !defined(_AB_H_INCLUDED_) */
