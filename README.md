@@ -8,7 +8,7 @@ You can build on Windows XP SP3 or above, with Visual Studio 2005 and C++
 support installed. Once you have Visual Studio installed:
 
 * Clone Tribe through ```git clone https://github.com/tfarina/tribe.git```
-* Open `src\tribe.sln` in Visual Studio
+* Open [src\tribe.sln](/src/tribe.sln) in Visual Studio
 * Build Solution
 
 ## Usage
