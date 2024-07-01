@@ -11,4 +11,4 @@ support installed. Once you have Visual Studio installed:
 * Open [src\tribe.sln](/src/tribe.sln) in Visual Studio to build and run the app.
 
 ## License
-This project is licensed under the GNU GPL license. See [COPYING](COPYING) file for details.
+This project is released under the terms of the GNU General Public License. See [COPYING](COPYING) file for details.
