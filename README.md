@@ -12,7 +12,12 @@ support installed. Once you have Visual Studio installed:
     git clone https://github.com/tfarina/tribe.git
     ```
 
-* Open [src\tribe.sln](/src/tribe.sln) in Visual Studio to build and run the app.
+* Open the file [src\tribe.sln](/src/tribe.sln) in Visual Studio 2005.
+* Select "Debug|Win32" as active configuration.
+* Click on "Build -> Build Solution" to build the app.
+* Click on "Debug -> Start Debugging" to run the app.
+
+NOTE: The building process should end with warnings, but without errors.
 
 ## License
 This project is released under the terms of the GNU General Public License. See [COPYING](COPYING) file for details.
