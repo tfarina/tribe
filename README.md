@@ -1,6 +1,6 @@
 # Tribe
 
-Tribe is an address book manager utility for Windows.
+Tribe is an address book manager for Windows.
 
 ## Build Instructions
 
