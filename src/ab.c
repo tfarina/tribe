@@ -2,7 +2,7 @@
 
 #include <stdio.h>
 
-#include "sqlite3.h"
+#include "third_party/sqlite/amalgamation/sqlite3.h"
 
 static sqlite3 *hdb = NULL;  /* SQLite db handle */
 
