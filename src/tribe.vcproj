@@ -47,9 +47,9 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="$(SolutionDir).."
 				Optimization="2"
 				InlineFunctionExpansion="1"
+				AdditionalIncludeDirectories="$(SolutionDir).."
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
 				StringPooling="true"
 				RuntimeLibrary="0"
@@ -145,8 +145,8 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="$(SolutionDir).."
 				Optimization="0"
+				AdditionalIncludeDirectories="$(SolutionDir).."
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -218,6 +218,10 @@
 			Name="resources"
 			>
 			<File
+				RelativePath=".\resource.h"
+				>
+			</File>
+			<File
 				RelativePath=".\tribe.ico"
 				>
 			</File>
@@ -227,11 +231,6 @@
 			</File>
 			<File
 				RelativePath=".\tribe.rcv"
-				>
-			</File>
-			<File
-
-				RelativePath=".\resource.h"
 				>
 			</File>
 		</Filter>
