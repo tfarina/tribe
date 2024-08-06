@@ -309,6 +309,21 @@ exit:
 	return hr;
 }
 
+static
+void
+SelectListViewItem(
+	int index
+	)
+{
+	ListView_SetItemState(
+		g_hwndListView,
+		index,
+		LVIS_FOCUSED | LVIS_SELECTED,
+		LVIS_FOCUSED | LVIS_SELECTED);
+
+	ListView_EnsureVisible(g_hwndListView, index, FALSE);
+}
+
 void
 PopulateListView(
 	void
@@ -338,13 +353,7 @@ PopulateListView(
 		lvI.iItem++;
 	}
 
-	ListView_SetItemState(
-		g_hwndListView,
-		0,
-		LVIS_FOCUSED | LVIS_SELECTED,
-		LVIS_FOCUSED | LVIS_SELECTED);
-
-	ListView_EnsureVisible(g_hwndListView, 0, FALSE);
+	SelectListViewItem(0);
 }
 
 void
