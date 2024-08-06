@@ -260,14 +260,6 @@
 			RelativePath=".\main.c"
 			>
 		</File>
-		<File
-			RelativePath="..\third_party\sqlite\amalgamation\sqlite3.c"
-			>
-		</File>
-		<File
-			RelativePath="..\third_party\sqlite\amalgamation\sqlite3.h"
-			>
-		</File>
 	</Files>
 	<Globals>
 	</Globals>
