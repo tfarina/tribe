@@ -843,6 +843,7 @@ ShowPropertiesDialog(
 	CreateContactPropertiesDialog(hwnd, &pdi);
 
 err:
+	ABDestroyContact(pdi.pContact);
 	return;
 }
 

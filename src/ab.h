@@ -17,6 +17,11 @@ ABCreateContact(
 	CONTACT **ppContact
 	);
 
+void
+ABDestroyContact(
+	CONTACT *pContact
+	);
+
 HRESULT
 ABContactSetFirstName(
 	CONTACT *pContact,

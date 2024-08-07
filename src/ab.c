@@ -110,6 +110,27 @@ err:
 	return hr;
 }
 
+void
+ABDestroyContact(
+	CONTACT *pContact
+	)
+{
+	if (!pContact)
+	{
+		return;
+	}
+
+	LocalFree(pContact->szFirstName);
+	pContact->szFirstName = NULL;
+	LocalFree(pContact->szLastName);
+	pContact->szLastName = NULL;
+	LocalFree(pContact->szEmail);
+	pContact->szEmail = NULL;
+
+	LocalFree(pContact);
+	pContact = NULL;
+}
+
 HRESULT
 ABContactSetFirstName(
 	CONTACT *pContact,
