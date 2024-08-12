@@ -678,7 +678,8 @@ fnNamePageProc(
 	return FALSE;
 }
 
-static void
+static
+BOOL
 CreateContactPropertiesDialog(
 	HWND hWnd,
 	PROPDLGINFO *ppdi
@@ -686,6 +687,7 @@ CreateContactPropertiesDialog(
 {
 	PROPSHEETPAGE propSheetPage[1];
 	PROPSHEETHEADER propSheetHeader;
+	INT_PTR nRetVal = 0;
 
 	propSheetPage[0].dwSize = sizeof(PROPSHEETPAGE);
 	propSheetPage[0].dwFlags = PSP_USETITLE;
@@ -707,7 +709,9 @@ CreateContactPropertiesDialog(
 	propSheetHeader.ppsp = (LPCPROPSHEETPAGE) &propSheetPage;
 	propSheetHeader.pfnCallback = NULL;
 
-	PropertySheet(&propSheetHeader);
+	nRetVal = PropertySheet(&propSheetHeader);
+
+	return nRetVal >= 0;
 }
 
 static void
@@ -848,7 +852,10 @@ ShowPropertiesDialog(
 		goto err;
 	}
 
-	CreateContactPropertiesDialog(hwnd, &pdi);
+	if (!CreateContactPropertiesDialog(hwnd, &pdi))
+	{
+		goto err;
+	}
 
 err:
 	ABDestroyContact(pdi.pContact);
