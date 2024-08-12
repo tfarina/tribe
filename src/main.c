@@ -972,6 +972,7 @@ MainWndProc(
 			break;
 
 		case WM_CLOSE:
+			ListView_DeleteAllItems(g_hwndListView);
 			DestroyWindow(hWnd);
 			break;
 
