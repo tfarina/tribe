@@ -31,6 +31,14 @@
 /* Defines the number of columns in the contact list view */
 #define CONTACT_LIST_COLUMN_COUNT 3
 
+enum
+{
+	COL_FIRST_NAME = 0,
+	COL_LAST_NAME,
+	COL_EMAIL,
+	N_COLUMNS
+};
+
 typedef struct _CONTACT_ITEM
 {
 	int id;
@@ -340,15 +348,15 @@ PopulateListView(
 	for (item = contactList; item; item = alpm_list_next(item))
 	{
 		contact = (LPCONTACT_ITEM) item->data;
-		lvI.iSubItem = 0; /* COL_FIRST_NAME */
+		lvI.iSubItem = COL_FIRST_NAME;
 		lvI.lParam = (LPARAM) contact;
 		lvI.pszText = contact->szFirstName;
 
 		index = ListView_InsertItem(g_hwndListView, &lvI);
 		if (index != -1)
 		{
-			ListView_SetItemText(g_hwndListView, index, 1 /* COL_LAST_NAME*/, contact->szLastName);
-			ListView_SetItemText(g_hwndListView, index, 2 /* COL_EMAIL */, contact->szEmail);
+			ListView_SetItemText(g_hwndListView, index, COL_LAST_NAME, contact->szLastName);
+			ListView_SetItemText(g_hwndListView, index, COL_EMAIL, contact->szEmail);
 		}
 		lvI.iItem++;
 	}
