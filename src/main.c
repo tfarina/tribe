@@ -433,18 +433,18 @@ CreateToolbar(
 	};
 
 	g_hwndToolbar = CreateWindowEx(
-		0,                /* ex style */
-		TOOLBARCLASSNAME, /* class name - defined in commctrl.h */
-		(LPTSTR)NULL,     /* dummy text */
-		WS_CHILD | WS_VISIBLE | TBSTYLE_WRAPABLE,  /* style */
-		0,                /* x position */
-		0,                /* y position */
+		0,                /* extended window style */
+		TOOLBARCLASSNAME, /* window class name */
+		(LPTSTR)NULL,     /* window name */
+		WS_CHILD | WS_VISIBLE | TBSTYLE_WRAPABLE,  /* window style */
+		0,                /* initial x position */
+		0,                /* initial y position */
 		0,                /* width */
 		0,                /* height */
-		hWndParent,
-		NULL,
-		g_hInst,
-		NULL);
+		hWndParent,       /* handle to parent window */
+		NULL,             /* handle to menu */
+		g_hInst,          /* handle to program instance */
+		NULL);            /* creation parameters */
 
 	if (!g_hwndToolbar)
 		return;
@@ -482,18 +482,18 @@ CreateStatusBar(
     RECT statusBarRect;
 
 	g_hwndStatusBar = CreateWindowEx(
-		0,                /* ex style */
-		STATUSCLASSNAME,  /* class name - defined in commctrl.h */
-		(LPTSTR) NULL,    /* dummy text */
-		WS_CHILD | WS_VISIBLE | SBS_SIZEGRIP,  /* style */
-		0,                /* x position */
-		0,                /* y position */
+		0,                /* extended window style */
+		STATUSCLASSNAME,  /* window class name */
+		(LPTSTR) NULL,    /* window name */
+		WS_CHILD | WS_VISIBLE | SBS_SIZEGRIP,  /* window style */
+		0,                /* initial x position */
+		0,                /* initial y position */
 		0,                /* width */
 		0,                /* height */
-		hWndParent,       /* parent */
-		(HMENU) IDC_STATUSBAR, /* ID */
-		g_hInst,          /* instance */
-		NULL);            /* no extra data */
+		hWndParent,       /* handle to parent window */
+		(HMENU) IDC_STATUSBAR, /* handle to menu */
+		g_hInst,          /* handle to program instance */
+		NULL);            /* creation parameters */
 
 	GetClientRect(g_hwndStatusBar, &statusBarRect);
 
