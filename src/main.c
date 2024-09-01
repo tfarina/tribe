@@ -63,7 +63,12 @@ typedef struct _PROPDLGINFO
 {
 	int nID;
 	CONTACT *pContact;
+	ULONG ulResultAction;
 } PROPDLGINFO;
+
+/* Result action constants for Properties dialog */
+#define PDG_RESULT_CANCEL 0x0
+#define PDG_RESULT_OK     0x1
 
 BOOL
 RegisterMainWindowClass(
@@ -601,11 +606,7 @@ fnNamePageProc(
 	LPARAM lParam
 	)
 {
-	TCHAR szBuf[] = TEXT("Not implemented yet!");
-	TCHAR szCaption[MAX_STRING_RES_LENGTH];
 	PROPDLGINFO *ppdi = (PROPDLGINFO *)GetWindowLongPtr(hWndDlg, GWLP_USERDATA);
-
-	LoadString(g_hInst, IDS_APP_NAME, szCaption, ARRAYSIZE(szCaption));
 
 	switch (uMsg)
 	{
@@ -653,20 +654,23 @@ fnNamePageProc(
 				if (!lstrlen(szFirstName))
 				{
 					TCHAR szMsg[MAX_STRING_RES_LENGTH];
+					TCHAR szCaption[MAX_STRING_RES_LENGTH];
 
 					LoadString(g_hInst, IDS_NEEDS_FIRSTNAME, szMsg, ARRAYSIZE(szMsg));
+					LoadString(g_hInst, IDS_APP_NAME, szCaption, ARRAYSIZE(szCaption));
 					MessageBox(hWndDlg, szMsg, szCaption, MB_ICONEXCLAMATION | MB_OK);
 					SetFocus(GetDlgItem(hWndDlg, IDC_PROPPAGE_NAME_EDIT_FIRSTNAME));
 					SetWindowLongPtr(hWndDlg, DWLP_MSGRESULT, TRUE);
 					return TRUE;
 				}
-				MessageBox(hWndDlg, szBuf, szCaption, MB_ICONWARNING | MB_OK);
 
 				ABAddContactV2(ppdi->pContact);
+				ppdi->ulResultAction = PDG_RESULT_OK;
 			}
 			break;
 
 		case PSN_RESET: /* Cancel */
+			ppdi->ulResultAction = PDG_RESULT_CANCEL;
 			break;
 		}
 		break; /* WM_NOTIFY */
@@ -843,6 +847,9 @@ ShowPropertiesDialog(
 {
 	HRESULT hr = S_OK;
 	PROPDLGINFO pdi = {0};
+	LPCONTACT_ITEM pContactItem;
+	LV_ITEM lvI = {0};
+	int index = 0;
 
 	pdi.nID = -1;
 
@@ -855,6 +862,34 @@ ShowPropertiesDialog(
 	if (!CreateContactPropertiesDialog(hwnd, &pdi))
 	{
 		goto err;
+	}
+
+	if (pdi.ulResultAction == PDG_RESULT_OK)
+	{
+		pContactItem = LocalAlloc(LMEM_ZEROINIT, sizeof(CONTACT_ITEM));
+		if (!pContactItem)
+		{
+			hr = E_OUTOFMEMORY;
+			goto err;
+		}
+		lstrcpy(pContactItem->szFirstName, pdi.pContact->szFirstName);
+		lstrcpy(pContactItem->szLastName, pdi.pContact->szLastName);
+		lstrcpy(pContactItem->szEmail, pdi.pContact->szEmail);
+
+		lvI.mask = LVIF_TEXT | LVIF_STATE | LVIF_PARAM;
+		lvI.iItem = ListView_GetItemCount(g_hwndListView);
+		lvI.iSubItem = COL_FIRST_NAME;
+		lvI.lParam = (LPARAM)pContactItem;
+		lvI.pszText = pContactItem->szFirstName;
+
+		index = ListView_InsertItem(g_hwndListView, &lvI);
+		if (index != -1)
+		{
+			ListView_SetItemText(g_hwndListView, index, COL_LAST_NAME, pContactItem->szLastName);
+			ListView_SetItemText(g_hwndListView, index, COL_EMAIL, pContactItem->szEmail);
+		}
+
+		contactList = alpm_list_add(contactList, pContactItem);
 	}
 
 err:
