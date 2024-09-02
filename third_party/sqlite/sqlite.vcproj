@@ -148,11 +148,11 @@
 	</References>
 	<Files>
 		<File
-			RelativePath=".\amalgamation\sqlite3.c"
+			RelativePath=".\sqlite3.c"
 			>
 		</File>
 		<File
-			RelativePath=".\amalgamation\sqlite3.h"
+			RelativePath=".\sqlite3.h"
 			>
 		</File>
 	</Files>
