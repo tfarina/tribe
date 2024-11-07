@@ -243,9 +243,9 @@ ABEnumContacts(
 	ULONG cContacts;
 	CONTACT aContacts[] =
 	{
-		{ 0, "John", "Doe", "john_doe@mail.com" },
-		{ 1, "Jane", "Doe", "jane_doe@mail.com" },
-		{ 2, "John", "Smith", "john_smith@mail.com" },
+		{ -4, "John", "Doe", "john_doe@mail.com" },
+		{ -3, "Jane", "Doe", "jane_doe@mail.com" },
+		{ -2, "John", "Smith", "john_smith@mail.com" },
 	};
 	LPCONTACT lpContactList;
 	ULONG index;
