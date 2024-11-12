@@ -270,7 +270,7 @@ ABEnumContacts(
 		lpContactList[index].id = aContacts[index].id;
 
 		ulLen = lstrlen(aContacts[index].szFirstName) + 1;
-		lpContactList[index].szFirstName = malloc(ulLen * sizeof(TCHAR));
+		lpContactList[index].szFirstName = LocalAlloc(LMEM_ZEROINIT, ulLen * sizeof(TCHAR));
 		if (NULL != lpContactList[index].szFirstName)
 		{
 			lstrcpy(lpContactList[index].szFirstName, aContacts[index].szFirstName);
@@ -281,7 +281,7 @@ ABEnumContacts(
 		}
 
 		ulLen = lstrlen(aContacts[index].szLastName) + 1;
-		lpContactList[index].szLastName = malloc(ulLen * sizeof(TCHAR));
+		lpContactList[index].szLastName = LocalAlloc(LMEM_ZEROINIT, ulLen * sizeof(TCHAR));
 		if (NULL != lpContactList[index].szLastName)
 		{
 			lstrcpy(lpContactList[index].szLastName, aContacts[index].szLastName);
@@ -292,7 +292,7 @@ ABEnumContacts(
 		}
 
 		ulLen = lstrlen(aContacts[index].szEmail) + 1;
-		lpContactList[index].szEmail = malloc(ulLen * sizeof(TCHAR));
+		lpContactList[index].szEmail = LocalAlloc(LMEM_ZEROINIT, ulLen * sizeof(TCHAR));
 		if (NULL != lpContactList[index].szEmail)
 		{
 			lstrcpy(lpContactList[index].szEmail, aContacts[index].szEmail);
