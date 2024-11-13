@@ -250,7 +250,7 @@ ABEnumContacts(
 	LPCONTACT lpContactList;
 	ULONG index;
 
-	if (NULL == pnCount || NULL == ppContacts)
+	if (!pnCount || !ppContacts)
 	{
 		return E_INVALIDARG;
 	}
@@ -258,7 +258,7 @@ ABEnumContacts(
 	cContacts = ARRAYSIZE(aContacts);
 
 	lpContactList = LocalAlloc(LMEM_ZEROINIT, cContacts * sizeof(CONTACT));
-	if (NULL == lpContactList)
+	if (!lpContactList)
 	{
 		return E_OUTOFMEMORY;
 	}
@@ -271,7 +271,7 @@ ABEnumContacts(
 
 		ulLen = lstrlen(aContacts[index].szFirstName) + 1;
 		lpContactList[index].szFirstName = LocalAlloc(LMEM_ZEROINIT, ulLen * sizeof(TCHAR));
-		if (NULL != lpContactList[index].szFirstName)
+		if (lpContactList[index].szFirstName)
 		{
 			lstrcpy(lpContactList[index].szFirstName, aContacts[index].szFirstName);
 		}
@@ -282,7 +282,7 @@ ABEnumContacts(
 
 		ulLen = lstrlen(aContacts[index].szLastName) + 1;
 		lpContactList[index].szLastName = LocalAlloc(LMEM_ZEROINIT, ulLen * sizeof(TCHAR));
-		if (NULL != lpContactList[index].szLastName)
+		if (lpContactList[index].szLastName)
 		{
 			lstrcpy(lpContactList[index].szLastName, aContacts[index].szLastName);
 		}
@@ -293,7 +293,7 @@ ABEnumContacts(
 
 		ulLen = lstrlen(aContacts[index].szEmail) + 1;
 		lpContactList[index].szEmail = LocalAlloc(LMEM_ZEROINIT, ulLen * sizeof(TCHAR));
-		if (NULL != lpContactList[index].szEmail)
+		if (lpContactList[index].szEmail)
 		{
 			lstrcpy(lpContactList[index].szEmail, aContacts[index].szEmail);
 		}
