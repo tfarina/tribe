@@ -240,6 +240,7 @@ ABEnumContacts(
 	CONTACT **ppContacts
 	)
 {
+	HRESULT hr = S_OK;
 	ULONG cContacts;
 	CONTACT aContacts[] =
 	{
@@ -260,7 +261,8 @@ ABEnumContacts(
 	lpContactList = LocalAlloc(LMEM_ZEROINIT, cContacts * sizeof(CONTACT));
 	if (!lpContactList)
 	{
-		return E_OUTOFMEMORY;
+		hr = E_OUTOFMEMORY;
+		goto err;
 	}
 
 	for (index = 0; index < cContacts; index++)
@@ -307,6 +309,9 @@ ABEnumContacts(
 	*ppContacts = lpContactList;
 
 	return S_OK;
+
+err:
+	return hr;
 }
 
 HRESULT
