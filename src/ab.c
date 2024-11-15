@@ -279,7 +279,8 @@ ABEnumContacts(
 		}
 		else
 		{
-			return E_OUTOFMEMORY;
+			hr = E_OUTOFMEMORY;
+			goto err;
 		}
 
 		ulLen = lstrlen(aContacts[index].szLastName) + 1;
@@ -290,7 +291,8 @@ ABEnumContacts(
 		}
 		else
 		{
-			return E_OUTOFMEMORY;
+			hr = E_OUTOFMEMORY;
+			goto err;
 		}
 
 		ulLen = lstrlen(aContacts[index].szEmail) + 1;
@@ -301,7 +303,8 @@ ABEnumContacts(
 		}
 		else
 		{
-			return E_OUTOFMEMORY;
+			hr = E_OUTOFMEMORY;
+			goto err;
 		}
 	}
 
