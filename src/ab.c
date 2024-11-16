@@ -236,7 +236,7 @@ ABInitialize(
 
 HRESULT
 ABEnumContacts(
-	ULONG *pnCount,
+	ULONG *pulcContacts,
 	CONTACT **ppContacts
 	)
 {
@@ -251,7 +251,7 @@ ABEnumContacts(
 	LPCONTACT lpContactList;
 	ULONG index;
 
-	if (!pnCount || !ppContacts)
+	if (!pulcContacts || !ppContacts)
 	{
 		return E_INVALIDARG;
 	}
@@ -308,7 +308,7 @@ ABEnumContacts(
 		}
 	}
 
-	*pnCount = cContacts;
+	*pulcContacts = cContacts;
 	*ppContacts = lpContactList;
 
 	return S_OK;
