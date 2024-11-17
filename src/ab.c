@@ -248,7 +248,7 @@ ABEnumContacts(
 		{ -3, "Jane", "Doe", "jane_doe@mail.com" },
 		{ -2, "John", "Smith", "john_smith@mail.com" },
 	};
-	LPCONTACT lpContactList;
+	LPCONTACT lprgContacts;
 	ULONG index;
 
 	if (!pulcContacts || !ppContacts)
@@ -258,8 +258,8 @@ ABEnumContacts(
 
 	cContacts = ARRAYSIZE(aContacts);
 
-	lpContactList = LocalAlloc(LMEM_ZEROINIT, cContacts * sizeof(CONTACT));
-	if (!lpContactList)
+	lprgContacts = LocalAlloc(LMEM_ZEROINIT, cContacts * sizeof(CONTACT));
+	if (!lprgContacts)
 	{
 		hr = E_OUTOFMEMORY;
 		goto err;
@@ -269,13 +269,13 @@ ABEnumContacts(
 	{
 		ULONG ulLen;
 
-		lpContactList[index].id = aContacts[index].id;
+		lprgContacts[index].id = aContacts[index].id;
 
 		ulLen = lstrlen(aContacts[index].szFirstName) + 1;
-		lpContactList[index].szFirstName = LocalAlloc(LMEM_ZEROINIT, ulLen * sizeof(TCHAR));
-		if (lpContactList[index].szFirstName)
+		lprgContacts[index].szFirstName = LocalAlloc(LMEM_ZEROINIT, ulLen * sizeof(TCHAR));
+		if (lprgContacts[index].szFirstName)
 		{
-			lstrcpy(lpContactList[index].szFirstName, aContacts[index].szFirstName);
+			lstrcpy(lprgContacts[index].szFirstName, aContacts[index].szFirstName);
 		}
 		else
 		{
@@ -284,10 +284,10 @@ ABEnumContacts(
 		}
 
 		ulLen = lstrlen(aContacts[index].szLastName) + 1;
-		lpContactList[index].szLastName = LocalAlloc(LMEM_ZEROINIT, ulLen * sizeof(TCHAR));
-		if (lpContactList[index].szLastName)
+		lprgContacts[index].szLastName = LocalAlloc(LMEM_ZEROINIT, ulLen * sizeof(TCHAR));
+		if (lprgContacts[index].szLastName)
 		{
-			lstrcpy(lpContactList[index].szLastName, aContacts[index].szLastName);
+			lstrcpy(lprgContacts[index].szLastName, aContacts[index].szLastName);
 		}
 		else
 		{
@@ -296,10 +296,10 @@ ABEnumContacts(
 		}
 
 		ulLen = lstrlen(aContacts[index].szEmail) + 1;
-		lpContactList[index].szEmail = LocalAlloc(LMEM_ZEROINIT, ulLen * sizeof(TCHAR));
-		if (lpContactList[index].szEmail)
+		lprgContacts[index].szEmail = LocalAlloc(LMEM_ZEROINIT, ulLen * sizeof(TCHAR));
+		if (lprgContacts[index].szEmail)
 		{
-			lstrcpy(lpContactList[index].szEmail, aContacts[index].szEmail);
+			lstrcpy(lprgContacts[index].szEmail, aContacts[index].szEmail);
 		}
 		else
 		{
@@ -309,7 +309,7 @@ ABEnumContacts(
 	}
 
 	*pulcContacts = cContacts;
-	*ppContacts = lpContactList;
+	*ppContacts = lprgContacts;
 
 	return S_OK;
 
