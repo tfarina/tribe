@@ -314,6 +314,11 @@ ABEnumContacts(
 	return S_OK;
 
 err:
+	if (FAILED(hr))
+	{
+		LocalFree(lprgContacts);
+		lprgContacts = NULL;
+	}
 	return hr;
 }
 
