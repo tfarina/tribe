@@ -7,6 +7,26 @@
 static sqlite3 *hdb = NULL;  /* SQLite db handle */
 
 static
+LPSTR
+XStrDup(
+	LPCSTR psz
+	)
+{
+	LPSTR pszRet;
+
+	if (!psz)
+		return NULL;
+
+	pszRet = LocalAlloc(LPTR, (lstrlen(psz) + 1) * sizeof(*pszRet));
+	if (pszRet)
+	{
+		lstrcpy(pszRet, psz);
+	}
+
+	return pszRet;
+}
+
+static
 HRESULT
 _DbInsertContact(
 	CONTACT *pContact
@@ -267,41 +287,22 @@ ABEnumContacts(
 
 	for (index = 0; index < cContacts; index++)
 	{
-		ULONG ulLen;
-
 		lprgContacts[index].id = aContacts[index].id;
 
-		ulLen = lstrlen(aContacts[index].szFirstName) + 1;
-		lprgContacts[index].szFirstName = LocalAlloc(LMEM_ZEROINIT, ulLen * sizeof(TCHAR));
-		if (lprgContacts[index].szFirstName)
-		{
-			lstrcpy(lprgContacts[index].szFirstName, aContacts[index].szFirstName);
-		}
-		else
+		lprgContacts[index].szFirstName = XStrDup(aContacts[index].szFirstName);
+		if (!lprgContacts[index].szFirstName)
 		{
 			hr = E_OUTOFMEMORY;
 			goto err;
 		}
-
-		ulLen = lstrlen(aContacts[index].szLastName) + 1;
-		lprgContacts[index].szLastName = LocalAlloc(LMEM_ZEROINIT, ulLen * sizeof(TCHAR));
-		if (lprgContacts[index].szLastName)
-		{
-			lstrcpy(lprgContacts[index].szLastName, aContacts[index].szLastName);
-		}
-		else
+		lprgContacts[index].szLastName = XStrDup(aContacts[index].szLastName);
+		if (!lprgContacts[index].szLastName)
 		{
 			hr = E_OUTOFMEMORY;
 			goto err;
 		}
-
-		ulLen = lstrlen(aContacts[index].szEmail) + 1;
-		lprgContacts[index].szEmail = LocalAlloc(LMEM_ZEROINIT, ulLen * sizeof(TCHAR));
-		if (lprgContacts[index].szEmail)
-		{
-			lstrcpy(lprgContacts[index].szEmail, aContacts[index].szEmail);
-		}
-		else
+		lprgContacts[index].szEmail = XStrDup(aContacts[index].szEmail);
+		if (!lprgContacts[index].szEmail)
 		{
 			hr = E_OUTOFMEMORY;
 			goto err;
