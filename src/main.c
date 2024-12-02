@@ -160,16 +160,16 @@ WinMain(
 		return FALSE;
 	}
 
-	g_hwndMain = CreateMainWindow(hInstance, nCmdShow);
-	if (NULL == g_hwndMain)
-	{
-		return FALSE;
-	}
-
 	rc = ABInitialize();
 	if (rc < 0)
 	{
 		/* We should show a Message Box with an error message here. */
+		return FALSE;
+	}
+
+	g_hwndMain = CreateMainWindow(hInstance, nCmdShow);
+	if (NULL == g_hwndMain)
+	{
 		return FALSE;
 	}
 
