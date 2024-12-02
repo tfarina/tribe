@@ -28,6 +28,48 @@ XStrDup(
 
 static
 HRESULT
+_DbGetContactsRowCount(
+	int *pnRowCount
+	)
+{
+	int nRet;
+	HRESULT hr = S_OK;
+	char const szSql[] = "SELECT COUNT(*) FROM contacts";
+	sqlite3_stmt *pStmt = NULL;
+
+	if (!pnRowCount)
+	{
+		return E_INVALIDARG;
+	}
+
+	nRet = sqlite3_prepare_v2(hdb, szSql, -1, &pStmt, NULL);
+	if (nRet != SQLITE_OK)
+	{
+		fprintf(stderr, "ERROR: sqlite3_prepare_v2 failed: %s\n",
+				sqlite3_errmsg(hdb));
+		hr = E_FAIL;
+		goto out;
+	}
+
+	nRet = sqlite3_step(pStmt);
+	if (nRet != SQLITE_ROW)
+	{
+		fprintf(stderr, "ERROR: sqlite3_step failed: %s\n",
+				sqlite3_errmsg(hdb));
+		hr = E_FAIL;
+		goto out;
+	}
+
+	*pnRowCount = sqlite3_column_int(pStmt, 0);
+
+out:
+	sqlite3_finalize(pStmt);
+
+	return hr;
+}
+
+static
+HRESULT
 _DbInsertContact(
 	CONTACT *pContact
 	)
@@ -261,6 +303,8 @@ ABEnumContacts(
 	)
 {
 	HRESULT hr = S_OK;
+	int nRet;
+	int nRowCount = 0;
 	ULONG cContacts;
 	CONTACT aContacts[] =
 	{
@@ -269,16 +313,25 @@ ABEnumContacts(
 		{ -2, "John", "Smith", "john_smith@mail.com" },
 	};
 	LPCONTACT lprgContacts;
+	char const szSql[] = "SELECT * FROM contacts";
+	sqlite3_stmt *pStmt = NULL;
 	ULONG index;
+	int nRows = 0;
 
 	if (!pulcContacts || !ppContacts)
 	{
 		return E_INVALIDARG;
 	}
 
+	hr = _DbGetContactsRowCount(&nRowCount);
+	if (FAILED(hr))
+	{
+		return E_FAIL;
+	}
+
 	cContacts = ARRAYSIZE(aContacts);
 
-	lprgContacts = LocalAlloc(LMEM_ZEROINIT, cContacts * sizeof(CONTACT));
+	lprgContacts = LocalAlloc(LMEM_ZEROINIT, (cContacts + nRowCount) * sizeof(CONTACT));
 	if (!lprgContacts)
 	{
 		hr = E_OUTOFMEMORY;
@@ -295,12 +348,14 @@ ABEnumContacts(
 			hr = E_OUTOFMEMORY;
 			goto err;
 		}
+
 		lprgContacts[index].szLastName = XStrDup(aContacts[index].szLastName);
 		if (!lprgContacts[index].szLastName)
 		{
 			hr = E_OUTOFMEMORY;
 			goto err;
 		}
+
 		lprgContacts[index].szEmail = XStrDup(aContacts[index].szEmail);
 		if (!lprgContacts[index].szEmail)
 		{
@@ -309,17 +364,62 @@ ABEnumContacts(
 		}
 	}
 
-	*pulcContacts = cContacts;
+	nRet = sqlite3_prepare_v2(hdb, szSql, -1, &pStmt, NULL);
+	if (nRet != SQLITE_OK)
+	{
+		fprintf(stderr, "ERROR: sqlite3_prepare_v2 failed: %s\n",
+				sqlite3_errmsg(hdb));
+		hr = E_FAIL;
+		goto err;
+	}
+
+	for (index = 0; index < nRowCount; index++)
+	{
+		char const *psz = NULL;
+		nRet = sqlite3_step(pStmt);
+		if (nRet != SQLITE_ROW)
+			break;
+
+		lprgContacts[index + cContacts].id = sqlite3_column_int(pStmt, 0);
+
+		psz = (char const *)sqlite3_column_text(pStmt, 1);
+		lprgContacts[index + cContacts].szFirstName = XStrDup(psz);
+		if (!lprgContacts[index + cContacts].szFirstName)
+		{
+			hr = E_OUTOFMEMORY;
+			goto err;
+		}
+
+		psz = (char const *)sqlite3_column_text(pStmt, 2);
+		lprgContacts[index + cContacts].szLastName = XStrDup(psz);
+		if (!lprgContacts[index + cContacts].szLastName)
+		{
+			hr = E_OUTOFMEMORY;
+			goto err;
+		}
+
+		psz = (char const *)sqlite3_column_text(pStmt, 3);
+		lprgContacts[index + cContacts].szEmail = XStrDup(psz);
+		if (!lprgContacts[index + cContacts].szEmail)
+		{
+			hr = E_OUTOFMEMORY;
+			goto err;
+		}
+
+		nRows++;
+	}
+
+	*pulcContacts = cContacts + nRows;
 	*ppContacts = lprgContacts;
 
-	return S_OK;
-
 err:
+	sqlite3_finalize(pStmt);
 	if (FAILED(hr))
 	{
 		LocalFree(lprgContacts);
 		lprgContacts = NULL;
 	}
+
 	return hr;
 }
 
