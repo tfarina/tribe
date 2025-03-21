@@ -251,10 +251,6 @@
 			>
 		</File>
 		<File
-			RelativePath=".\arraysize.h"
-			>
-		</File>
-		<File
 			RelativePath=".\main.c"
 			>
 		</File>

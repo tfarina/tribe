@@ -14,7 +14,6 @@
 #include "ab.h"
 #include "resource.h"
 #include "alpm_list.h"
-#include "arraysize.h"
 
 #define MAX_COLUMN_TEXT_LENGTH 64
 #define MAX_STRING_RES_LENGTH 255
