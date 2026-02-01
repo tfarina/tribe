@@ -2,7 +2,7 @@
 #define AB_H_
 
 #include "ab_contact.h"
-#include "alpm_list.h"
+#include "third_party/libalpm/alpm_list.h"
 
 int ab_init(char *db_dir);
 int ab_fini(void);

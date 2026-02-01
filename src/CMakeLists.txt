@@ -1,13 +1,13 @@
 set(TARGETNAME ab)
 
 set(DEPENDENCIES
+  alpm
   sqlite
 )
 
 set(SOURCES
   ab.c
   ab_contact.c
-  alpm_list.c
   dirs.c
   mkdirp.c
   os_path.c
@@ -19,7 +19,6 @@ set(SOURCES
 set(HEADERS
   ab.h
   ab_contact.h
-  alpm_list.h
   arraysize.h
   mkdirp.h
   os_path.h

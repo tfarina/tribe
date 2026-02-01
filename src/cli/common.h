@@ -1,8 +1,8 @@
 #ifndef COMMON_H
 #define COMMON_H
 
-#include "alpm_list.h"
 #include "ab_contact.h"
+#include "third_party/libalpm/alpm_list.h"
 
 /**
  * Prints to standard output all the contacts found in the database.
