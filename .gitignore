@@ -1,12 +1,3 @@
-c/apps/uzrm/out
-sqlite/*.o
-sqlite/.ninja_deps
-sqlite/.ninja_log
-sqlite/out
-sqlite/create_users_db
-sqlite/create_user_table
-sqlite/insert_into_user_table
-sqlite/select_from_user_table
-sqlite/update_user_table
-sqlite/delete_from_user_table
-sqlite/users.db
+# Build output directories
+out/
+_out/
