@@ -3,7 +3,7 @@
 #include <stdio.h>
 
 #include "ab_contact.h"
-#include "fort.h"
+#include "third_party/libfort/fort.h"
 
 int print_contact_list(alpm_list_t *contact_list) {
   ft_table_t *table;

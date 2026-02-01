@@ -2,6 +2,7 @@ set(TARGETNAME "${PROJECT_NAME}cli")
 
 set(DEPENDENCIES
   ab
+  fort
 )
 
 set(SOURCES
@@ -11,7 +12,6 @@ set(SOURCES
   cmd_list.c
   commands.h
   common.c
-  fort.c
   main.c
 )
 
