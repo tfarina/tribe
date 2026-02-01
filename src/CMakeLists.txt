@@ -1,5 +1,3 @@
-add_subdirectory(${CMAKE_SOURCE_DIR}/third_party/sqlite third_party/sqlite)
-
 set(TARGETNAME ab)
 
 set(DEPENDENCIES

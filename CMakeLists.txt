@@ -75,5 +75,6 @@ pkg_check_modules(GTK REQUIRED
 )
 
 add_subdirectory(data)
+add_subdirectory(third_party)
 add_subdirectory(src)
 add_subdirectory(help)
