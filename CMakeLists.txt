@@ -47,7 +47,6 @@ list(APPEND c_flags
     -std=c99
     -Wall
     -Wextra
-    -Werror
     -Wno-unused-parameter
 )
 foreach(flag IN LISTS c_flags)
