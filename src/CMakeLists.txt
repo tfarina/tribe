@@ -18,7 +18,6 @@ set(SOURCES
 set(HEADERS
   ab.h
   ab_contact.h
-  arraysize.h
   mkdirp.h
   os_path.h
   user.h

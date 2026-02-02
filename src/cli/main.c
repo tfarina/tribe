@@ -6,7 +6,8 @@
 
 #include "config.h"
 
-#include "arraysize.h"
+#include <glib.h>
+
 #include "commands.h"
 #include "os_path.h"
 
@@ -34,7 +35,7 @@ static void usage(int status) {
         fputs("The available commands are as follows:\n", stderr);
         fputc('\n', stderr);
 
-        for (i = 0; i < ARRAY_SIZE(cmds); i++) {
+        for (i = 0; i < G_N_ELEMENTS(cmds); i++) {
 	        command_t *cmd = cmds + i;
                 fprintf(stderr, "   %-12s%s\n", cmd->name, cmd->description);
 	}
@@ -49,7 +50,7 @@ static void version(void) {
 static command_t *_find_cmd(const char *name) {
         size_t i;
 
-        for (i = 0; i < ARRAY_SIZE(cmds); i++) {
+        for (i = 0; i < G_N_ELEMENTS(cmds); i++) {
                 command_t *cmd = &cmds[i];
                 if (strcmp(name, cmd->name) == 0 ||
                     (cmd->alt && strcmp(name, cmd->alt) == 0)) {
