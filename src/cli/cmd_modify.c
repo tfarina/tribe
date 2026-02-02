@@ -4,7 +4,6 @@
 
 #include "ab.h"
 #include "dirs.h"
-#include "os_path.h"
 #include "util.h"
 
 int cmd_modify(int argc, char **argv) {

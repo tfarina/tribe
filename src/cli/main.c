@@ -9,7 +9,6 @@
 #include <glib.h>
 
 #include "commands.h"
-#include "os_path.h"
 
 static const char *g_progname;
 
@@ -66,7 +65,7 @@ int main(int argc, char **argv) {
         command_t *cmd;
         int rc;
 
-        g_progname = os_path_basename(argv[0]);
+        g_progname = g_path_get_basename(argv[0]);
 
         if (argc < 2) {
                 usage(EXIT_FAILURE);

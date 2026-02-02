@@ -6,7 +6,6 @@
 
 #include <glib.h>
 
-#include "os_path.h"
 #include "third_party/sqlite/sqlite3.h"
 
 /* Database schema version.
@@ -146,7 +145,7 @@ int ab_init(char *db_dir) {
     return 0;
   }
 
-  db_file_path = os_path_join(db_dir, db_file_name);
+  db_file_path = g_build_filename(db_dir, db_file_name, NULL);
 
   rc = sqlite3_open(db_file_path, &hdb);
   if (rc != SQLITE_OK) {

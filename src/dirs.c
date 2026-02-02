@@ -1,6 +1,7 @@
 #include "dirs.h"
 
-#include "os_path.h"
+#include <glib.h>
+
 #include "user.h"
 
 static char *g_user_data_dir;
@@ -8,7 +9,7 @@ static char *g_user_data_dir;
 void
 dirs_init(void)
 {
-  g_user_data_dir = os_path_join(user_data_dir(), "tribe");
+  g_user_data_dir = g_build_filename(user_data_dir(), "tribe", NULL);
 }
 
 char *

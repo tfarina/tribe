@@ -5,7 +5,7 @@
 #include <sys/types.h>
 #include <unistd.h>
 
-#include "os_path.h"
+#include <glib.h>
 
 /**
  * Returns the current user's home directory.
@@ -43,7 +43,7 @@ user_data_dir(void)
   char *datadir;
 
   homedir = user_home_dir();
-  datadir = os_path_join(homedir, ".local/share");
+  datadir = g_build_filename(homedir, ".local", "share", NULL);
 
   return datadir;
 }
@@ -58,7 +58,7 @@ user_config_dir(void)
   char *configdir;
 
   homedir = user_home_dir();
-  configdir = os_path_join(homedir, ".config");
+  configdir = g_build_filename(homedir, ".config", NULL);
 
   return configdir;
 }
