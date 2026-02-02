@@ -4,10 +4,10 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "third_party/sqlite/sqlite3.h"
+#include <glib.h>
 
 #include "os_path.h"
-#include "xalloc.h"
+#include "third_party/sqlite/sqlite3.h"
 
 /* Database schema version.
  *
@@ -280,21 +280,21 @@ int _db_enum_contacts(int *num_contacts, ab_contact_t **contacts_dst) {
     contacts[i].id = sqlite3_column_int(select_stmt, 0);
 
     psz = (char const *)sqlite3_column_text(select_stmt, 1);
-    contacts[i].fname = xstrdup(psz);
+    contacts[i].fname = g_strdup(psz);
     if (!contacts[i].fname) {
       scode = -ENOMEM;
       goto err;
     }
 
     psz = (char const *)sqlite3_column_text(select_stmt, 2);
-    contacts[i].lname = xstrdup(psz);
+    contacts[i].lname = g_strdup(psz);
     if (!contacts[i].lname) {
       scode = -ENOMEM;
       goto err;
     }
 
     psz = (char const *)sqlite3_column_text(select_stmt, 3);
-    contacts[i].email = xstrdup(psz);
+    contacts[i].email = g_strdup(psz);
     if (!contacts[i].email) {
       scode = -ENOMEM;
       goto err;
@@ -336,9 +336,9 @@ int ab_enum_contacts(alpm_list_t **pp_contact_list) {
     }
 
     p_contact->id = contacts[i].id;
-    p_contact->fname = xstrdup(contacts[i].fname);
-    p_contact->lname = xstrdup(contacts[i].lname);
-    p_contact->email = xstrdup(contacts[i].email);
+    p_contact->fname = g_strdup(contacts[i].fname);
+    p_contact->lname = g_strdup(contacts[i].lname);
+    p_contact->email = g_strdup(contacts[i].email);
 
     contact_list = alpm_list_add(contact_list, p_contact);
   }
@@ -618,13 +618,13 @@ int ab_get_contact_by_id(int id, ab_contact_t **pp_contact) {
     contact->id = sqlite3_column_int(stmt, 0);
 
     psz = (char const *)sqlite3_column_text(stmt, 1);
-    contact->fname = xstrdup(psz);
+    contact->fname = g_strdup(psz);
 
     psz = (char const *)sqlite3_column_text(stmt, 2);
-    contact->lname = xstrdup(psz);
+    contact->lname = g_strdup(psz);
 
     psz = (char const *)sqlite3_column_text(stmt, 3);
-    contact->email = xstrdup(psz);
+    contact->email = g_strdup(psz);
 
     *pp_contact = contact;
   }

@@ -13,7 +13,6 @@ set(SOURCES
   os_path.c
   user.c
   util.c
-  xalloc.c
 )
 
 set(HEADERS
@@ -24,7 +23,6 @@ set(HEADERS
   os_path.h
   user.h
   util.h
-  xalloc.h
 )
 
 add_library(${TARGETNAME}
@@ -38,10 +36,12 @@ add_dependencies(${TARGETNAME}
 target_include_directories(${TARGETNAME} PUBLIC
   ${CMAKE_SOURCE_DIR}
   ${CMAKE_SOURCE_DIR}/src
+  ${GLIB_INCLUDE_DIRS}
 )
 
 target_link_libraries(${TARGETNAME}
   ${DEPENDENCIES}
+  ${GLIB_LDFLAGS}
 )
 
 add_subdirectory(cli)

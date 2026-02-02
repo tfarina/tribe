@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-#include "xalloc.h"
+#include <glib.h>
 
 /**
  * Creates a directory if it doesn't already exist and its intermediate
@@ -28,7 +28,7 @@ int f_mkdirp(char const *pathname, mode_t mode)
     return -1;
   }
 
-  path = xstrdup(pathname);
+  path = g_strdup(pathname);
   if (path == NULL) {
     return -1;
   }
