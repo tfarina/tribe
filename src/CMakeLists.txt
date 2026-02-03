@@ -9,14 +9,12 @@ set(SOURCES
   ab.c
   ab_contact.c
   dirs.c
-  user.c
   util.c
 )
 
 set(HEADERS
   ab.h
   ab_contact.h
-  user.h
   util.h
 )
 

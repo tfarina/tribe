@@ -2,14 +2,12 @@
 
 #include <glib.h>
 
-#include "user.h"
-
 static char *g_user_data_dir;
 
 void
 dirs_init(void)
 {
-  g_user_data_dir = g_build_filename(user_data_dir(), "tribe", NULL);
+  g_user_data_dir = g_build_filename(g_get_user_data_dir(), "tribe", NULL);
 }
 
 char *
