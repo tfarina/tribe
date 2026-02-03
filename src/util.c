@@ -3,7 +3,6 @@
 #include <glib.h>
 
 #include "dirs.h"
-#include "mkdirp.h"
 
 int ensure_data_dir(void) {
   char const *data_dir;
@@ -11,7 +10,7 @@ int ensure_data_dir(void) {
 
   data_dir = dirs_get_user_data_dir();
   if (!g_file_test(data_dir, G_FILE_TEST_IS_DIR)) {
-    retval = f_mkdirp(data_dir, 0700);
+    retval = g_mkdir_with_parents(data_dir, 0700);
     if (retval < 0) {
       return 0;
     }

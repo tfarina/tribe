@@ -9,7 +9,6 @@ set(SOURCES
   ab.c
   ab_contact.c
   dirs.c
-  mkdirp.c
   user.c
   util.c
 )
@@ -17,7 +16,6 @@ set(SOURCES
 set(HEADERS
   ab.h
   ab_contact.h
-  mkdirp.h
   user.h
   util.h
 )
