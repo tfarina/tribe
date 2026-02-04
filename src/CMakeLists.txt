@@ -6,14 +6,11 @@ set(DEPENDENCIES
 
 set(SOURCES
   ab.c
+  ab.h
   ab_contact.c
+  ab_contact.h
   dirs.c
   util.c
-)
-
-set(HEADERS
-  ab.h
-  ab_contact.h
   util.h
 )
 
