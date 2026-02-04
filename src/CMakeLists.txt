@@ -10,6 +10,7 @@ set(SOURCES
   ab_contact.c
   ab_contact.h
   dirs.c
+  dirs.h
   util.c
   util.h
 )
