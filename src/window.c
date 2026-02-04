@@ -969,11 +969,11 @@ _create_list_view(void)
 }
 
 static void
-_populate_list_view(alpm_list_t *list)
+_populate_list_view(GList *list)
 {
-  alpm_list_t *item;
+  GList *item;
 
-  for (item = list; item; item = alpm_list_next(item))
+  for (item = list; item; item = g_list_next(item))
     {
       _append_item_to_list_store((ab_contact_t *)item->data);
     }
@@ -985,7 +985,7 @@ create_main_window(void)
   GtkWidget *vbox;
   GtkWidget *menuitem;
   GtkWidget *scrolledwin;
-  alpm_list_t *list;
+  GList *list;
 
   /*
    * Main window

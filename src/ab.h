@@ -1,13 +1,14 @@
 #ifndef AB_H_
 #define AB_H_
 
+#include <glib.h>
+
 #include "ab_contact.h"
-#include "third_party/libalpm/alpm_list.h"
 
 int ab_init(char *db_dir);
 int ab_fini(void);
 
-int ab_enum_contacts(alpm_list_t **pp_contact_list);
+int ab_enum_contacts(GList **pp_contact_list);
 int ab_enum_contacts_v2(int *num_contacts, ab_contact_t **contacts_dst);
 
 int ab_add_contact(ab_contact_t *contact);

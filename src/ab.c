@@ -2,6 +2,7 @@
 
 #include <errno.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 #include <glib.h>
@@ -21,7 +22,7 @@
 
 static sqlite3 *hdb = NULL;  /* SQLite db handle */
 
-static alpm_list_t *contact_list;
+static GList *contact_list;
 
 static int _db_close(void) {
   int rc;
@@ -186,7 +187,7 @@ int ab_init(char *db_dir) {
 int ab_fini(void) {
   int rc;
 
-  FREELIST(contact_list);
+  g_list_free_full(contact_list, g_free);
 
   rc = _db_close();
   if (rc < 0) {
@@ -315,7 +316,7 @@ err:
   return scode;
 }
 
-int ab_enum_contacts(alpm_list_t **pp_contact_list) {
+int ab_enum_contacts(GList **pp_contact_list) {
   int rc;
   int num_contacts = 0;
   ab_contact_t *contacts = NULL;
@@ -339,7 +340,7 @@ int ab_enum_contacts(alpm_list_t **pp_contact_list) {
     p_contact->lname = g_strdup(contacts[i].lname);
     p_contact->email = g_strdup(contacts[i].email);
 
-    contact_list = alpm_list_add(contact_list, p_contact);
+    contact_list = g_list_append(contact_list, p_contact);
   }
 
   *pp_contact_list = contact_list;
@@ -418,7 +419,7 @@ int ab_add_contact(ab_contact_t *contact) {
   if (rc < 0)
     return -1;
 
-  contact_list = alpm_list_add(contact_list, contact);
+  contact_list = g_list_append(contact_list, contact);
 
   return 0;
 }

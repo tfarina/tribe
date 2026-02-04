@@ -1,7 +1,6 @@
 set(TARGETNAME ab)
 
 set(DEPENDENCIES
-  alpm
   sqlite
 )
 

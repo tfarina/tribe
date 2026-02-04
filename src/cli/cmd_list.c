@@ -1,5 +1,7 @@
 #include "commands.h"
 
+#include <stdlib.h>
+
 #include "ab.h"
 #include "common.h"
 #include "dirs.h"

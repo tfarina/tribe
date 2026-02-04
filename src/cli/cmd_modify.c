@@ -1,6 +1,7 @@
 #include "commands.h"
 
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "ab.h"
 #include "dirs.h"
