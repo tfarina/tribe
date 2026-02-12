@@ -2,8 +2,8 @@
 
 #include "ab.h"
 #include "dirs.h"
+#include "tribe-application.h"
 #include "util.h"
-#include "window.h"
 
 int
 main(int argc, char **argv)
@@ -11,6 +11,7 @@ main(int argc, char **argv)
   int rc;
   int status = 0; /* success */
   char *dbdir;
+  TribeApplication *app;
   GtkWidget *window;
 
   dirs_init();
@@ -31,12 +32,15 @@ main(int argc, char **argv)
 
   gtk_init(&argc, &argv);
 
-  window = create_main_window();
+  app = tribe_application_new();
+  window = tribe_application_create_main_window(app);
 
   /* Show main window as late as possible. */
   gtk_widget_show_all(window);
 
   gtk_main();
+
+  g_object_unref(app);
 
 out:
   ab_fini();

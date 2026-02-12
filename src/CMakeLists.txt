@@ -50,6 +50,7 @@ set(SOURCES
   about_dialog.c
   contact_editor.c
   main.c
+  tribe-application.c
   window.c
 )
 

@@ -45,6 +45,8 @@ tribe_SOURCES = \
 	contact_editor.c \
 	contact_editor.h \
 	main.c \
+	tribe-application.c \
+	tribe-application.h \
 	window.c \
 	window.h \
 	$(NULL)
