@@ -295,12 +295,6 @@ static void _on_new_contact_cb(ab_contact_t *contact);
 static void _on_edit_contact_cb(ab_contact_t *contact);
 
 static void
-_application_quit(void)
-{
-  gtk_main_quit();
-}
-
-static void
 _edit_selection(void)
 {
   GtkTreeSelection *selection;
@@ -425,6 +419,16 @@ _remove_selection(void)
  * Window callbacks
  */
 
+static void
+_on_destroy_cb (GtkWidget *widget,
+		gpointer   user_data)
+{
+  (void)widget;
+  (void)user_data;
+
+  gtk_main_quit();
+}
+
 static gboolean
 _on_delete_event_cb(GtkWidget	*widget,
                     GdkEvent	*event,
@@ -434,9 +438,7 @@ _on_delete_event_cb(GtkWidget	*widget,
   (void)event;
   (void)data;
 
-  _application_quit();
-
-  return TRUE;
+  return FALSE;
 }
 
 static void
@@ -473,7 +475,7 @@ _on_file_exit_cb(GtkAction *action, gpointer data)
   (void)action;
   (void)data;
 
-  _application_quit();
+  gtk_widget_destroy(GTK_WIDGET(main_window));
 }
 
 /*
@@ -997,6 +999,8 @@ create_main_window(void)
 			      INIT_WINDOW_WIDTH,
 			      INIT_WINDOW_HEIGHT);
 
+  g_signal_connect(G_OBJECT(main_window), "destroy",
+                   G_CALLBACK(_on_destroy_cb), NULL);
   g_signal_connect(G_OBJECT(main_window), "delete-event",
                    G_CALLBACK(_on_delete_event_cb), NULL);
   g_signal_connect(G_OBJECT(main_window), "size-allocate",
