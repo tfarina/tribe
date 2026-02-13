@@ -83,7 +83,6 @@ static GtkWidget *toolbar;
 static GtkToolItem *tb_edit;
 static GtkToolItem *tb_delete;
 static GtkWidget *list_view;
-static GtkWidget *list_context_menu;
 static GtkWidget *statusbar;
 static guint statusbar_cid;
 
@@ -662,6 +661,7 @@ _on_list_button_press_cb(GtkTreeView *widget,
     gboolean can_edit;
     gboolean can_delete;
     GtkAction *action;
+    GtkWidget *menu;
 
     selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(list_view));
     num_selected = gtk_tree_selection_count_selected_rows(selection);
@@ -675,7 +675,9 @@ _on_list_button_press_cb(GtkTreeView *widget,
     action = gtk_ui_manager_get_action(ui_manager, "/LVMenu/LVDelete");
     gtk_action_set_sensitive(action, can_delete);
 
-    gtk_menu_popup(GTK_MENU(list_context_menu), NULL, NULL, NULL, NULL, event->button, event->time);
+    menu = gtk_ui_manager_get_widget(ui_manager, "/LVMenu");
+    gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL, event->button, event->time);
+
     return TRUE;
   }
 
@@ -818,8 +820,6 @@ _create_menubar(void)
   if (!gtk_ui_manager_add_ui_from_string(ui_manager, ui_definition, -1, NULL)) {
     g_error("Unable to load menu definition\n");
   }
-
-  list_context_menu = gtk_ui_manager_get_widget(ui_manager, "/LVMenu");
 
   gtk_window_add_accel_group(GTK_WINDOW(main_window), gtk_ui_manager_get_accel_group(ui_manager));
 
