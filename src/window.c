@@ -82,7 +82,6 @@ static GtkWidget *menubar;
 static GtkWidget *toolbar;
 static GtkToolItem *tb_edit;
 static GtkToolItem *tb_delete;
-static GtkListStore *list_store;
 static GtkWidget *list_view;
 static GtkWidget *list_context_menu;
 static GtkWidget *statusbar;
@@ -704,8 +703,8 @@ _on_list_button_press_cb(GtkTreeView *widget,
 
     selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(list_view));
     selected_rows = gtk_tree_selection_get_selected_rows(selection, &model);
-    gtk_tree_model_get_iter(GTK_TREE_MODEL(list_store), &iter, selected_rows->data);
-    gtk_tree_model_get(GTK_TREE_MODEL(list_store), &iter, COL_PTR, &contact, -1);
+    gtk_tree_model_get_iter(model, &iter, selected_rows->data);
+    gtk_tree_model_get(model, &iter, COL_PTR, &contact, -1);
 
     if (contact != NULL) {
       contact_editor_new(GTK_WINDOW(main_window), AC_EDIT, contact, _on_edit_contact_cb);
@@ -776,10 +775,13 @@ _on_edit_contact_cb(ab_contact_t *contact)
 static void
 _append_item_to_list_store(ab_contact_t *contact)
 {
+  GtkTreeModel *model;
   GtkTreeIter iter;
 
-  gtk_list_store_append(list_store, &iter);
-  gtk_list_store_set(list_store, &iter,
+  model = gtk_tree_view_get_model(GTK_TREE_VIEW(list_view));
+
+  gtk_list_store_append(GTK_LIST_STORE(model), &iter);
+  gtk_list_store_set(GTK_LIST_STORE(model), &iter,
                      COL_FIRST_NAME, ab_contact_get_first_name(contact),
                      COL_LAST_NAME, ab_contact_get_last_name(contact),
                      COL_EMAIL, ab_contact_get_email(contact),
@@ -878,6 +880,7 @@ _create_toolbar(void)
 static GtkWidget *
 _create_list_view(void)
 {
+  GtkListStore *list_store;
   GtkTreeSortable *sortable;
   GtkTreeSelection *selection;
   GtkCellRenderer *renderer;
