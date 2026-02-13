@@ -420,28 +420,6 @@ _remove_selection(void)
  */
 
 static void
-_on_destroy_cb (GtkWidget *widget,
-		gpointer   user_data)
-{
-  (void)widget;
-  (void)user_data;
-
-  gtk_main_quit();
-}
-
-static gboolean
-_on_delete_event_cb(GtkWidget	*widget,
-                    GdkEvent	*event,
-                    gpointer	 data)
-{
-  (void)widget;
-  (void)event;
-  (void)data;
-
-  return FALSE;
-}
-
-static void
 _on_size_allocate_cb(GtkWidget		*widget,
                      GtkAllocation	*allocation)
 {
@@ -999,10 +977,6 @@ create_main_window(void)
 			      INIT_WINDOW_WIDTH,
 			      INIT_WINDOW_HEIGHT);
 
-  g_signal_connect(G_OBJECT(main_window), "destroy",
-                   G_CALLBACK(_on_destroy_cb), NULL);
-  g_signal_connect(G_OBJECT(main_window), "delete-event",
-                   G_CALLBACK(_on_delete_event_cb), NULL);
   g_signal_connect(G_OBJECT(main_window), "size-allocate",
                    G_CALLBACK(_on_size_allocate_cb), NULL);
 
