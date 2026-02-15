@@ -78,7 +78,6 @@ contact_column_compare_func(GtkTreeModel *model,
  */
 static GtkWidget *main_window;
 static GtkUIManager *ui_manager;
-static GtkWidget *menubar;
 static GtkWidget *toolbar;
 static GtkToolItem *tb_edit;
 static GtkToolItem *tb_delete;
@@ -796,7 +795,6 @@ _create_menubar(void)
 {
   GtkActionGroup *action_group;
   GtkAction *action;
-  GtkWidget *menubar;
 
   ui_manager = gtk_ui_manager_new();
 
@@ -829,8 +827,7 @@ _create_menubar(void)
   action = gtk_ui_manager_get_action(ui_manager, "/MainMenu/FileMenu/Delete");
   gtk_action_set_sensitive(action, FALSE);
 
-  menubar = gtk_ui_manager_get_widget(ui_manager, "/MainMenu");
-  return menubar;
+  return gtk_ui_manager_get_widget(ui_manager, "/MainMenu");
 }
 
 static GtkWidget *
@@ -966,6 +963,7 @@ GtkWidget *
 create_main_window(void)
 {
   GtkWidget *vbox;
+  GtkWidget *menubar;
   GtkWidget *menuitem;
   GtkWidget *scrolledwin;
   GList *list;
