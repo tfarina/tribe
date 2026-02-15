@@ -801,7 +801,7 @@ _create_menubar(void)
   action_group = gtk_action_group_new("MenuActions");
   gtk_action_group_set_translation_domain(action_group, NULL);
   gtk_action_group_add_actions(action_group, menubar_entries,
-			       G_N_ELEMENTS(menubar_entries), NULL);
+			       G_N_ELEMENTS(menubar_entries), main_window);
   gtk_action_group_add_toggle_actions(action_group, menubar_toggle_entries,
 			              G_N_ELEMENTS(menubar_toggle_entries),
 				      NULL);
@@ -811,7 +811,7 @@ _create_menubar(void)
 				     NULL);
 
   gtk_action_group_add_actions(action_group, list_context_entries,
-			       G_N_ELEMENTS(list_context_entries), NULL);
+			       G_N_ELEMENTS(list_context_entries), main_window);
   gtk_ui_manager_insert_action_group(ui_manager, action_group, 0);
 
 
