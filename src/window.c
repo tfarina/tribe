@@ -450,7 +450,7 @@ _on_file_exit_cb(GtkAction *action, gpointer data)
   (void)action;
   (void)data;
 
-  gtk_widget_destroy(GTK_WIDGET(main_window));
+  gtk_widget_destroy(GTK_WIDGET(data));
 }
 
 /*
@@ -507,9 +507,9 @@ static void
 _on_view_fullscreen_cb(GtkAction *action, gpointer data)
 {
   if (!gtk_toggle_action_get_active(GTK_TOGGLE_ACTION(action))) {
-    gtk_window_unfullscreen(GTK_WINDOW(main_window));
+    gtk_window_unfullscreen(GTK_WINDOW(data));
   } else {
-    gtk_window_fullscreen(GTK_WINDOW(main_window));
+    gtk_window_fullscreen(GTK_WINDOW(data));
   }
 }
 
@@ -547,7 +547,7 @@ _on_help_contents_cb(GtkAction *action, gpointer data)
   guint32 timestamp;
   GError *error = NULL;
 
-  screen = gtk_widget_get_screen(main_window);
+  screen = gtk_widget_get_screen(GTK_WIDGET(data));
   timestamp = gtk_get_current_event_time();
 
   gtk_show_uri(screen, "help:" PACKAGE, timestamp, &error);
@@ -556,7 +556,7 @@ _on_help_contents_cb(GtkAction *action, gpointer data)
 static void
 _on_help_about_cb(GtkAction *action, gpointer data)
 {
-  show_about_dialog(GTK_WINDOW(main_window));
+  show_about_dialog(GTK_WINDOW(data));
 }
 
 /*
@@ -804,7 +804,7 @@ _create_menubar(void)
 			       G_N_ELEMENTS(menubar_entries), main_window);
   gtk_action_group_add_toggle_actions(action_group, menubar_toggle_entries,
 			              G_N_ELEMENTS(menubar_toggle_entries),
-				      NULL);
+				      main_window);
   gtk_action_group_add_radio_actions(action_group, menubar_radio_entries,
 				     G_N_ELEMENTS(menubar_radio_entries),
 				     1, G_CALLBACK(_on_view_toolbar_style_cb),
