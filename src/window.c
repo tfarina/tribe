@@ -709,6 +709,7 @@ _on_list_button_press_cb(GtkTreeView *widget,
     }
     gtk_tree_model_get_iter(model, &iter, selected_rows->data);
     gtk_tree_model_get(model, &iter, COL_PTR, &contact, -1);
+    g_list_free_full(selected_rows, (GDestroyNotify) gtk_tree_path_free);
 
     if (contact != NULL) {
       contact_editor_new(GTK_WINDOW(main_window), AC_EDIT, contact, _on_edit_contact_cb);
