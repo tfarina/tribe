@@ -321,8 +321,7 @@ _edit_selection(void)
       contact_editor_new(GTK_WINDOW(main_window), AC_EDIT, contact, _on_edit_contact_cb);
     }
 
-  g_list_foreach(paths, (GFunc)gtk_tree_path_free, NULL);
-  g_list_free(paths);
+  g_list_free_full(paths, (GDestroyNotify)gtk_tree_path_free);
 }
 
 static void
