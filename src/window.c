@@ -704,6 +704,9 @@ _on_list_button_press_cb(GtkTreeView *widget,
 
     selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(list_view));
     selected_rows = gtk_tree_selection_get_selected_rows(selection, &model);
+    if (!selected_rows) {
+      return FALSE;
+    }
     gtk_tree_model_get_iter(model, &iter, selected_rows->data);
     gtk_tree_model_get(model, &iter, COL_PTR, &contact, -1);
 
