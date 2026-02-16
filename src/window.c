@@ -638,6 +638,7 @@ _on_list_button_press_cb(GtkTreeView *widget,
                          GdkEventButton *event,
                          gpointer data)
 {
+  GtkWidget *window = data;
   GtkTreeSelection *selection;
   GtkTreePath *path;
   GtkTreeViewColumn *column;
@@ -721,7 +722,7 @@ _on_list_button_press_cb(GtkTreeView *widget,
     g_list_free_full(selected_rows, (GDestroyNotify) gtk_tree_path_free);
 
     if (contact != NULL) {
-      contact_editor_new(GTK_WINDOW(main_window), AC_EDIT, contact, _on_edit_contact_cb);
+      contact_editor_new(GTK_WINDOW(window), AC_EDIT, contact, _on_edit_contact_cb);
     }
 
     return TRUE;
@@ -927,11 +928,11 @@ _create_list_view(void)
 
   /* Set up notification callbacks. */
   g_signal_connect(selection, "changed",
-		   G_CALLBACK(_on_selection_changed_cb), NULL);
+		   G_CALLBACK(_on_selection_changed_cb), main_window);
   g_signal_connect(list_view, "button-press-event",
-		   G_CALLBACK(_on_list_button_press_cb), NULL);
+		   G_CALLBACK(_on_list_button_press_cb), main_window);
   g_signal_connect(list_view, "key-press-event",
-		   G_CALLBACK(_on_list_key_press_cb), NULL);
+		   G_CALLBACK(_on_list_key_press_cb), main_window);
 
   /* Create the columns. */
   renderer = gtk_cell_renderer_text_new();
