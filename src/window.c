@@ -606,7 +606,7 @@ _on_selection_changed_cb(GtkTreeSelection *selection, gpointer data)
   gboolean can_edit;
   gboolean can_delete;
   GtkAction *action;
-  char buf[256];
+  char *message;
 
   num_selected = gtk_tree_selection_count_selected_rows(selection);
 
@@ -623,14 +623,13 @@ _on_selection_changed_cb(GtkTreeSelection *selection, gpointer data)
 
   if (statusbar != NULL) {
     gtk_statusbar_pop(GTK_STATUSBAR(statusbar), statusbar_cid);
-    if (num_selected == 1) {
-      snprintf(buf, sizeof(buf), "%d item selected", num_selected);
-    } else if (num_selected > 1) {
-      snprintf(buf, sizeof(buf), "%d items selected", num_selected);
-    } else {
-      memset(buf, 0, sizeof(buf));
+    if (num_selected > 0) {
+       message = g_strdup_printf("%d item%s selected",
+				 num_selected,
+				 num_selected == 1 ? "" : "s");
+       gtk_statusbar_push(GTK_STATUSBAR(statusbar), statusbar_cid, message);
+       g_free(message);
     }
-    gtk_statusbar_push(GTK_STATUSBAR(statusbar), statusbar_cid, buf);
   }
 }
 
