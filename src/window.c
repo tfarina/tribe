@@ -816,7 +816,7 @@ _create_menubar(void)
   gtk_action_group_add_actions(action_group, list_context_entries,
 			       G_N_ELEMENTS(list_context_entries), main_window);
   gtk_ui_manager_insert_action_group(ui_manager, action_group, 0);
-
+  g_object_unref(action_group);
 
   if (!gtk_ui_manager_add_ui_from_string(ui_manager, ui_definition, -1, NULL)) {
     g_error("Unable to load menu definition\n");
