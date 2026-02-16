@@ -545,11 +545,22 @@ _on_help_contents_cb(GtkAction *action, gpointer data)
   GdkScreen *screen = NULL;
   guint32 timestamp;
   GError *error = NULL;
+  GtkWidget *dialog;
 
   screen = gtk_widget_get_screen(GTK_WIDGET(data));
   timestamp = gtk_get_current_event_time();
 
   gtk_show_uri(screen, "help:" PACKAGE, timestamp, &error);
+  if (error) {
+    dialog = gtk_message_dialog_new(GTK_WINDOW(data),
+                                    GTK_DIALOG_DESTROY_WITH_PARENT,
+                                    GTK_MESSAGE_ERROR,
+                                    GTK_BUTTONS_CLOSE,
+                                    "%s", error->message);
+    gtk_dialog_run(GTK_DIALOG(dialog));
+    gtk_widget_destroy(dialog);
+    g_error_free(error);
+  }
 }
 
 static void
