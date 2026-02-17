@@ -292,7 +292,7 @@ static void _on_new_contact_cb(ab_contact_t *contact);
 static void _on_edit_contact_cb(ab_contact_t *contact);
 
 static void
-_edit_selection(void)
+_edit_selection(GtkWindow *window)
 {
   GtkTreeSelection *selection;
   GtkTreeModel *model;
@@ -318,14 +318,14 @@ _edit_selection(void)
 	  continue;
 	}
 
-      contact_editor_new(GTK_WINDOW(main_window), AC_EDIT, contact, _on_edit_contact_cb);
+      contact_editor_new(window, AC_EDIT, contact, _on_edit_contact_cb);
     }
 
   g_list_free_full(paths, (GDestroyNotify)gtk_tree_path_free);
 }
 
 static void
-_remove_selection(void)
+_remove_selection(GtkWindow *window)
 {
   GtkWidget *dialog;
   gint response;
@@ -339,7 +339,7 @@ _remove_selection(void)
   gboolean has_row = FALSE;
   gint n;
 
-  dialog = gtk_message_dialog_new(GTK_WINDOW(main_window),
+  dialog = gtk_message_dialog_new(window,
 				  GTK_DIALOG_DESTROY_WITH_PARENT,
 				  GTK_MESSAGE_QUESTION,
 				  GTK_BUTTONS_YES_NO,
@@ -469,13 +469,13 @@ _on_edit_select_all_cb(GtkAction *action, gpointer data)
 static void
 _on_file_properties_cb(GtkAction *action, gpointer data)
 {
-  _edit_selection();
+  _edit_selection(GTK_WINDOW(data));
 }
 
 static void
 _on_file_delete_cb(GtkAction *action, gpointer data)
 {
-  _remove_selection();
+  _remove_selection(GTK_WINDOW(data));
 }
 
 /*
@@ -586,13 +586,13 @@ _on_toolbar_new_cb(GtkWidget *widget, gpointer data)
 static void
 _on_toolbar_properties_cb(GtkWidget *widget, gpointer data)
 {
-  _edit_selection();
+  _edit_selection(GTK_WINDOW(data));
 }
 
 static void
 _on_toolbar_delete_cb(GtkWidget *widget, gpointer data)
 {
-  _remove_selection();
+  _remove_selection(GTK_WINDOW(data));
 }
 
 /*
@@ -736,7 +736,7 @@ _on_list_key_press_cb(GtkWidget *widget, GdkEventKey *event, gpointer data)
 {
   if (event && event->keyval == GDK_KEY_Delete)
     {
-      _remove_selection ();
+      _remove_selection(GTK_WINDOW(data));
       return TRUE;
     }
 
