@@ -76,7 +76,6 @@ contact_column_compare_func(GtkTreeModel *model,
 /*
  * Main window widgets.
  */
-static GtkWidget *main_window;
 static GtkUIManager *ui_manager;
 static GtkWidget *toolbar;
 static GtkToolItem *tb_edit;
@@ -805,7 +804,7 @@ _append_item_to_list_store(ab_contact_t *contact)
 }
 
 static GtkWidget *
-_create_menubar(void)
+_create_menubar(GtkWindow *window)
 {
   GtkActionGroup *action_group;
   GtkAction *action;
@@ -815,17 +814,17 @@ _create_menubar(void)
   action_group = gtk_action_group_new("MenuActions");
   gtk_action_group_set_translation_domain(action_group, NULL);
   gtk_action_group_add_actions(action_group, menubar_entries,
-			       G_N_ELEMENTS(menubar_entries), main_window);
+			       G_N_ELEMENTS(menubar_entries), window);
   gtk_action_group_add_toggle_actions(action_group, menubar_toggle_entries,
 			              G_N_ELEMENTS(menubar_toggle_entries),
-				      main_window);
+				      window);
   gtk_action_group_add_radio_actions(action_group, menubar_radio_entries,
 				     G_N_ELEMENTS(menubar_radio_entries),
 				     1, G_CALLBACK(_on_view_toolbar_style_cb),
 				     NULL);
 
   gtk_action_group_add_actions(action_group, list_context_entries,
-			       G_N_ELEMENTS(list_context_entries), main_window);
+			       G_N_ELEMENTS(list_context_entries), window);
   gtk_ui_manager_insert_action_group(ui_manager, action_group, 0);
   g_object_unref(action_group);
 
@@ -833,7 +832,7 @@ _create_menubar(void)
     g_error("Unable to load menu definition\n");
   }
 
-  gtk_window_add_accel_group(GTK_WINDOW(main_window), gtk_ui_manager_get_accel_group(ui_manager));
+  gtk_window_add_accel_group(window, gtk_ui_manager_get_accel_group(ui_manager));
 
   action = gtk_ui_manager_get_action(ui_manager, "/MainMenu/FileMenu/Properties");
   gtk_action_set_sensitive(action, FALSE);
@@ -845,7 +844,7 @@ _create_menubar(void)
 }
 
 static GtkWidget *
-_create_toolbar(void)
+_create_toolbar(GtkWindow *window)
 {
   GtkWidget* icon;
   GtkToolItem *tb_new;
@@ -862,7 +861,7 @@ _create_toolbar(void)
   gtk_tool_item_set_is_important(tb_new, TRUE);
   gtk_toolbar_insert(GTK_TOOLBAR(toolbar), tb_new, -1);
   g_signal_connect(G_OBJECT(tb_new), "clicked",
-		   G_CALLBACK(_on_toolbar_new_cb), main_window);
+		   G_CALLBACK(_on_toolbar_new_cb), window);
 
   /* Properties button */
   icon = gtk_image_new_from_icon_name(GTK_STOCK_EDIT, GTK_ICON_SIZE_BUTTON);
@@ -871,7 +870,7 @@ _create_toolbar(void)
   gtk_tool_item_set_is_important(tb_edit, TRUE);
   gtk_toolbar_insert(GTK_TOOLBAR(toolbar), tb_edit, -1);
   g_signal_connect(G_OBJECT(tb_edit), "clicked",
-		   G_CALLBACK(_on_toolbar_properties_cb), main_window);
+		   G_CALLBACK(_on_toolbar_properties_cb), window);
 
   /* Delete button */
   icon = gtk_image_new_from_icon_name(GTK_STOCK_DELETE, GTK_ICON_SIZE_BUTTON);
@@ -880,7 +879,7 @@ _create_toolbar(void)
   gtk_tool_item_set_is_important(tb_delete, TRUE);
   gtk_toolbar_insert(GTK_TOOLBAR(toolbar), tb_delete, -1);
   g_signal_connect(G_OBJECT(tb_delete), "clicked",
-		   G_CALLBACK(_on_toolbar_delete_cb), main_window);
+		   G_CALLBACK(_on_toolbar_delete_cb), window);
 
   gtk_widget_set_sensitive(GTK_WIDGET(tb_edit), FALSE);
   gtk_widget_set_sensitive(GTK_WIDGET(tb_delete), FALSE);
@@ -889,7 +888,7 @@ _create_toolbar(void)
 }
 
 static GtkWidget *
-_create_list_view(void)
+_create_list_view(GtkWindow *window)
 {
   GtkListStore *list_store;
   GtkTreeSortable *sortable;
@@ -928,11 +927,11 @@ _create_list_view(void)
 
   /* Set up notification callbacks. */
   g_signal_connect(selection, "changed",
-		   G_CALLBACK(_on_selection_changed_cb), main_window);
+		   G_CALLBACK(_on_selection_changed_cb), window);
   g_signal_connect(list_view, "button-press-event",
-		   G_CALLBACK(_on_list_button_press_cb), main_window);
+		   G_CALLBACK(_on_list_button_press_cb), window);
   g_signal_connect(list_view, "key-press-event",
-		   G_CALLBACK(_on_list_key_press_cb), main_window);
+		   G_CALLBACK(_on_list_key_press_cb), window);
 
   /* Create the columns. */
   renderer = gtk_cell_renderer_text_new();
@@ -976,6 +975,7 @@ _populate_list_view(GList *list)
 GtkWidget *
 create_main_window(void)
 {
+  GtkWidget *main_window;
   GtkWidget *vbox;
   GtkWidget *menubar;
   GtkWidget *menuitem;
@@ -1004,13 +1004,13 @@ create_main_window(void)
   /*
    * Menubar
    */
-  menubar = _create_menubar();
+  menubar = _create_menubar(GTK_WINDOW(main_window));
   gtk_box_pack_start(GTK_BOX(vbox), menubar, FALSE, TRUE, 0);
 
   /*
    * Toolbar
    */
-  toolbar = _create_toolbar();
+  toolbar = _create_toolbar(GTK_WINDOW(main_window));
   gtk_box_pack_start(GTK_BOX(vbox), toolbar, FALSE, TRUE, 0);
 
   /*
@@ -1025,7 +1025,7 @@ create_main_window(void)
   /*
    * List view
    */
-  list_view = _create_list_view();
+  list_view = _create_list_view(GTK_WINDOW(main_window));
   gtk_container_add(GTK_CONTAINER(scrolledwin), list_view);
 
   /*
