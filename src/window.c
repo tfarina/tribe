@@ -817,7 +817,7 @@ _create_menubar(GtkWindow *window)
   return gtk_ui_manager_get_widget(ui_manager, "/MainMenu");
 }
 
-static GtkWidget *
+static void
 _create_toolbar(GtkWindow *window)
 {
   GtkWidget* icon;
@@ -857,11 +857,9 @@ _create_toolbar(GtkWindow *window)
 
   gtk_widget_set_sensitive(GTK_WIDGET(tb_edit), FALSE);
   gtk_widget_set_sensitive(GTK_WIDGET(tb_delete), FALSE);
-
-  return toolbar;
 }
 
-static GtkWidget *
+static void
 _create_list_view(GtkWindow *window)
 {
   GtkListStore *list_store;
@@ -931,8 +929,6 @@ _create_list_view(GtkWindow *window)
   gtk_tree_view_column_set_resizable(column, TRUE);
   gtk_tree_view_column_set_sort_column_id(column, COL_EMAIL);
   gtk_tree_view_append_column(GTK_TREE_VIEW(list_view), column);
-
-  return list_view;
 }
 
 static void
@@ -984,7 +980,7 @@ create_main_window(void)
   /*
    * Toolbar
    */
-  toolbar = _create_toolbar(GTK_WINDOW(main_window));
+  _create_toolbar(GTK_WINDOW(main_window));
   gtk_box_pack_start(GTK_BOX(vbox), toolbar, FALSE, TRUE, 0);
 
   /*
@@ -999,7 +995,7 @@ create_main_window(void)
   /*
    * List view
    */
-  list_view = _create_list_view(GTK_WINDOW(main_window));
+  _create_list_view(GTK_WINDOW(main_window));
   gtk_container_add(GTK_CONTAINER(scrolledwin), list_view);
 
   /*
