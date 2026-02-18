@@ -569,32 +569,6 @@ _on_help_about_cb(GtkAction *action, gpointer data)
 }
 
 /*
- * Toolbar callbacks
- */
-
-static void
-_on_toolbar_new_cb(GtkWidget *widget, gpointer data)
-{
-  ab_contact_t *contact;
-
-  ab_contact_create(&contact);
-
-  contact_editor_new(GTK_WINDOW(data), AC_ADD, contact, _on_new_contact_cb);
-}
-
-static void
-_on_toolbar_properties_cb(GtkWidget *widget, gpointer data)
-{
-  _edit_selection(GTK_WINDOW(data));
-}
-
-static void
-_on_toolbar_delete_cb(GtkWidget *widget, gpointer data)
-{
-  _remove_selection(GTK_WINDOW(data));
-}
-
-/*
  * List view callbacks
  */
 
@@ -861,7 +835,7 @@ _create_toolbar(GtkWindow *window)
   gtk_tool_item_set_is_important(tb_new, TRUE);
   gtk_toolbar_insert(GTK_TOOLBAR(toolbar), tb_new, -1);
   g_signal_connect(G_OBJECT(tb_new), "clicked",
-		   G_CALLBACK(_on_toolbar_new_cb), window);
+		   G_CALLBACK(_on_file_new_contact_cb), window);
 
   /* Properties button */
   icon = gtk_image_new_from_icon_name(GTK_STOCK_EDIT, GTK_ICON_SIZE_BUTTON);
@@ -870,7 +844,7 @@ _create_toolbar(GtkWindow *window)
   gtk_tool_item_set_is_important(tb_edit, TRUE);
   gtk_toolbar_insert(GTK_TOOLBAR(toolbar), tb_edit, -1);
   g_signal_connect(G_OBJECT(tb_edit), "clicked",
-		   G_CALLBACK(_on_toolbar_properties_cb), window);
+		   G_CALLBACK(_on_file_properties_cb), window);
 
   /* Delete button */
   icon = gtk_image_new_from_icon_name(GTK_STOCK_DELETE, GTK_ICON_SIZE_BUTTON);
@@ -879,7 +853,7 @@ _create_toolbar(GtkWindow *window)
   gtk_tool_item_set_is_important(tb_delete, TRUE);
   gtk_toolbar_insert(GTK_TOOLBAR(toolbar), tb_delete, -1);
   g_signal_connect(G_OBJECT(tb_delete), "clicked",
-		   G_CALLBACK(_on_toolbar_delete_cb), window);
+		   G_CALLBACK(_on_file_delete_cb), window);
 
   gtk_widget_set_sensitive(GTK_WIDGET(tb_edit), FALSE);
   gtk_widget_set_sensitive(GTK_WIDGET(tb_delete), FALSE);
