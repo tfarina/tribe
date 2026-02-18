@@ -795,7 +795,7 @@ _create_menubar(GtkWindow *window)
   gtk_action_group_add_radio_actions(action_group, menubar_radio_entries,
 				     G_N_ELEMENTS(menubar_radio_entries),
 				     1, G_CALLBACK(_on_view_toolbar_style_cb),
-				     NULL);
+				     window);
 
   gtk_action_group_add_actions(action_group, list_context_entries,
 			       G_N_ELEMENTS(list_context_entries), window);
