@@ -8,6 +8,7 @@
 static action_code_t action_code;
 static ab_contact_t *current_contact;
 static editor_post_cb_t add_edit_post_cb = NULL;
+static gpointer window_data;
 
 /*
  * Widgets
@@ -70,7 +71,7 @@ static void _contact_editor_ok_cb(GtkWidget *widget, gboolean *cancelled)
 
   if (add_edit_post_cb)
   {
-    add_edit_post_cb(current_contact);
+    add_edit_post_cb(current_contact, window_data);
   }
 }
 
@@ -98,7 +99,7 @@ static gboolean _on_contact_window_key_press_cb(GtkWidget *widget,
   return FALSE;
 }
 
-void contact_editor_new(GtkWindow *parent, action_code_t ac, ab_contact_t *contact, editor_post_cb_t post_cb)
+void contact_editor_new(GtkWindow *parent, action_code_t ac, ab_contact_t *contact, editor_post_cb_t post_cb, gpointer user_data)
 {
   GtkWidget *vbox;
   GtkWidget *notebook;
@@ -112,6 +113,7 @@ void contact_editor_new(GtkWindow *parent, action_code_t ac, ab_contact_t *conta
   action_code = ac;
   current_contact = contact;
   add_edit_post_cb = post_cb;
+  window_data = user_data;
 
   contact_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
   gtk_window_set_title(GTK_WINDOW(contact_window), "Properties");

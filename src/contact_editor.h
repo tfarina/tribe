@@ -10,8 +10,8 @@ typedef enum action_code_e {
   AC_EDIT,
 } action_code_t;
 
-typedef void (*editor_post_cb_t)(ab_contact_t *contact);
+typedef void (*editor_post_cb_t)(ab_contact_t *contact, gpointer user_data);
 
-void contact_editor_new(GtkWindow *parent, action_code_t ac, ab_contact_t *contact, editor_post_cb_t post_cb);
+void contact_editor_new(GtkWindow *parent, action_code_t ac, ab_contact_t *contact, editor_post_cb_t post_cb, gpointer user_data);
 
 #endif /* CONTACT_EDITOR_H */
