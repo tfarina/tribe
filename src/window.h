@@ -33,8 +33,6 @@ GType               tribe_window_get_type                (void) G_GNUC_CONST;
 
 GtkWidget *         tribe_window_new                     (TribeApplication *application);
 
-GtkWidget *create_main_window(void);
-
 G_END_DECLS
 
 #endif /* WINDOW_H */

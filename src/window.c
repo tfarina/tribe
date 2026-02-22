@@ -1141,9 +1141,3 @@ tribe_window_new(TribeApplication *application)
 
   return GTK_WIDGET(window);
 }
-
-GtkWidget *
-create_main_window(void)
-{
-  return tribe_window_new(NULL);
-}

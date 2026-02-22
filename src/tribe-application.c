@@ -60,7 +60,7 @@ tribe_application_create_main_window (TribeApplication *self)
 
   g_return_val_if_fail (TRIBE_IS_APPLICATION (self), NULL);
 
-  main_window = create_main_window ();
+  main_window = tribe_window_new (self);
 
   g_signal_connect(G_OBJECT(main_window), "destroy",
                    G_CALLBACK(on_destroy_cb), NULL);
