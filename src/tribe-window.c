@@ -1,6 +1,6 @@
 /*https://stackoverflow.com/questions/45389291/how-to-display-data-from-a-sqlite-database-into-a-gtk-treeview*/
 
-#include "window.h"
+#include "tribe-window.h"
 
 #include "config.h"
 

@@ -1,5 +1,5 @@
-#ifndef WINDOW_H
-#define WINDOW_H
+#ifndef TRIBE_WINDOW_H
+#define TRIBE_WINDOW_H
 
 #include <gtk/gtk.h>
 
@@ -35,4 +35,4 @@ GtkWidget *         tribe_window_new                     (TribeApplication *appl
 
 G_END_DECLS
 
-#endif /* WINDOW_H */
+#endif /* TRIBE_WINDOW_H */

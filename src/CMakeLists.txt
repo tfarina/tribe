@@ -54,8 +54,8 @@ set(SOURCES
   main.c
   tribe-application.c
   tribe-application.h
-  window.c
-  window.h
+  tribe-window.c
+  tribe-window.h
 )
 
 add_executable(${TARGETNAME}

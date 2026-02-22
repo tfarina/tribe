@@ -1,6 +1,6 @@
 #include "tribe-application.h"
 
-#include "window.h"
+#include "tribe-window.h"
 
 struct _TribeApplicationPrivate
 {
