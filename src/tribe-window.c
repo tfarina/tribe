@@ -169,10 +169,10 @@ static char const ui_definition[] =
       "</menu>"
     "</menubar>"
     "<popup name=\"LVMenu\">"
-      "<menuitem action=\"LVNewContact\"/>"
+      "<menuitem action=\"NewContact\"/>"
       "<separator/>"
-      "<menuitem action=\"LVProperties\"/>"
-      "<menuitem action=\"LVDelete\"/>"
+      "<menuitem action=\"Properties\"/>"
+      "<menuitem action=\"Delete\"/>"
     "</popup>"
   "</ui>";
 
@@ -280,23 +280,6 @@ static GtkRadioActionEntry menubar_radio_entries[] =
    "_Text only", NULL,
    NULL,
    TOOLBAR_STYLE_TEXT },
-};
-
-static GtkActionEntry list_context_entries[] =
-{
-  {"LVNewContact", NULL,                  /* name, stock id */
-   "New _Contact...", NULL,               /* label, accelerator */
-   NULL,                                  /* tooltip */
-   G_CALLBACK(_on_file_new_contact_cb) },
-  /* Separator --- */
-  {"LVProperties", NULL,
-   "P_roperties", NULL,
-   NULL,
-   G_CALLBACK(_on_file_properties_cb) },
-  {"LVDelete", NULL,
-   "_Delete", NULL,
-   NULL,
-   G_CALLBACK(_on_file_delete_cb) },
 };
 
 /*
@@ -718,10 +701,10 @@ _on_list_button_press_cb(GtkTreeView *widget,
     can_edit = num_selected == 1;
     can_delete = num_selected > 0;
 
-    action = gtk_ui_manager_get_action(priv->ui_manager, "/LVMenu/LVProperties");
+    action = gtk_ui_manager_get_action(priv->ui_manager, "/LVMenu/Properties");
     gtk_action_set_sensitive(action, can_edit);
 
-    action = gtk_ui_manager_get_action(priv->ui_manager, "/LVMenu/LVDelete");
+    action = gtk_ui_manager_get_action(priv->ui_manager, "/LVMenu/Delete");
     gtk_action_set_sensitive(action, can_delete);
 
     menu = gtk_ui_manager_get_widget(priv->ui_manager, "/LVMenu");
@@ -880,9 +863,6 @@ _create_menubar(TribeWindow *window)
 				     G_N_ELEMENTS(menubar_radio_entries),
 				     1, G_CALLBACK(_on_view_toolbar_style_cb),
 				     window);
-
-  gtk_action_group_add_actions(action_group, list_context_entries,
-			       G_N_ELEMENTS(list_context_entries), window);
   gtk_ui_manager_insert_action_group(priv->ui_manager, action_group, 0);
   g_object_unref(action_group);
 
