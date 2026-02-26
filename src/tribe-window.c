@@ -319,7 +319,7 @@ _edit_selection(TribeWindow *window)
 	  continue;
 	}
 
-      contact_editor_new(GTK_WINDOW(window), AC_EDIT, contact, _on_edit_contact_cb, window);
+      contact_editor_new(GTK_WINDOW(window), TRIBE_CONTACT_EDITOR_MODE_EDIT, contact, _on_edit_contact_cb, window);
     }
 
   g_list_free_full(paths, (GDestroyNotify)gtk_tree_path_free);
@@ -445,7 +445,7 @@ _on_file_new_contact_cb(GtkAction *action, gpointer data)
   window = TRIBE_WINDOW(data);
   ab_contact_create(&contact);
 
-  contact_editor_new(GTK_WINDOW(window), AC_ADD, contact, _on_new_contact_cb, window);
+  contact_editor_new(GTK_WINDOW(window), TRIBE_CONTACT_EDITOR_MODE_CREATE, contact, _on_new_contact_cb, window);
 }
 
 static void
@@ -745,7 +745,7 @@ _on_list_button_press_cb(GtkTreeView *widget,
     g_list_free_full(selected_rows, (GDestroyNotify) gtk_tree_path_free);
 
     if (contact != NULL) {
-      contact_editor_new(GTK_WINDOW(window), AC_EDIT, contact, _on_edit_contact_cb, window);
+      contact_editor_new(GTK_WINDOW(window), TRIBE_CONTACT_EDITOR_MODE_EDIT, contact, _on_edit_contact_cb, window);
     }
 
     return TRUE;

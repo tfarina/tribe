@@ -5,7 +5,7 @@
 
 #include <string.h>
 
-static action_code_t action_code;
+static TribeContactEditorMode current_mode;
 static ab_contact_t *current_contact;
 static editor_post_cb_t add_edit_post_cb = NULL;
 static gpointer window_data;
@@ -58,7 +58,7 @@ static void _contact_editor_ok_cb(GtkWidget *widget, gboolean *cancelled)
     ab_contact_set_email(current_contact, entry_text);
   }
 
-  if (action_code == AC_ADD)
+  if (current_mode == TRIBE_CONTACT_EDITOR_MODE_CREATE)
   {
     ab_add_contact(current_contact);
   }
@@ -77,7 +77,7 @@ static void _contact_editor_ok_cb(GtkWidget *widget, gboolean *cancelled)
 
 static void _contact_editor_cancel_cb(GtkWidget *widget, gboolean *cancelled)
 {
-  if (action_code == AC_ADD)
+  if (current_mode == TRIBE_CONTACT_EDITOR_MODE_CREATE)
   {
     if (current_contact)
     {
@@ -99,7 +99,7 @@ static gboolean _on_contact_window_key_press_cb(GtkWidget *widget,
   return FALSE;
 }
 
-void contact_editor_new(GtkWindow *parent, action_code_t ac, ab_contact_t *contact, editor_post_cb_t post_cb, gpointer user_data)
+void contact_editor_new(GtkWindow *parent, TribeContactEditorMode mode, ab_contact_t *contact, editor_post_cb_t post_cb, gpointer user_data)
 {
   GtkWidget *vbox;
   GtkWidget *notebook;
@@ -110,7 +110,7 @@ void contact_editor_new(GtkWindow *parent, action_code_t ac, ab_contact_t *conta
   GtkWidget *ok_btn;
   char const* entry_text;
 
-  action_code = ac;
+  current_mode = mode;
   current_contact = contact;
   add_edit_post_cb = post_cb;
   window_data = user_data;

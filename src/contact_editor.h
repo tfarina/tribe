@@ -5,13 +5,13 @@
 
 #include "ab.h"
 
-typedef enum action_code_e {
-  AC_ADD = 0,
-  AC_EDIT,
-} action_code_t;
+typedef enum {
+  TRIBE_CONTACT_EDITOR_MODE_CREATE,
+  TRIBE_CONTACT_EDITOR_MODE_EDIT,
+} TribeContactEditorMode;
 
 typedef void (*editor_post_cb_t)(ab_contact_t *contact, gpointer user_data);
 
-void contact_editor_new(GtkWindow *parent, action_code_t ac, ab_contact_t *contact, editor_post_cb_t post_cb, gpointer user_data);
+void contact_editor_new(GtkWindow *parent, TribeContactEditorMode mode, ab_contact_t *contact, editor_post_cb_t post_cb, gpointer user_data);
 
 #endif /* CONTACT_EDITOR_H */
