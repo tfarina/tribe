@@ -248,12 +248,12 @@ static GtkToggleActionEntry menubar_toggle_entries[] =
    "_Toolbar", "<control><alt>T",   /* label, accelerator */
    NULL,                            /* tooltip */
    G_CALLBACK(_on_view_toolbar_cb),
-   FALSE },                         /* is_active */
+   TRUE },                         /* is_active */
   {"StatusBar", NULL,
    "_Status Bar", "",
    NULL,
    G_CALLBACK(_on_view_statusbar_cb),
-   FALSE },
+   TRUE },
   /* Separator --- */
   {"FullScreen", NULL,
    "_Full Screen", "F11",
@@ -1105,11 +1105,6 @@ tribe_window_new(TribeApplication *application)
   /*
    * Set up menu items
    */
-  menuitem = gtk_ui_manager_get_widget(priv->ui_manager, "/MainMenu/ViewMenu/ToolBar");
-  gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem), TRUE);
-  menuitem = gtk_ui_manager_get_widget(priv->ui_manager, "/MainMenu/ViewMenu/StatusBar");
-  gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem), TRUE);
-
   menuitem = gtk_ui_manager_get_widget(priv->ui_manager, "/MainMenu/ViewMenu/ToolBarStyleMenu/TextBelowIcon");
   gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(menuitem), TRUE);
 
