@@ -100,8 +100,8 @@ static gboolean _on_contact_window_key_press_cb(GtkWidget *widget,
 }
 
 void contact_editor_new(GtkWindow                      *parent,
-			TribeContactEditorMode          mode,
 			ab_contact_t                   *contact,
+			TribeContactEditorMode          mode,
 			TribeContactEditorResponseFunc  response_cb,
 			gpointer                        user_data)
 {
