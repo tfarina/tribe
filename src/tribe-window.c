@@ -287,8 +287,8 @@ static GtkRadioActionEntry menubar_radio_entries[] =
  */
 
 static void _append_item_to_list_store(TribeWindow *window, ab_contact_t *contact);
-static void _on_new_contact_cb(ab_contact_t *contact, gpointer user_data);
-static void _on_edit_contact_cb(ab_contact_t *contact, gpointer user_data);
+static void _on_contact_editor_create_response(GtkWidget *editor, ab_contact_t *contact, gpointer user_data);
+static void _on_contact_editor_edit_response(GtkWidget *editor, ab_contact_t *contact, gpointer user_data);
 
 static void
 _edit_selection(TribeWindow *window)
@@ -319,7 +319,7 @@ _edit_selection(TribeWindow *window)
 	  continue;
 	}
 
-      contact_editor_new(GTK_WINDOW(window), TRIBE_CONTACT_EDITOR_MODE_EDIT, contact, _on_edit_contact_cb, window);
+      contact_editor_new(GTK_WINDOW(window), TRIBE_CONTACT_EDITOR_MODE_EDIT, contact, _on_contact_editor_edit_response, window);
     }
 
   g_list_free_full(paths, (GDestroyNotify)gtk_tree_path_free);
@@ -445,7 +445,7 @@ _on_file_new_contact_cb(GtkAction *action, gpointer data)
   window = TRIBE_WINDOW(data);
   ab_contact_create(&contact);
 
-  contact_editor_new(GTK_WINDOW(window), TRIBE_CONTACT_EDITOR_MODE_CREATE, contact, _on_new_contact_cb, window);
+  contact_editor_new(GTK_WINDOW(window), TRIBE_CONTACT_EDITOR_MODE_CREATE, contact, _on_contact_editor_create_response, window);
 }
 
 static void
@@ -745,7 +745,7 @@ _on_list_button_press_cb(GtkTreeView *widget,
     g_list_free_full(selected_rows, (GDestroyNotify) gtk_tree_path_free);
 
     if (contact != NULL) {
-      contact_editor_new(GTK_WINDOW(window), TRIBE_CONTACT_EDITOR_MODE_EDIT, contact, _on_edit_contact_cb, window);
+      contact_editor_new(GTK_WINDOW(window), TRIBE_CONTACT_EDITOR_MODE_EDIT, contact, _on_contact_editor_edit_response, window);
     }
 
     return TRUE;
@@ -775,7 +775,7 @@ _on_list_key_press_cb(GtkWidget *widget, GdkEventKey *event, gpointer data)
  */
 
 static void
-_on_new_contact_cb(ab_contact_t *contact, gpointer user_data)
+_on_contact_editor_create_response(GtkWidget *editor, ab_contact_t *contact, gpointer user_data)
 {
   TribeWindow *window;
 
@@ -785,7 +785,7 @@ _on_new_contact_cb(ab_contact_t *contact, gpointer user_data)
 }
 
 static void
-_on_edit_contact_cb(ab_contact_t *contact, gpointer user_data)
+_on_contact_editor_edit_response(GtkWidget *editor, ab_contact_t *contact, gpointer user_data)
 {
   TribeWindow *window;
   TribeWindowPrivate *priv;

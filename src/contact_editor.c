@@ -7,7 +7,7 @@
 
 static TribeContactEditorMode current_mode;
 static ab_contact_t *current_contact;
-static editor_post_cb_t add_edit_post_cb = NULL;
+static TribeContactEditorResponseFunc response_func;
 static gpointer window_data;
 
 /*
@@ -69,9 +69,9 @@ static void _contact_editor_ok_cb(GtkWidget *widget, gboolean *cancelled)
 
   gtk_widget_destroy(contact_window);
 
-  if (add_edit_post_cb)
+  if (response_func)
   {
-    add_edit_post_cb(current_contact, window_data);
+    response_func(contact_window, current_contact, window_data);
   }
 }
 
@@ -99,7 +99,11 @@ static gboolean _on_contact_window_key_press_cb(GtkWidget *widget,
   return FALSE;
 }
 
-void contact_editor_new(GtkWindow *parent, TribeContactEditorMode mode, ab_contact_t *contact, editor_post_cb_t post_cb, gpointer user_data)
+void contact_editor_new(GtkWindow                      *parent,
+			TribeContactEditorMode          mode,
+			ab_contact_t                   *contact,
+			TribeContactEditorResponseFunc  response_cb,
+			gpointer                        user_data)
 {
   GtkWidget *vbox;
   GtkWidget *notebook;
@@ -112,7 +116,7 @@ void contact_editor_new(GtkWindow *parent, TribeContactEditorMode mode, ab_conta
 
   current_mode = mode;
   current_contact = contact;
-  add_edit_post_cb = post_cb;
+  response_func = response_cb;
   window_data = user_data;
 
   contact_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
