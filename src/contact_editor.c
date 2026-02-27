@@ -209,6 +209,11 @@ void contact_editor_new(GtkWindow                      *parent,
 
   gtk_box_pack_end(GTK_BOX(vbox), bbox, FALSE, FALSE, 0);
 
+  /*
+   * This should make sure the OK button is the default button for this dialog.
+   */
+  gtk_window_set_default(GTK_WINDOW(contact_window), ok_btn);
+
   g_signal_connect(G_OBJECT(ok_btn), "clicked",
                    G_CALLBACK(_contact_editor_ok_cb), NULL);
 
@@ -241,9 +246,4 @@ void contact_editor_new(GtkWindow                      *parent,
   }
 
   gtk_widget_show_all(contact_window);
-
-  /*
-   * This should make sure the OK button is the default button for this dialog.
-   */
-  gtk_window_set_default(GTK_WINDOW(contact_window), ok_btn);
 }
