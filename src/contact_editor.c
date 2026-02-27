@@ -99,6 +99,13 @@ static gboolean _on_contact_window_key_press_cb(GtkWidget *widget,
   return FALSE;
 }
 
+static void _on_contact_editor_map(GtkWidget *widget, gpointer user_data)
+{
+  GtkWidget *fname_entry = user_data;
+
+  gtk_widget_grab_focus(fname_entry);
+}
+
 void contact_editor_new(GtkWindow                      *parent,
 			ab_contact_t                   *contact,
 			TribeContactEditorMode          mode,
@@ -208,6 +215,10 @@ void contact_editor_new(GtkWindow                      *parent,
   g_signal_connect_swapped(cancel_btn, "clicked",
 			   G_CALLBACK(_contact_editor_cancel_cb), NULL);
 
+  g_signal_connect(contact_window, "map",
+		   G_CALLBACK(_on_contact_editor_map),
+		   fname_entry);
+
   if (current_contact)
   {
     entry_text = ab_contact_get_first_name(current_contact);
@@ -230,12 +241,6 @@ void contact_editor_new(GtkWindow                      *parent,
   }
 
   gtk_widget_show_all(contact_window);
-
-  /*
-   * This should be called after showing the widgets, otherwise the focus
-   * won't go to the first name entry.
-   */
-  gtk_widget_grab_focus(fname_entry);
 
   /*
    * This should make sure the OK button is the default button for this dialog.
