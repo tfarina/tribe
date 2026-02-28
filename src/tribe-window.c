@@ -300,6 +300,7 @@ _edit_selection(TribeWindow *window)
   GList *paths;
   GList *cur;
   ab_contact_t *contact;
+  GtkWidget *dialog;
 
   priv = window->priv;
   selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(priv->list_view));
@@ -319,7 +320,12 @@ _edit_selection(TribeWindow *window)
 	  continue;
 	}
 
-      contact_editor_new(GTK_WINDOW(window), contact, TRIBE_CONTACT_EDITOR_MODE_EDIT, _on_contact_editor_edit_response, window);
+      dialog = contact_editor_new(GTK_WINDOW(window),
+				  contact,
+				  TRIBE_CONTACT_EDITOR_MODE_EDIT,
+				  _on_contact_editor_edit_response,
+				  window);
+      gtk_widget_show_all(dialog);
     }
 
   g_list_free_full(paths, (GDestroyNotify)gtk_tree_path_free);
@@ -441,11 +447,17 @@ _on_file_new_contact_cb(GtkAction *action, gpointer data)
 {
   TribeWindow *window;
   ab_contact_t *contact;
+  GtkWidget *dialog;
 
   window = TRIBE_WINDOW(data);
   ab_contact_create(&contact);
 
-  contact_editor_new(GTK_WINDOW(window), contact, TRIBE_CONTACT_EDITOR_MODE_CREATE, _on_contact_editor_create_response, window);
+  dialog = contact_editor_new(GTK_WINDOW(window),
+			      contact,
+			      TRIBE_CONTACT_EDITOR_MODE_CREATE,
+			      _on_contact_editor_create_response,
+			      window);
+  gtk_widget_show_all(dialog);
 }
 
 static void
@@ -723,6 +735,7 @@ _on_list_button_press_cb(GtkTreeView *widget,
   if (event->button == 1 && event->type == GDK_2BUTTON_PRESS) {
     GtkTreeModel *model;
     GList *selected_rows;
+    GtkWidget *dialog;
 
     /* Figure out which node was clicked. */
     if (!gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(priv->list_view), event->x, event->y, &path, &column, NULL, NULL)) {
@@ -745,7 +758,11 @@ _on_list_button_press_cb(GtkTreeView *widget,
     g_list_free_full(selected_rows, (GDestroyNotify) gtk_tree_path_free);
 
     if (contact != NULL) {
-      contact_editor_new(GTK_WINDOW(window), contact, TRIBE_CONTACT_EDITOR_MODE_EDIT, _on_contact_editor_edit_response, window);
+      dialog = contact_editor_new(GTK_WINDOW(window),
+				  contact,
+				  TRIBE_CONTACT_EDITOR_MODE_EDIT,
+				  _on_contact_editor_edit_response,
+				  window);
     }
 
     return TRUE;

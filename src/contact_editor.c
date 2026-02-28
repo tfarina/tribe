@@ -106,11 +106,11 @@ static void _on_contact_editor_map(GtkWidget *widget, gpointer user_data)
   gtk_widget_grab_focus(fname_entry);
 }
 
-void contact_editor_new(GtkWindow                      *parent,
-			ab_contact_t                   *contact,
-			TribeContactEditorMode          mode,
-			TribeContactEditorResponseFunc  response_cb,
-			gpointer                        user_data)
+GtkWidget * contact_editor_new(GtkWindow                      *parent,
+			       ab_contact_t                   *contact,
+			       TribeContactEditorMode          mode,
+			       TribeContactEditorResponseFunc  response_cb,
+			       gpointer                        user_data)
 {
   GtkWidget *vbox;
   GtkWidget *notebook;
@@ -245,5 +245,5 @@ void contact_editor_new(GtkWindow                      *parent,
     }
   }
 
-  gtk_widget_show_all(contact_window);
+  return contact_window;
 }
