@@ -18,8 +18,8 @@ static GtkWidget *fname_entry;
 static GtkWidget *lname_entry;
 static GtkWidget *email_entry;
 
-static void _on_contact_editor_ok_button_clicked_cb(GtkWidget *widget,
-						    gboolean *cancelled)
+static void _on_contact_editor_ok_button_clicked_cb(GtkButton *button,
+						    gpointer   user_data)
 {
   char const *entry_text;
   char const *first_name;
@@ -76,8 +76,8 @@ static void _on_contact_editor_ok_button_clicked_cb(GtkWidget *widget,
   }
 }
 
-static void _on_contact_editor_cancel_button_clicked_cb(GtkWidget *widget,
-							gboolean *cancelled)
+static void _on_contact_editor_cancel_button_clicked_cb(GtkButton *button,
+							gpointer   user_data)
 {
   if (current_mode == TRIBE_CONTACT_EDITOR_MODE_CREATE)
   {
@@ -90,9 +90,9 @@ static void _on_contact_editor_cancel_button_clicked_cb(GtkWidget *widget,
   gtk_widget_destroy(contact_window);
 }
 
-static gboolean _on_contact_editor_key_press_cb(GtkWidget *widget,
+static gboolean _on_contact_editor_key_press_cb(GtkWidget   *widget,
 						GdkEventKey *event,
-						gpointer user_data)
+						gpointer     user_data)
 {
   if (event && event->keyval == GDK_KEY_Escape)
   {
