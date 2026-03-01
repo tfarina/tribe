@@ -18,7 +18,8 @@ static GtkWidget *fname_entry;
 static GtkWidget *lname_entry;
 static GtkWidget *email_entry;
 
-static void _contact_editor_ok_cb(GtkWidget *widget, gboolean *cancelled)
+static void _on_contact_editor_ok_button_clicked_cb(GtkWidget *widget,
+						    gboolean *cancelled)
 {
   char const *entry_text;
   char const *first_name;
@@ -75,7 +76,8 @@ static void _contact_editor_ok_cb(GtkWidget *widget, gboolean *cancelled)
   }
 }
 
-static void _contact_editor_cancel_cb(GtkWidget *widget, gboolean *cancelled)
+static void _on_contact_editor_cancel_button_clicked_cb(GtkWidget *widget,
+							gboolean *cancelled)
 {
   if (current_mode == TRIBE_CONTACT_EDITOR_MODE_CREATE)
   {
@@ -88,9 +90,9 @@ static void _contact_editor_cancel_cb(GtkWidget *widget, gboolean *cancelled)
   gtk_widget_destroy(contact_window);
 }
 
-static gboolean _on_contact_window_key_press_cb(GtkWidget *widget,
+static gboolean _on_contact_editor_key_press_cb(GtkWidget *widget,
 						GdkEventKey *event,
-						gpointer data)
+						gpointer user_data)
 {
   if (event && event->keyval == GDK_KEY_Escape)
   {
@@ -99,7 +101,7 @@ static gboolean _on_contact_window_key_press_cb(GtkWidget *widget,
   return FALSE;
 }
 
-static void _on_contact_editor_map(GtkWidget *widget, gpointer user_data)
+static void _on_contact_editor_map_cb(GtkWidget *widget, gpointer user_data)
 {
   GtkWidget *fname_entry = user_data;
 
@@ -135,7 +137,7 @@ GtkWidget * contact_editor_new(GtkWindow                      *parent,
 			   GDK_WINDOW_TYPE_HINT_DIALOG);
   gtk_window_set_default_size(GTK_WINDOW(contact_window), 400, 450);
   g_signal_connect(G_OBJECT(contact_window), "key-press-event",
-		   G_CALLBACK(_on_contact_window_key_press_cb),
+		   G_CALLBACK(_on_contact_editor_key_press_cb),
 		   NULL);
 
   vbox = gtk_vbox_new(FALSE, 6);
@@ -215,13 +217,13 @@ GtkWidget * contact_editor_new(GtkWindow                      *parent,
   gtk_window_set_default(GTK_WINDOW(contact_window), ok_btn);
 
   g_signal_connect(G_OBJECT(ok_btn), "clicked",
-                   G_CALLBACK(_contact_editor_ok_cb), NULL);
+                   G_CALLBACK(_on_contact_editor_ok_button_clicked_cb), NULL);
 
   g_signal_connect_swapped(cancel_btn, "clicked",
-			   G_CALLBACK(_contact_editor_cancel_cb), NULL);
+			   G_CALLBACK(_on_contact_editor_cancel_button_clicked_cb), NULL);
 
   g_signal_connect(contact_window, "map",
-		   G_CALLBACK(_on_contact_editor_map),
+		   G_CALLBACK(_on_contact_editor_map_cb),
 		   fname_entry);
 
   if (current_contact)
