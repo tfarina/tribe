@@ -216,11 +216,13 @@ GtkWidget * contact_editor_new(GtkWindow                      *parent,
    */
   gtk_window_set_default(GTK_WINDOW(contact_window), ok_btn);
 
-  g_signal_connect(G_OBJECT(ok_btn), "clicked",
-                   G_CALLBACK(_on_contact_editor_ok_button_clicked_cb), NULL);
+  g_signal_connect(ok_btn, "clicked",
+                   G_CALLBACK(_on_contact_editor_ok_button_clicked_cb),
+		   NULL);
 
-  g_signal_connect_swapped(cancel_btn, "clicked",
-			   G_CALLBACK(_on_contact_editor_cancel_button_clicked_cb), NULL);
+  g_signal_connect(cancel_btn, "clicked",
+		   G_CALLBACK(_on_contact_editor_cancel_button_clicked_cb),
+		   NULL);
 
   g_signal_connect(contact_window, "map",
 		   G_CALLBACK(_on_contact_editor_map_cb),
