@@ -68,12 +68,12 @@ static void _on_contact_editor_ok_button_clicked_cb(GtkButton *button,
     ab_update_contact(current_contact);
   }
 
-  gtk_widget_destroy(window);
-
   if (response_func)
   {
     response_func(window, current_contact, window_data);
   }
+
+  gtk_widget_destroy(window);
 }
 
 static void _on_contact_editor_cancel_button_clicked_cb(GtkButton *button,
