@@ -13,7 +13,6 @@ static gpointer window_data;
 /*
  * Widgets
  */
-static GtkWidget *contact_window;
 static GtkWidget *fname_entry;
 static GtkWidget *lname_entry;
 static GtkWidget *email_entry;
@@ -21,6 +20,7 @@ static GtkWidget *email_entry;
 static void _on_contact_editor_ok_button_clicked_cb(GtkButton *button,
 						    gpointer   user_data)
 {
+  GtkWidget *window = user_data;
   char const *entry_text;
   char const *first_name;
   char const *last_name;
@@ -68,17 +68,19 @@ static void _on_contact_editor_ok_button_clicked_cb(GtkButton *button,
     ab_update_contact(current_contact);
   }
 
-  gtk_widget_destroy(contact_window);
+  gtk_widget_destroy(window);
 
   if (response_func)
   {
-    response_func(contact_window, current_contact, window_data);
+    response_func(window, current_contact, window_data);
   }
 }
 
 static void _on_contact_editor_cancel_button_clicked_cb(GtkButton *button,
 							gpointer   user_data)
 {
+  GtkWidget *window = user_data;
+
   if (current_mode == TRIBE_CONTACT_EDITOR_MODE_CREATE)
   {
     if (current_contact)
@@ -87,16 +89,18 @@ static void _on_contact_editor_cancel_button_clicked_cb(GtkButton *button,
     }
   }
 
-  gtk_widget_destroy(contact_window);
+  gtk_widget_destroy(window);
 }
 
 static gboolean _on_contact_editor_key_press_cb(GtkWidget   *widget,
 						GdkEventKey *event,
 						gpointer     user_data)
 {
+  GtkWidget *window = user_data;
+
   if (event && event->keyval == GDK_KEY_Escape)
   {
-    gtk_widget_destroy(contact_window);
+    gtk_widget_destroy(window);
   }
   return FALSE;
 }
@@ -114,6 +118,7 @@ GtkWidget * contact_editor_new(GtkWindow                      *parent,
 			       TribeContactEditorResponseFunc  response_cb,
 			       gpointer                        user_data)
 {
+  GtkWidget *window;
   GtkWidget *vbox;
   GtkWidget *notebook;
   GtkWidget *table;
@@ -128,20 +133,20 @@ GtkWidget * contact_editor_new(GtkWindow                      *parent,
   response_func = response_cb;
   window_data = user_data;
 
-  contact_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-  gtk_window_set_title(GTK_WINDOW(contact_window), "Properties");
-  gtk_window_set_transient_for(GTK_WINDOW(contact_window), parent);
-  gtk_window_set_position(GTK_WINDOW(contact_window), GTK_WIN_POS_CENTER_ON_PARENT);
-  gtk_window_set_modal(GTK_WINDOW(contact_window), TRUE);
-  gtk_window_set_type_hint(GTK_WINDOW(contact_window),
+  window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+  gtk_window_set_title(GTK_WINDOW(window), "Properties");
+  gtk_window_set_transient_for(GTK_WINDOW(window), parent);
+  gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER_ON_PARENT);
+  gtk_window_set_modal(GTK_WINDOW(window), TRUE);
+  gtk_window_set_type_hint(GTK_WINDOW(window),
 			   GDK_WINDOW_TYPE_HINT_DIALOG);
-  gtk_window_set_default_size(GTK_WINDOW(contact_window), 400, 450);
-  g_signal_connect(G_OBJECT(contact_window), "key-press-event",
+  gtk_window_set_default_size(GTK_WINDOW(window), 400, 450);
+  g_signal_connect(G_OBJECT(window), "key-press-event",
 		   G_CALLBACK(_on_contact_editor_key_press_cb),
-		   NULL);
+		   window);
 
   vbox = gtk_vbox_new(FALSE, 6);
-  gtk_container_add(GTK_CONTAINER(contact_window), vbox);
+  gtk_container_add(GTK_CONTAINER(window), vbox);
 
   notebook = gtk_notebook_new();
 
@@ -218,13 +223,13 @@ GtkWidget * contact_editor_new(GtkWindow                      *parent,
 
   g_signal_connect(ok_btn, "clicked",
                    G_CALLBACK(_on_contact_editor_ok_button_clicked_cb),
-		   NULL);
+		   window);
 
   g_signal_connect(cancel_btn, "clicked",
 		   G_CALLBACK(_on_contact_editor_cancel_button_clicked_cb),
-		   NULL);
+		   window);
 
-  g_signal_connect(contact_window, "map",
+  g_signal_connect(window, "map",
 		   G_CALLBACK(_on_contact_editor_map_cb),
 		   fname_entry);
 
@@ -249,5 +254,5 @@ GtkWidget * contact_editor_new(GtkWindow                      *parent,
     }
   }
 
-  return contact_window;
+  return window;
 }
