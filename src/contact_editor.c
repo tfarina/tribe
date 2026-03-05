@@ -149,12 +149,9 @@ GtkWidget * contact_editor_new(GtkWindow                      *parent,
   gtk_container_add(GTK_CONTAINER(window), vbox);
 
   notebook = gtk_notebook_new();
-
-  /* Add notebook to vbox. */
-  gtk_box_pack_start(GTK_BOX(vbox), notebook, TRUE, TRUE, 0);
-
-  /* Setup the amount of space to leave around the outside of the notebook. */
   gtk_container_set_border_width(GTK_CONTAINER(notebook), 6);
+
+  gtk_box_pack_start(GTK_BOX(vbox), notebook, TRUE, TRUE, 0);
 
   /* Create the table to host the text entry widgets. */
   table = gtk_table_new(3 /* rows */, 2 /* columns */, FALSE);
