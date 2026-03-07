@@ -21,43 +21,18 @@ static void _on_contact_editor_ok_button_clicked_cb(GtkButton *button,
 						    gpointer   user_data)
 {
   GtkWidget *window = user_data;
-  char const *entry_text;
-  char const *first_name;
-  char const *last_name;
-  char const *email;
 
-  entry_text = gtk_entry_get_text(GTK_ENTRY(fname_entry));
-  if (0 == strlen(entry_text))
-  {
-    first_name = "";
-    ab_contact_set_first_name(current_contact, first_name);
-  }
-  else
-  {
-    ab_contact_set_first_name(current_contact, entry_text);
-  }
+  ab_contact_set_first_name(current_contact,
+			    gtk_entry_get_text(GTK_ENTRY(fname_entry)));
 
-  entry_text = gtk_entry_get_text(GTK_ENTRY(lname_entry));
-  if (0 == strlen(entry_text))
-  {
-    last_name = "";
-    ab_contact_set_last_name(current_contact, last_name);
-  }
-  else
-  {
-    ab_contact_set_last_name(current_contact, entry_text);
-  }
 
-  entry_text = gtk_entry_get_text(GTK_ENTRY(email_entry));
-  if (0 == strlen(entry_text))
-  {
-    email = "";
-    ab_contact_set_email(current_contact, email);
-  }
-  else
-  {
-    ab_contact_set_email(current_contact, entry_text);
-  }
+  ab_contact_set_last_name(current_contact,
+			   gtk_entry_get_text(GTK_ENTRY(lname_entry)));
+
+
+  ab_contact_set_email(current_contact,
+		       gtk_entry_get_text(GTK_ENTRY(email_entry)));
+
 
   if (current_mode == TRIBE_CONTACT_EDITOR_MODE_CREATE)
   {
