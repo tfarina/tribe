@@ -446,14 +446,12 @@ static void
 _on_file_new_contact_cb(GtkAction *action, gpointer data)
 {
   TribeWindow *window;
-  ab_contact_t *contact;
   GtkWidget *dialog;
 
   window = TRIBE_WINDOW(data);
-  ab_contact_create(&contact);
 
   dialog = contact_editor_new(GTK_WINDOW(window),
-			      contact,
+			      NULL,
 			      TRIBE_CONTACT_EDITOR_MODE_CREATE,
 			      _on_contact_editor_create_response,
 			      window);

@@ -21,31 +21,43 @@ static void _on_contact_editor_ok_button_clicked_cb(GtkButton *button,
 						    gpointer   user_data)
 {
   GtkWidget *window = user_data;
+  ab_contact_t *contact;
 
-  ab_contact_set_first_name(current_contact,
+  /* Determine contact object */
+  if (current_mode == TRIBE_CONTACT_EDITOR_MODE_CREATE)
+  {
+    ab_contact_create(&contact);
+  }
+  else
+  {
+    contact = current_contact;
+  }
+
+  ab_contact_set_first_name(contact,
 			    gtk_entry_get_text(GTK_ENTRY(fname_entry)));
 
 
-  ab_contact_set_last_name(current_contact,
+  ab_contact_set_last_name(contact,
 			   gtk_entry_get_text(GTK_ENTRY(lname_entry)));
 
 
-  ab_contact_set_email(current_contact,
+  ab_contact_set_email(contact,
 		       gtk_entry_get_text(GTK_ENTRY(email_entry)));
 
 
   if (current_mode == TRIBE_CONTACT_EDITOR_MODE_CREATE)
   {
-    ab_add_contact(current_contact);
+    ab_add_contact(contact);
   }
   else
   {
-    ab_update_contact(current_contact);
+    ab_update_contact(contact);
   }
 
+  /* Notify caller */
   if (response_func)
   {
-    response_func(window, current_contact, window_data);
+    response_func(window, contact, window_data);
   }
 
   gtk_widget_destroy(window);
@@ -55,14 +67,6 @@ static void _on_contact_editor_cancel_button_clicked_cb(GtkButton *button,
 							gpointer   user_data)
 {
   GtkWidget *window = user_data;
-
-  if (current_mode == TRIBE_CONTACT_EDITOR_MODE_CREATE)
-  {
-    if (current_contact)
-    {
-      ab_contact_destroy(current_contact);
-    }
-  }
 
   gtk_widget_destroy(window);
 }
