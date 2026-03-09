@@ -17,8 +17,9 @@ static GtkWidget *fname_entry;
 static GtkWidget *lname_entry;
 static GtkWidget *email_entry;
 
-static void _on_contact_editor_ok_button_clicked_cb(GtkButton *button,
-						    gpointer   user_data)
+static void
+_on_contact_editor_ok_button_clicked_cb(GtkButton *button,
+					gpointer   user_data)
 {
   GtkWidget *window = user_data;
   ab_contact_t *contact;
@@ -63,17 +64,19 @@ static void _on_contact_editor_ok_button_clicked_cb(GtkButton *button,
   gtk_widget_destroy(window);
 }
 
-static void _on_contact_editor_cancel_button_clicked_cb(GtkButton *button,
-							gpointer   user_data)
+static void
+_on_contact_editor_cancel_button_clicked_cb(GtkButton *button,
+					    gpointer   user_data)
 {
   GtkWidget *window = user_data;
 
   gtk_widget_destroy(window);
 }
 
-static gboolean _on_contact_editor_key_press_cb(GtkWidget   *widget,
-						GdkEventKey *event,
-						gpointer     user_data)
+static gboolean
+_on_contact_editor_key_press_cb(GtkWidget   *widget,
+				GdkEventKey *event,
+				gpointer     user_data)
 {
   GtkWidget *window = user_data;
 
@@ -84,18 +87,20 @@ static gboolean _on_contact_editor_key_press_cb(GtkWidget   *widget,
   return FALSE;
 }
 
-static void _on_contact_editor_map_cb(GtkWidget *widget, gpointer user_data)
+static void
+_on_contact_editor_map_cb(GtkWidget *widget, gpointer user_data)
 {
   GtkWidget *fname_entry = user_data;
 
   gtk_widget_grab_focus(fname_entry);
 }
 
-GtkWidget * contact_editor_new(GtkWindow                      *parent,
-			       ab_contact_t                   *contact,
-			       TribeContactEditorMode          mode,
-			       TribeContactEditorResponseFunc  response_cb,
-			       gpointer                        user_data)
+GtkWidget *
+contact_editor_new(GtkWindow                      *parent,
+		   ab_contact_t                   *contact,
+		   TribeContactEditorMode          mode,
+		   TribeContactEditorResponseFunc  response_cb,
+		   gpointer                        user_data)
 {
   GtkWidget *window;
   GtkWidget *vbox;
