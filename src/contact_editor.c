@@ -18,74 +18,60 @@ static GtkWidget *lname_entry;
 static GtkWidget *email_entry;
 
 static void
-contact_editor_ok_button_clicked_cb(GtkButton *button,
-				    gpointer   user_data)
+contact_editor_response_cb(GtkDialog *dialog,
+			   gint       response_id,
+			   gpointer   user_data)
 {
-  GtkWidget *window = user_data;
   ab_contact_t *contact;
 
-  /* Determine contact object */
-  if (current_mode == TRIBE_CONTACT_EDITOR_MODE_CREATE)
+  switch (response_id)
   {
-    ab_contact_create(&contact);
-  }
-  else
-  {
-    contact = current_contact;
-  }
+    case GTK_RESPONSE_OK:
+      /* Determine contact object */
+      if (current_mode == TRIBE_CONTACT_EDITOR_MODE_CREATE)
+      {
+	ab_contact_create(&contact);
+      }
+      else
+      {
+	contact = current_contact;
+      }
 
-  ab_contact_set_first_name(contact,
-			    gtk_entry_get_text(GTK_ENTRY(fname_entry)));
+      ab_contact_set_first_name(contact,
+				gtk_entry_get_text(GTK_ENTRY(fname_entry)));
 
+      ab_contact_set_last_name(contact,
+			       gtk_entry_get_text(GTK_ENTRY(lname_entry)));
 
-  ab_contact_set_last_name(contact,
-			   gtk_entry_get_text(GTK_ENTRY(lname_entry)));
+      ab_contact_set_email(contact,
+			   gtk_entry_get_text(GTK_ENTRY(email_entry)));
 
+      if (current_mode == TRIBE_CONTACT_EDITOR_MODE_CREATE)
+      {
+	ab_add_contact(contact);
+      }
+      else
+      {
+	ab_update_contact(contact);
+      }
 
-  ab_contact_set_email(contact,
-		       gtk_entry_get_text(GTK_ENTRY(email_entry)));
+      if (response_func)
+      {
+	response_func(GTK_WIDGET(dialog), contact, window_data);
+      }
 
+      break;
 
-  if (current_mode == TRIBE_CONTACT_EDITOR_MODE_CREATE)
-  {
-    ab_add_contact(contact);
-  }
-  else
-  {
-    ab_update_contact(contact);
-  }
+    case GTK_RESPONSE_CANCEL:
+    case GTK_RESPONSE_DELETE_EVENT:
+      /* Nothing to do */
+      break;
 
-  /* Notify caller */
-  if (response_func)
-  {
-    response_func(window, contact, window_data);
-  }
+    default:
+      break;
+    }
 
-  gtk_widget_destroy(window);
-}
-
-static void
-contact_editor_cancel_button_clicked_cb(GtkButton *button,
-					gpointer   user_data)
-{
-  GtkWidget *window = user_data;
-
-  gtk_widget_destroy(window);
-}
-
-static gboolean
-contact_editor_key_press_cb(GtkWidget   *widget,
-			    GdkEventKey *event,
-			    gpointer     user_data)
-{
-  GtkWidget *window = user_data;
-
-  if (event && event->keyval == GDK_KEY_Escape)
-  {
-    gtk_widget_destroy(window);
-  }
-
-  return FALSE;
+  gtk_widget_destroy(GTK_WIDGET(dialog));
 }
 
 static void
@@ -103,14 +89,11 @@ contact_editor_new(GtkWindow                      *parent,
 		   TribeContactEditorResponseFunc  response_cb,
 		   gpointer                        user_data)
 {
-  GtkWidget *window;
-  GtkWidget *vbox;
+  GtkWidget *dialog;
+  GtkWidget *content_area;
   GtkWidget *notebook;
   GtkWidget *table;
   GtkWidget *label;
-  GtkWidget *bbox;
-  GtkWidget *cancel_btn;
-  GtkWidget *ok_btn;
   char const* entry_text;
 
   current_mode = mode;
@@ -118,25 +101,22 @@ contact_editor_new(GtkWindow                      *parent,
   response_func = response_cb;
   window_data = user_data;
 
-  window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-  gtk_window_set_title(GTK_WINDOW(window), "Properties");
-  gtk_window_set_transient_for(GTK_WINDOW(window), parent);
-  gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER_ON_PARENT);
-  gtk_window_set_modal(GTK_WINDOW(window), TRUE);
-  gtk_window_set_type_hint(GTK_WINDOW(window),
-			   GDK_WINDOW_TYPE_HINT_DIALOG);
-  gtk_window_set_default_size(GTK_WINDOW(window), 400, 450);
-  g_signal_connect(G_OBJECT(window), "key-press-event",
-		   G_CALLBACK(contact_editor_key_press_cb),
-		   window);
+  dialog = gtk_dialog_new();
+  gtk_window_set_title(GTK_WINDOW(dialog), "Properties");
+  gtk_window_set_transient_for(GTK_WINDOW(dialog), parent);
+  gtk_window_set_position(GTK_WINDOW(dialog), GTK_WIN_POS_CENTER_ON_PARENT);
+  gtk_window_set_modal(GTK_WINDOW(dialog), TRUE);
+  gtk_window_set_default_size(GTK_WINDOW(dialog), 400, 450);
+  g_signal_connect(dialog, "response",
+		   G_CALLBACK(contact_editor_response_cb),
+		   NULL);
 
-  vbox = gtk_vbox_new(FALSE, 6);
-  gtk_container_add(GTK_CONTAINER(window), vbox);
+  content_area = gtk_dialog_get_content_area(GTK_DIALOG(dialog));
 
   notebook = gtk_notebook_new();
   gtk_container_set_border_width(GTK_CONTAINER(notebook), 6);
 
-  gtk_box_pack_start(GTK_BOX(vbox), notebook, TRUE, TRUE, 0);
+  gtk_box_pack_start(GTK_BOX(content_area), notebook, TRUE, TRUE, 0);
 
   /* Create the table to host the text entry widgets. */
   table = gtk_table_new(3 /* rows */, 2 /* columns */, FALSE);
@@ -181,37 +161,12 @@ contact_editor_new(GtkWindow                      *parent,
   gtk_notebook_append_page(GTK_NOTEBOOK(notebook), table,
 			   gtk_label_new("Name"));
 
-  /*
-   * Horizontal Button Box area
-   */
-  bbox = gtk_hbutton_box_new();
-  gtk_button_box_set_layout(GTK_BUTTON_BOX(bbox), GTK_BUTTONBOX_END);
-  gtk_box_set_spacing(GTK_BOX(bbox), 5);
-  gtk_container_set_border_width(GTK_CONTAINER(bbox), 4);
+  gtk_dialog_add_buttons(GTK_DIALOG(dialog),
+			 "OK", GTK_RESPONSE_OK,
+			 "Cancel", GTK_RESPONSE_CANCEL,
+			 NULL);
 
-  ok_btn = gtk_button_new_with_label("OK");
-  gtk_widget_set_can_default(ok_btn, TRUE);
-  gtk_box_pack_start(GTK_BOX(bbox), ok_btn, TRUE, TRUE, 0);
-
-  cancel_btn = gtk_button_new_with_label("Cancel");
-  gtk_box_pack_start(GTK_BOX(bbox), cancel_btn, TRUE, TRUE, 0);
-
-  gtk_box_pack_end(GTK_BOX(vbox), bbox, FALSE, FALSE, 0);
-
-  /*
-   * This should make sure the OK button is the default button for this dialog.
-   */
-  gtk_widget_grab_default(ok_btn);
-
-  g_signal_connect(ok_btn, "clicked",
-                   G_CALLBACK(contact_editor_ok_button_clicked_cb),
-		   window);
-
-  g_signal_connect(cancel_btn, "clicked",
-		   G_CALLBACK(contact_editor_cancel_button_clicked_cb),
-		   window);
-
-  g_signal_connect(window, "map",
+  g_signal_connect(dialog, "map",
 		   G_CALLBACK(contact_editor_map_cb),
 		   fname_entry);
 
@@ -236,5 +191,5 @@ contact_editor_new(GtkWindow                      *parent,
     }
   }
 
-  return window;
+  return dialog;
 }
