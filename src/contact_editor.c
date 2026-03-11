@@ -132,7 +132,7 @@ contact_editor_new(GtkWindow                      *parent,
   gtk_misc_set_alignment(GTK_MISC(label), 1, 0.5);
 
   fname_entry = gtk_entry_new();
-
+  gtk_entry_set_activates_default(GTK_ENTRY(fname_entry), TRUE);
   gtk_table_attach(GTK_TABLE(table), fname_entry, 1, 2, 0, 1,
 		   GTK_EXPAND | GTK_SHRINK | GTK_FILL, 0, 0, 0);
 
@@ -143,7 +143,7 @@ contact_editor_new(GtkWindow                      *parent,
   gtk_misc_set_alignment(GTK_MISC(label), 1, 0.5);
 
   lname_entry = gtk_entry_new();
-
+  gtk_entry_set_activates_default(GTK_ENTRY(lname_entry), TRUE);
   gtk_table_attach(GTK_TABLE(table), lname_entry, 1, 2, 1, 2,
 		   GTK_EXPAND | GTK_SHRINK | GTK_FILL, 0, 0, 0);
 
@@ -154,7 +154,7 @@ contact_editor_new(GtkWindow                      *parent,
   gtk_misc_set_alignment(GTK_MISC(label), 1, 0.5);
 
   email_entry = gtk_entry_new();
-
+  gtk_entry_set_activates_default(GTK_ENTRY(email_entry), TRUE);
   gtk_table_attach(GTK_TABLE(table), email_entry, 1, 2, 2, 3,
 		   GTK_EXPAND | GTK_SHRINK | GTK_FILL, 0, 0, 0);
 
@@ -165,6 +165,8 @@ contact_editor_new(GtkWindow                      *parent,
 			 "OK", GTK_RESPONSE_OK,
 			 "Cancel", GTK_RESPONSE_CANCEL,
 			 NULL);
+
+  gtk_dialog_set_default_response(GTK_DIALOG(dialog), GTK_RESPONSE_OK);
 
   g_signal_connect(dialog, "map",
 		   G_CALLBACK(contact_editor_map_cb),
