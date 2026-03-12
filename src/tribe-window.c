@@ -87,21 +87,6 @@ contact_column_compare_func(GtkTreeModel *model,
 }
 
 /*
- * Main window widgets.
- */
-typedef struct
-{
-  GtkWindow    *main_window;
-  GtkUIManager *ui_manager;
-  GtkWidget    *toolbar;
-  GtkToolItem  *tb_edit;
-  GtkToolItem  *tb_delete;
-  GtkWidget    *list_view;
-  GtkWidget    *statusbar;
-  guint         statusbar_cid;
-} WindowData;
-
-/*
  * Menubar callbacks
  */
 
