@@ -5,48 +5,53 @@
 
 #include <string.h>
 
-static TribeContactEditorMode current_mode;
-static ab_contact_t *current_contact;
-static TribeContactEditorResponseFunc response_func;
-static gpointer window_data;
+#define DIALOG_DATA_KEY "dialog-data"
 
-/*
- * Widgets
- */
-static GtkWidget *fname_entry;
-static GtkWidget *lname_entry;
-static GtkWidget *email_entry;
+typedef struct
+{
+  ab_contact_t *contact;
+  TribeContactEditorMode mode;
+  TribeContactEditorResponseFunc response_func;
+  gpointer window_data;
+
+  GtkWidget *fname_entry;
+  GtkWidget *lname_entry;
+  GtkWidget *email_entry;
+} DialogData;
 
 static void
 contact_editor_response_cb(GtkDialog *dialog,
 			   gint       response_id,
 			   gpointer   user_data)
 {
+  DialogData *data;
   ab_contact_t *contact;
+
+  data = g_object_get_data(G_OBJECT(dialog), DIALOG_DATA_KEY);
 
   switch (response_id)
   {
     case GTK_RESPONSE_OK:
       /* Determine contact object */
-      if (current_mode == TRIBE_CONTACT_EDITOR_MODE_CREATE)
+      if (data->mode == TRIBE_CONTACT_EDITOR_MODE_CREATE)
       {
 	ab_contact_create(&contact);
       }
       else
       {
-	contact = current_contact;
+	contact = data->contact;
       }
 
       ab_contact_set_first_name(contact,
-				gtk_entry_get_text(GTK_ENTRY(fname_entry)));
+				gtk_entry_get_text(GTK_ENTRY(data->fname_entry)));
 
       ab_contact_set_last_name(contact,
-			       gtk_entry_get_text(GTK_ENTRY(lname_entry)));
+			       gtk_entry_get_text(GTK_ENTRY(data->lname_entry)));
 
       ab_contact_set_email(contact,
-			   gtk_entry_get_text(GTK_ENTRY(email_entry)));
+			   gtk_entry_get_text(GTK_ENTRY(data->email_entry)));
 
-      if (current_mode == TRIBE_CONTACT_EDITOR_MODE_CREATE)
+      if (data->mode == TRIBE_CONTACT_EDITOR_MODE_CREATE)
       {
 	ab_add_contact(contact);
       }
@@ -55,9 +60,9 @@ contact_editor_response_cb(GtkDialog *dialog,
 	ab_update_contact(contact);
       }
 
-      if (response_func)
+      if (data->response_func)
       {
-	response_func(GTK_WIDGET(dialog), contact, window_data);
+	data->response_func(GTK_WIDGET(dialog), contact, data->window_data);
       }
 
       break;
@@ -89,6 +94,7 @@ contact_editor_new(GtkWindow                      *parent,
 		   TribeContactEditorResponseFunc  response_cb,
 		   gpointer                        user_data)
 {
+  DialogData *data;
   GtkWidget *dialog;
   GtkWidget *content_area;
   GtkWidget *notebook;
@@ -96,10 +102,12 @@ contact_editor_new(GtkWindow                      *parent,
   GtkWidget *label;
   char const* entry_text;
 
-  current_mode = mode;
-  current_contact = contact;
-  response_func = response_cb;
-  window_data = user_data;
+  data = g_new0(DialogData, 1);
+
+  data->contact = contact;
+  data->mode = mode;
+  data->response_func = response_cb;
+  data->window_data = user_data;
 
   dialog = gtk_dialog_new();
   gtk_window_set_title(GTK_WINDOW(dialog), "Properties");
@@ -131,9 +139,9 @@ contact_editor_new(GtkWindow                      *parent,
 		   GTK_FILL, 0, 0, 0);
   gtk_misc_set_alignment(GTK_MISC(label), 1, 0.5);
 
-  fname_entry = gtk_entry_new();
-  gtk_entry_set_activates_default(GTK_ENTRY(fname_entry), TRUE);
-  gtk_table_attach(GTK_TABLE(table), fname_entry, 1, 2, 0, 1,
+  data->fname_entry = gtk_entry_new();
+  gtk_entry_set_activates_default(GTK_ENTRY(data->fname_entry), TRUE);
+  gtk_table_attach(GTK_TABLE(table), data->fname_entry, 1, 2, 0, 1,
 		   GTK_EXPAND | GTK_SHRINK | GTK_FILL, 0, 0, 0);
 
   /* Second row. */
@@ -142,9 +150,9 @@ contact_editor_new(GtkWindow                      *parent,
 		   GTK_FILL, 0, 0, 0);
   gtk_misc_set_alignment(GTK_MISC(label), 1, 0.5);
 
-  lname_entry = gtk_entry_new();
-  gtk_entry_set_activates_default(GTK_ENTRY(lname_entry), TRUE);
-  gtk_table_attach(GTK_TABLE(table), lname_entry, 1, 2, 1, 2,
+  data->lname_entry = gtk_entry_new();
+  gtk_entry_set_activates_default(GTK_ENTRY(data->lname_entry), TRUE);
+  gtk_table_attach(GTK_TABLE(table), data->lname_entry, 1, 2, 1, 2,
 		   GTK_EXPAND | GTK_SHRINK | GTK_FILL, 0, 0, 0);
 
   /* Third row. */
@@ -153,9 +161,9 @@ contact_editor_new(GtkWindow                      *parent,
 		   GTK_FILL, 0, 0, 0);
   gtk_misc_set_alignment(GTK_MISC(label), 1, 0.5);
 
-  email_entry = gtk_entry_new();
-  gtk_entry_set_activates_default(GTK_ENTRY(email_entry), TRUE);
-  gtk_table_attach(GTK_TABLE(table), email_entry, 1, 2, 2, 3,
+  data->email_entry = gtk_entry_new();
+  gtk_entry_set_activates_default(GTK_ENTRY(data->email_entry), TRUE);
+  gtk_table_attach(GTK_TABLE(table), data->email_entry, 1, 2, 2, 3,
 		   GTK_EXPAND | GTK_SHRINK | GTK_FILL, 0, 0, 0);
 
   gtk_notebook_append_page(GTK_NOTEBOOK(notebook), table,
@@ -170,26 +178,31 @@ contact_editor_new(GtkWindow                      *parent,
 
   g_signal_connect(dialog, "map",
 		   G_CALLBACK(contact_editor_map_cb),
-		   fname_entry);
+		   data->fname_entry);
 
-  if (current_contact)
+  g_object_set_data_full(G_OBJECT(dialog),
+			 DIALOG_DATA_KEY,
+			 data,
+			 g_free);
+
+  if (data->contact)
   {
-    entry_text = ab_contact_get_first_name(current_contact);
+    entry_text = ab_contact_get_first_name(data->contact);
     if (entry_text)
     {
-      gtk_entry_set_text(GTK_ENTRY(fname_entry), entry_text);
+      gtk_entry_set_text(GTK_ENTRY(data->fname_entry), entry_text);
     }
 
-    entry_text = ab_contact_get_last_name(current_contact);
+    entry_text = ab_contact_get_last_name(data->contact);
     if (entry_text)
     {
-      gtk_entry_set_text(GTK_ENTRY(lname_entry), entry_text);
+      gtk_entry_set_text(GTK_ENTRY(data->lname_entry), entry_text);
     }
 
-    entry_text = ab_contact_get_email(current_contact);
+    entry_text = ab_contact_get_email(data->contact);
     if (entry_text)
     {
-      gtk_entry_set_text(GTK_ENTRY(email_entry), entry_text);
+      gtk_entry_set_text(GTK_ENTRY(data->email_entry), entry_text);
     }
   }
 
