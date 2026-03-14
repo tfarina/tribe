@@ -135,9 +135,9 @@ contact_editor_new(GtkWindow                      *parent,
 
   /* First row. */
   label = gtk_label_new("First:");
+  gtk_misc_set_alignment(GTK_MISC(label), 1, 0.5);
   gtk_table_attach(GTK_TABLE(table), label, 0, 1, 0, 1,
 		   GTK_FILL, 0, 0, 0);
-  gtk_misc_set_alignment(GTK_MISC(label), 1, 0.5);
 
   data->fname_entry = gtk_entry_new();
   gtk_entry_set_activates_default(GTK_ENTRY(data->fname_entry), TRUE);
@@ -146,9 +146,9 @@ contact_editor_new(GtkWindow                      *parent,
 
   /* Second row. */
   label = gtk_label_new("Last:");
+  gtk_misc_set_alignment(GTK_MISC(label), 1, 0.5);
   gtk_table_attach(GTK_TABLE(table), label, 0, 1, 1, 2,
 		   GTK_FILL, 0, 0, 0);
-  gtk_misc_set_alignment(GTK_MISC(label), 1, 0.5);
 
   data->lname_entry = gtk_entry_new();
   gtk_entry_set_activates_default(GTK_ENTRY(data->lname_entry), TRUE);
@@ -157,9 +157,9 @@ contact_editor_new(GtkWindow                      *parent,
 
   /* Third row. */
   label = gtk_label_new("Email:");
+  gtk_misc_set_alignment(GTK_MISC(label), 1, 0.5);
   gtk_table_attach(GTK_TABLE(table), label, 0, 1, 2, 3,
 		   GTK_FILL, 0, 0, 0);
-  gtk_misc_set_alignment(GTK_MISC(label), 1, 0.5);
 
   data->email_entry = gtk_entry_new();
   gtk_entry_set_activates_default(GTK_ENTRY(data->email_entry), TRUE);
