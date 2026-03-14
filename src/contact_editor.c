@@ -128,10 +128,9 @@ contact_editor_new(GtkWindow                      *parent,
 
   /* Create the table to host the text entry widgets. */
   table = gtk_table_new(3 /* rows */, 2 /* columns */, FALSE);
-
-  gtk_container_set_border_width(GTK_CONTAINER(table), 4);
   gtk_table_set_row_spacings(GTK_TABLE(table), 6);
   gtk_table_set_col_spacings(GTK_TABLE(table), 12);
+  gtk_container_set_border_width(GTK_CONTAINER(table), 12);
 
   /* First row. */
   label = gtk_label_new("First:");
