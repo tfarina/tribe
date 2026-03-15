@@ -141,7 +141,7 @@ contact_editor_new(GtkWindow                      *parent,
   data->fname_entry = gtk_entry_new();
   gtk_entry_set_activates_default(GTK_ENTRY(data->fname_entry), TRUE);
   gtk_table_attach(GTK_TABLE(table), data->fname_entry, 1, 2, 0, 1,
-		   GTK_EXPAND | GTK_SHRINK | GTK_FILL, 0, 0, 0);
+		   GTK_EXPAND | GTK_FILL, 0, 0, 0);
 
   /* Second row. */
   label = gtk_label_new("Last:");
@@ -152,7 +152,7 @@ contact_editor_new(GtkWindow                      *parent,
   data->lname_entry = gtk_entry_new();
   gtk_entry_set_activates_default(GTK_ENTRY(data->lname_entry), TRUE);
   gtk_table_attach(GTK_TABLE(table), data->lname_entry, 1, 2, 1, 2,
-		   GTK_EXPAND | GTK_SHRINK | GTK_FILL, 0, 0, 0);
+		   GTK_EXPAND | GTK_FILL, 0, 0, 0);
 
   /* Third row. */
   label = gtk_label_new("Email:");
@@ -163,7 +163,7 @@ contact_editor_new(GtkWindow                      *parent,
   data->email_entry = gtk_entry_new();
   gtk_entry_set_activates_default(GTK_ENTRY(data->email_entry), TRUE);
   gtk_table_attach(GTK_TABLE(table), data->email_entry, 1, 2, 2, 3,
-		   GTK_EXPAND | GTK_SHRINK | GTK_FILL, 0, 0, 0);
+		   GTK_EXPAND | GTK_FILL, 0, 0, 0);
 
   gtk_notebook_append_page(GTK_NOTEBOOK(notebook), table,
 			   gtk_label_new("Name"));
