@@ -114,7 +114,7 @@ contact_editor_new(GtkWindow                      *parent,
   gtk_window_set_transient_for(GTK_WINDOW(dialog), parent);
   gtk_window_set_position(GTK_WINDOW(dialog), GTK_WIN_POS_CENTER_ON_PARENT);
   gtk_window_set_modal(GTK_WINDOW(dialog), TRUE);
-  gtk_window_set_default_size(GTK_WINDOW(dialog), 400, 450);
+  gtk_window_set_default_size(GTK_WINDOW(dialog), 400, -1);
   g_signal_connect(dialog, "response",
 		   G_CALLBACK(contact_editor_response_cb),
 		   NULL);
