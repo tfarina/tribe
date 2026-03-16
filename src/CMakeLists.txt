@@ -49,11 +49,11 @@ set(DEPENDENCIES
 set(SOURCES
   about_dialog.c
   about_dialog.h
-  contact_editor.c
-  contact_editor.h
   main.c
   tribe-application.c
   tribe-application.h
+  tribe-contact-dialog.c
+  tribe-contact-dialog.h
   tribe-window.c
   tribe-window.h
 )

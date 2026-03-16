@@ -12,8 +12,8 @@
 
 #include "ab.h"
 #include "about_dialog.h"
-#include "contact_editor.h"
 #include "dirs.h"
+#include "tribe-contact-dialog.h"
 
 struct _TribeWindowPrivate
 {
@@ -272,8 +272,8 @@ static GtkRadioActionEntry menubar_radio_entries[] =
  */
 
 static void _append_item_to_list_store(TribeWindow *window, ab_contact_t *contact);
-static void _on_contact_editor_create_response(GtkWidget *editor, ab_contact_t *contact, gpointer user_data);
-static void _on_contact_editor_edit_response(GtkWidget *editor, ab_contact_t *contact, gpointer user_data);
+static void _on_contact_dialog_create_response(GtkWidget *dialog, ab_contact_t *contact, gpointer user_data);
+static void _on_contact_dialog_edit_response(GtkWidget *dialog, ab_contact_t *contact, gpointer user_data);
 
 static void
 _edit_selection(TribeWindow *window)
@@ -305,11 +305,11 @@ _edit_selection(TribeWindow *window)
 	  continue;
 	}
 
-      dialog = contact_editor_new(GTK_WINDOW(window),
-				  contact,
-				  TRIBE_CONTACT_EDITOR_MODE_EDIT,
-				  _on_contact_editor_edit_response,
-				  window);
+      dialog = tribe_contact_dialog_new(GTK_WINDOW(window),
+					contact,
+					TRIBE_CONTACT_DIALOG_MODE_EDIT,
+					_on_contact_dialog_edit_response,
+					window);
       gtk_widget_show_all(dialog);
     }
 
@@ -435,11 +435,11 @@ _on_file_new_contact_cb(GtkAction *action, gpointer data)
 
   window = TRIBE_WINDOW(data);
 
-  dialog = contact_editor_new(GTK_WINDOW(window),
-			      NULL,
-			      TRIBE_CONTACT_EDITOR_MODE_CREATE,
-			      _on_contact_editor_create_response,
-			      window);
+  dialog = tribe_contact_dialog_new(GTK_WINDOW(window),
+				    NULL,
+				    TRIBE_CONTACT_DIALOG_MODE_CREATE,
+				    _on_contact_dialog_create_response,
+				    window);
   gtk_widget_show_all(dialog);
 }
 
@@ -741,11 +741,11 @@ _on_list_button_press_cb(GtkTreeView *widget,
     g_list_free_full(selected_rows, (GDestroyNotify) gtk_tree_path_free);
 
     if (contact != NULL) {
-      dialog = contact_editor_new(GTK_WINDOW(window),
-				  contact,
-				  TRIBE_CONTACT_EDITOR_MODE_EDIT,
-				  _on_contact_editor_edit_response,
-				  window);
+      dialog = tribe_contact_dialog_new(GTK_WINDOW(window),
+					contact,
+					TRIBE_CONTACT_DIALOG_MODE_EDIT,
+					_on_contact_dialog_edit_response,
+					window);
     }
 
     return TRUE;
@@ -771,11 +771,11 @@ _on_list_key_press_cb(GtkWidget *widget, GdkEventKey *event, gpointer data)
 }
 
 /*
- * Contact editor callbacks
+ * Contact dialog callbacks
  */
 
 static void
-_on_contact_editor_create_response(GtkWidget *editor, ab_contact_t *contact, gpointer user_data)
+_on_contact_dialog_create_response(GtkWidget *dialog, ab_contact_t *contact, gpointer user_data)
 {
   TribeWindow *window;
 
@@ -785,7 +785,7 @@ _on_contact_editor_create_response(GtkWidget *editor, ab_contact_t *contact, gpo
 }
 
 static void
-_on_contact_editor_edit_response(GtkWidget *editor, ab_contact_t *contact, gpointer user_data)
+_on_contact_dialog_edit_response(GtkWidget *dialog, ab_contact_t *contact, gpointer user_data)
 {
   TribeWindow *window;
   TribeWindowPrivate *priv;

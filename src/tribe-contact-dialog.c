@@ -1,4 +1,4 @@
-#include "contact_editor.h"
+#include "tribe-contact-dialog.h"
 
 #include <gdk/gdk.h>
 #include <gdk/gdkkeysyms.h>
@@ -10,8 +10,8 @@
 typedef struct
 {
   ab_contact_t *contact;
-  TribeContactEditorMode mode;
-  TribeContactEditorResponseFunc response_func;
+  TribeContactDialogMode mode;
+  TribeContactDialogResponseFunc response_func;
   gpointer window_data;
 
   GtkWidget *fname_entry;
@@ -20,9 +20,9 @@ typedef struct
 } DialogData;
 
 static void
-contact_editor_response_cb(GtkDialog *dialog,
-			   gint       response_id,
-			   gpointer   user_data)
+tribe_contact_dialog_response_cb(GtkDialog *dialog,
+				 gint       response_id,
+				 gpointer   user_data)
 {
   DialogData *data;
   ab_contact_t *contact;
@@ -33,7 +33,7 @@ contact_editor_response_cb(GtkDialog *dialog,
   {
     case GTK_RESPONSE_OK:
       /* Determine contact object */
-      if (data->mode == TRIBE_CONTACT_EDITOR_MODE_CREATE)
+      if (data->mode == TRIBE_CONTACT_DIALOG_MODE_CREATE)
       {
 	ab_contact_create(&contact);
       }
@@ -51,7 +51,7 @@ contact_editor_response_cb(GtkDialog *dialog,
       ab_contact_set_email(contact,
 			   gtk_entry_get_text(GTK_ENTRY(data->email_entry)));
 
-      if (data->mode == TRIBE_CONTACT_EDITOR_MODE_CREATE)
+      if (data->mode == TRIBE_CONTACT_DIALOG_MODE_CREATE)
       {
 	ab_add_contact(contact);
       }
@@ -80,19 +80,19 @@ contact_editor_response_cb(GtkDialog *dialog,
 }
 
 static void
-contact_editor_map_cb(GtkWidget *widget, gpointer user_data)
+tribe_contact_dialog_map_cb(GtkWidget *widget, gpointer user_data)
 {
   GtkWidget *fname_entry = user_data;
 
   gtk_widget_grab_focus(fname_entry);
 }
 
-GtkWidget *
-contact_editor_new(GtkWindow                      *parent,
-		   ab_contact_t                   *contact,
-		   TribeContactEditorMode          mode,
-		   TribeContactEditorResponseFunc  response_cb,
-		   gpointer                        user_data)
+GtkWidget*
+tribe_contact_dialog_new(GtkWindow                      *parent,
+			 ab_contact_t                   *contact,
+			 TribeContactDialogMode          mode,
+			 TribeContactDialogResponseFunc  response_cb,
+			 gpointer                        user_data)
 {
   DialogData *data;
   GtkWidget *dialog;
@@ -116,7 +116,7 @@ contact_editor_new(GtkWindow                      *parent,
   gtk_window_set_modal(GTK_WINDOW(dialog), TRUE);
   gtk_window_set_default_size(GTK_WINDOW(dialog), 400, -1);
   g_signal_connect(dialog, "response",
-		   G_CALLBACK(contact_editor_response_cb),
+		   G_CALLBACK(tribe_contact_dialog_response_cb),
 		   NULL);
 
   content_area = gtk_dialog_get_content_area(GTK_DIALOG(dialog));
@@ -176,7 +176,7 @@ contact_editor_new(GtkWindow                      *parent,
   gtk_dialog_set_default_response(GTK_DIALOG(dialog), GTK_RESPONSE_OK);
 
   g_signal_connect(dialog, "map",
-		   G_CALLBACK(contact_editor_map_cb),
+		   G_CALLBACK(tribe_contact_dialog_map_cb),
 		   data->fname_entry);
 
   g_object_set_data_full(G_OBJECT(dialog),
