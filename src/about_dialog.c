@@ -41,6 +41,6 @@ void show_about_dialog(GtkWindow *parent) {
 			"documenters",        documenters,
 			"translator-credits", "",
 			"license",            license_gpl2,
-			"website",            PACKAGE_URL,
+			"website",            "https://tribe.infinityfreeapp.com",
 			NULL);
 }
