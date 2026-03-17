@@ -33,15 +33,14 @@ void show_about_dialog(GtkWindow *parent) {
   static char const copyright[] = "Copyright © 2019";
 
   gtk_show_about_dialog(parent,
-			"artists",            0,
-			"authors",            authors,
+                        "program-name",       PACKAGE,
+			"version",            VERSION,
 			"comments",           comments,
 			"copyright",          copyright,
+			"authors",            authors,
 			"documenters",        documenters,
-			"license",            license_gpl2,
-                        "program-name",       PACKAGE,
 			"translator-credits", "",
-			"version",            VERSION,
+			"license",            license_gpl2,
 			"website",            PACKAGE_URL,
 			NULL);
 }
