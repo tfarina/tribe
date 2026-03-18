@@ -17,7 +17,6 @@ void show_about_dialog(GtkWindow *parent) {
     NULL
   };
 
-  static char const comments[] = "A simple and easy to use address book manager";
   static char const copyright[] = "Copyright © 2019";
 
   static char const *license_part[] = {
@@ -41,7 +40,7 @@ void show_about_dialog(GtkWindow *parent) {
   gtk_show_about_dialog(parent,
                         "program-name",       "Tribe",
 			"version",            VERSION,
-			"comments",           comments,
+			"comments",           "A simple and easy to use address book manager",
 			"copyright",          copyright,
 			"authors",            authors,
 			"documenters",        documenters,
