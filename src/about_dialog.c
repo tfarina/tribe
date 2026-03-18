@@ -47,6 +47,7 @@ void show_about_dialog(GtkWindow *parent) {
 			"documenters",        documenters,
 			"translator-credits", "",
 			"license",            license,
+			"website-label",      "Tribe Website",
 			"website",            "https://tribe.infinityfreeapp.com",
 			NULL);
 
