@@ -40,8 +40,6 @@ tribe_CFLAGS = \
 	$(NULL)
 
 tribe_SOURCES = \
-	about_dialog.c \
-	about_dialog.h \
 	main.c \
 	tribe-application.c \
 	tribe-application.h \
