@@ -3,7 +3,6 @@
 #include "ab.h"
 #include "dirs.h"
 #include "tribe-application.h"
-#include "util.h"
 
 int
 main(int argc, char **argv)
@@ -14,9 +13,7 @@ main(int argc, char **argv)
   TribeApplication *app;
   GtkWidget *window;
 
-  dirs_init();
-
-  if (!ensure_data_dir())
+  if (!dirs_init())
   {
     return 1;
   }

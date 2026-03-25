@@ -5,7 +5,6 @@
 
 #include "ab.h"
 #include "dirs.h"
-#include "util.h"
 
 int cmd_delete(int argc, char **argv) {
   int rc;
@@ -19,9 +18,8 @@ int cmd_delete(int argc, char **argv) {
     return 1;
   }
 
-  dirs_init();
-
-  if (!ensure_data_dir()) {
+  if (!dirs_init())
+  {
     return 1;
   }
 

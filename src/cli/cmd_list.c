@@ -5,7 +5,6 @@
 #include "ab.h"
 #include "common.h"
 #include "dirs.h"
-#include "util.h"
 
 int cmd_list(int argc, char **argv) {
   int rc;
@@ -14,9 +13,8 @@ int cmd_list(int argc, char **argv) {
   int num_contacts = 0;
   ab_contact_t *contacts = NULL;
 
-  dirs_init();
-
-  if (!ensure_data_dir()) {
+  if (!dirs_init())
+  {
     return 1;
   }
 

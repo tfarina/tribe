@@ -11,8 +11,6 @@ set(SOURCES
   ab_contact.h
   dirs.c
   dirs.h
-  util.c
-  util.h
 )
 
 add_library(${TARGETNAME}

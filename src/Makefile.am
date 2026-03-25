@@ -23,8 +23,6 @@ libab_a_SOURCES = \
 	ab_contact.h \
 	dirs.c \
 	dirs.h \
-	util.c \
-	util.h \
 	$(NULL)
 
 libab_a_LIBADD = \
