@@ -5,7 +5,7 @@
 
 #include "ab_contact.h"
 
-int ab_init(char *db_dir);
+int ab_init(char const *db_dir);
 int ab_fini(void);
 
 int ab_enum_contacts(GList **pp_contact_list);

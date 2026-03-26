@@ -9,7 +9,7 @@
 int cmd_delete(int argc, char **argv) {
   int rc;
   int status = 0;
-  char *dbdir;
+  char const *dbdir;
   int id;
   ab_contact_t *contact = NULL;
 

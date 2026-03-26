@@ -3,6 +3,6 @@
 
 int dirs_init(void);
 
-char *dirs_get_user_data_dir(void);
+char const *dirs_get_user_data_dir(void);
 
 #endif  /* DIRS_H_ */

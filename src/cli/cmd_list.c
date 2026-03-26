@@ -9,7 +9,7 @@
 int cmd_list(int argc, char **argv) {
   int rc;
   int status = 0;
-  char *dbdir;
+  char const *dbdir;
   int num_contacts = 0;
   ab_contact_t *contacts = NULL;
 

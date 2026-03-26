@@ -31,7 +31,7 @@ dirs_init(void)
   return 1;
 }
 
-char *
+char const *
 dirs_get_user_data_dir(void)
 {
   return g_user_data_dir;

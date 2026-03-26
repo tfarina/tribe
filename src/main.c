@@ -9,7 +9,7 @@ main(int argc, char **argv)
 {
   int rc;
   int status = 0; /* success */
-  char *dbdir;
+  char const *dbdir;
   TribeApplication *app;
   GtkWidget *window;
 

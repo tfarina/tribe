@@ -135,7 +135,7 @@ out:
   return scode;
 }
 
-int ab_init(char *db_dir) {
+int ab_init(char const *db_dir) {
   int rc;
   char const db_file_name[] = "abdb.sqlite3";
   char *db_file_path;
