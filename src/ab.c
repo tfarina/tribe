@@ -152,12 +152,12 @@ int ab_init(char const *db_dir) {
   if (rc != SQLITE_OK) {
     fprintf(stderr, "ERROR: Unable to open the database at %s: %s\n",
 	    db_file_path, sqlite3_errmsg(hdb));
-    free(db_file_path);
+    g_free(db_file_path);
     sqlite3_close(hdb);
     hdb = NULL;
     return -1;
   }
-  free(db_file_path);
+  g_free(db_file_path);
 
   rc = _db_check_integrity();
   if (rc < 0) {
