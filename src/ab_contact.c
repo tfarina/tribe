@@ -51,6 +51,10 @@ void ab_contact_destroy(ab_contact_t *contact) {
   contact = NULL;
 }
 
+char *ab_contact_get_first_name(ab_contact_t *contact) {
+  return contact->fname;
+}
+
 int ab_contact_set_first_name(ab_contact_t *contact, char const *fname) {
   int rc = 0;
   size_t len = 0;
@@ -67,6 +71,10 @@ int ab_contact_set_first_name(ab_contact_t *contact, char const *fname) {
 
 out:
   return rc;
+}
+
+char *ab_contact_get_last_name(ab_contact_t *contact) {
+  return contact->lname;
 }
 
 int ab_contact_set_last_name(ab_contact_t *contact, char const *lname) {
@@ -87,6 +95,10 @@ out:
   return rc;
 }
 
+char *ab_contact_get_email(ab_contact_t *contact) {
+  return contact->email;
+}
+
 int ab_contact_set_email(ab_contact_t *contact, char const *email) {
   int rc = 0;
   size_t len = 0;
@@ -103,16 +115,4 @@ int ab_contact_set_email(ab_contact_t *contact, char const *email) {
 
 out:
   return rc;
-}
-
-char *ab_contact_get_first_name(ab_contact_t *contact) {
-  return contact->fname;
-}
-
-char *ab_contact_get_last_name(ab_contact_t *contact) {
-  return contact->lname;
-}
-
-char *ab_contact_get_email(ab_contact_t *contact) {
-  return contact->email;
 }
