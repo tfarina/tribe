@@ -41,6 +41,7 @@ main(int argc, char **argv)
 
 out:
   ab_fini();
+  dirs_shutdown();
 
   return status;
 }

@@ -52,6 +52,7 @@ done:
     ab_contact_destroy(contact);
 
   ab_fini();
+  dirs_shutdown();
 
   return status;
 }

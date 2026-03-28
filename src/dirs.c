@@ -31,6 +31,13 @@ dirs_init(void)
   return 1;
 }
 
+void
+dirs_shutdown(void)
+{
+  g_free(g_user_data_dir);
+  g_user_data_dir = NULL;
+}
+
 char const *
 dirs_get_user_data_dir(void)
 {
