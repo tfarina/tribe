@@ -12,13 +12,13 @@ typedef struct ab_contact_s
 int ab_contact_create(ab_contact_t **pp_contact);
 void ab_contact_destroy(ab_contact_t *contact);
 
-char *ab_contact_get_first_name(ab_contact_t *contact);
-int   ab_contact_set_first_name(ab_contact_t *contact, char const *fname);
+char const *ab_contact_get_first_name(ab_contact_t *contact);
+int         ab_contact_set_first_name(ab_contact_t *contact, char const *fname);
 
-char *ab_contact_get_last_name(ab_contact_t *contact);
-int   ab_contact_set_last_name(ab_contact_t *contact, char const *lname);
+char const *ab_contact_get_last_name(ab_contact_t *contact);
+int         ab_contact_set_last_name(ab_contact_t *contact, char const *lname);
 
-char *ab_contact_get_email(ab_contact_t *contact);
-int   ab_contact_set_email(ab_contact_t *contact, char const *email);
+char const *ab_contact_get_email(ab_contact_t *contact);
+int         ab_contact_set_email(ab_contact_t *contact, char const *email);
 
 #endif /* AB_CONTACT_H */

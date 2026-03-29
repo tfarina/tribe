@@ -51,7 +51,7 @@ void ab_contact_destroy(ab_contact_t *contact) {
   contact = NULL;
 }
 
-char *ab_contact_get_first_name(ab_contact_t *contact) {
+char const *ab_contact_get_first_name(ab_contact_t *contact) {
   return contact->fname;
 }
 
@@ -73,7 +73,7 @@ out:
   return rc;
 }
 
-char *ab_contact_get_last_name(ab_contact_t *contact) {
+char const *ab_contact_get_last_name(ab_contact_t *contact) {
   return contact->lname;
 }
 
@@ -95,7 +95,7 @@ out:
   return rc;
 }
 
-char *ab_contact_get_email(ab_contact_t *contact) {
+char const *ab_contact_get_email(ab_contact_t *contact) {
   return contact->email;
 }
 
