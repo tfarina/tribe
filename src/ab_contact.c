@@ -4,6 +4,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <glib.h>
+
 int ab_contact_create(ab_contact_t **pp_contact) {
   ab_contact_t *contact = NULL;
   int rc = 0; /* success */
@@ -55,64 +57,25 @@ char const *ab_contact_get_first_name(ab_contact_t *contact) {
   return contact->fname;
 }
 
-int ab_contact_set_first_name(ab_contact_t *contact, char const *fname) {
-  int rc = 0;
-  size_t len = 0;
-
-  free(contact->fname);
-
-  len = strlen(fname) + 1;
-  contact->fname = malloc(len * sizeof(char));
-  if (!contact->fname) {
-    rc = -ENOMEM;
-    goto out;
-  }
-  memcpy(contact->fname, fname, len);
-
-out:
-  return rc;
+void ab_contact_set_first_name(ab_contact_t *contact, char const *fname) {
+  g_free(contact->fname);
+  contact->fname = g_strdup(fname);
 }
 
 char const *ab_contact_get_last_name(ab_contact_t *contact) {
   return contact->lname;
 }
 
-int ab_contact_set_last_name(ab_contact_t *contact, char const *lname) {
-  int rc = 0;
-  size_t len = 0;
-
-  free(contact->lname);
-
-  len = strlen(lname) + 1;
-  contact->lname = malloc(len * sizeof(char));
-  if (!contact->lname) {
-    rc = -ENOMEM;
-    goto out;
-  }
-  memcpy(contact->lname, lname, len);
-
-out:
-  return rc;
+void ab_contact_set_last_name(ab_contact_t *contact, char const *lname) {
+  g_free(contact->lname);
+  contact->lname = g_strdup(lname);
 }
 
 char const *ab_contact_get_email(ab_contact_t *contact) {
   return contact->email;
 }
 
-int ab_contact_set_email(ab_contact_t *contact, char const *email) {
-  int rc = 0;
-  size_t len = 0;
-
-  free(contact->email);
-
-  len = strlen(email) + 1;
-  contact->email = malloc(len * sizeof(char));
-  if (!contact->email) {
-    rc = -ENOMEM;
-    goto out;
-  }
-  memcpy(contact->email, email, len);
-
-out:
-  return rc;
+void ab_contact_set_email(ab_contact_t *contact, char const *email) {
+  g_free(contact->email);
+  contact->email = g_strdup(email);
 }
