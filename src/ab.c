@@ -329,11 +329,7 @@ int ab_enum_contacts(GList **pp_contact_list) {
   }
 
   for (i = 0; i < num_contacts; i++) {
-    rc = ab_contact_create(&p_contact);
-    if (rc < 0 || !p_contact) {
-      rc = -1;
-      goto exit;
-    }
+    p_contact = ab_contact_new();
 
     p_contact->id = contacts[i].id;
     p_contact->fname = g_strdup(contacts[i].fname);
@@ -609,11 +605,7 @@ int ab_get_contact_by_id(int id, ab_contact_t **pp_contact) {
   if (rc == SQLITE_ROW) {
     char const *psz = NULL;
 
-    rc = ab_contact_create(&contact);
-    if (rc < 0 || !contact) {
-      scode = -1;
-      goto out;
-    }
+    contact = ab_contact_new();
 
     contact->id = sqlite3_column_int(stmt, 0);
 

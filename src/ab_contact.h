@@ -9,8 +9,8 @@ typedef struct ab_contact_s
   char *email;
 } ab_contact_t;
 
-int ab_contact_create(ab_contact_t **pp_contact);
-void ab_contact_destroy(ab_contact_t *contact);
+ab_contact_t *ab_contact_new(void);
+void          ab_contact_free(ab_contact_t *contact);
 
 char const *ab_contact_get_first_name(ab_contact_t *contact);
 void        ab_contact_set_first_name(ab_contact_t *contact, char const *fname);

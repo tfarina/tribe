@@ -49,7 +49,7 @@ int cmd_delete(int argc, char **argv) {
 
 out:
   if (contact)
-    ab_contact_destroy(contact);
+    ab_contact_free(contact);
 
   ab_fini();
   dirs_shutdown();

@@ -35,7 +35,7 @@ tribe_contact_dialog_response_cb(GtkDialog *dialog,
       /* Determine contact object */
       if (data->mode == TRIBE_CONTACT_DIALOG_MODE_CREATE)
       {
-	ab_contact_create(&contact);
+	contact = ab_contact_new();
       }
       else
       {

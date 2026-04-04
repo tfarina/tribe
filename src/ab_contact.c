@@ -6,51 +6,24 @@
 
 #include <glib.h>
 
-int ab_contact_create(ab_contact_t **pp_contact) {
-  ab_contact_t *contact = NULL;
-  int rc = 0; /* success */
+ab_contact_t* ab_contact_new(void) {
+  ab_contact_t *contact;
 
-  /* Allocate space for the ab_contact structure
-   */
-  contact = malloc(sizeof(ab_contact_t));
-  if (!contact) {
-    rc = -ENOMEM;
-    goto err;
-  }
+  contact = g_new0(ab_contact_t, 1);
 
-  /* Zero init the object
-   */
-  memset(contact, 0, sizeof(ab_contact_t));
-
-  contact->fname = NULL;
-  contact->lname = NULL;
-  contact->email = NULL;
-
-  *pp_contact = contact;
-
-  return 0;
-
-err:
-  free(contact);
-  contact = NULL;
-
-  return rc;
+  return contact;
 }
 
-void ab_contact_destroy(ab_contact_t *contact) {
+void ab_contact_free(ab_contact_t *contact) {
   if (!contact) {
     return;
   }
 
-  free(contact->fname);
-  contact->fname = NULL;
-  free(contact->lname);
-  contact->lname = NULL;
-  free(contact->email);
-  contact->email = NULL;
+  g_free(contact->fname);
+  g_free(contact->lname);
+  g_free(contact->email);
 
-  free(contact);
-  contact = NULL;
+  g_free(contact);
 }
 
 char const *ab_contact_get_first_name(ab_contact_t *contact) {
