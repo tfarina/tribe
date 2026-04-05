@@ -315,9 +315,9 @@ int ab_enum_contacts(GList **pp_contact_list) {
     p_contact = ab_contact_new();
 
     p_contact->id = contacts[i].id;
-    ab_contact_set_first_name(p_contact, contacts[i].fname);
-    ab_contact_set_last_name(p_contact, contacts[i].lname);
-    ab_contact_set_email(p_contact, contacts[i].email);
+    ab_contact_set_first_name(p_contact, ab_contact_get_first_name(&contacts[i]));
+    ab_contact_set_last_name(p_contact, ab_contact_get_last_name(&contacts[i]));
+    ab_contact_set_email(p_contact, ab_contact_get_email(&contacts[i]));
 
     contact_list = g_list_append(contact_list, p_contact);
   }
@@ -351,7 +351,7 @@ int _db_insert_contact(ab_contact_t *contact) {
     return -1;
   }
 
-  rc = sqlite3_bind_text(insert_stmt, 1, contact->fname, -1, SQLITE_STATIC);
+  rc = sqlite3_bind_text(insert_stmt, 1, ab_contact_get_first_name(contact), -1, SQLITE_STATIC);
   if (rc != SQLITE_OK) {
     fprintf(stderr, "ERROR: sqlite3_bind_text failed: %s\n",
             sqlite3_errmsg(hdb));
@@ -359,7 +359,7 @@ int _db_insert_contact(ab_contact_t *contact) {
     goto out;
   }
 
-  rc = sqlite3_bind_text(insert_stmt, 2, contact->lname, -1, SQLITE_STATIC);
+  rc = sqlite3_bind_text(insert_stmt, 2, ab_contact_get_last_name(contact), -1, SQLITE_STATIC);
   if (rc != SQLITE_OK) {
     fprintf(stderr, "ERROR: sqlite3_bind_text failed: %s\n",
             sqlite3_errmsg(hdb));
@@ -367,7 +367,7 @@ int _db_insert_contact(ab_contact_t *contact) {
     goto out;
   }
 
-  rc = sqlite3_bind_text(insert_stmt, 3, contact->email, -1, SQLITE_STATIC);
+  rc = sqlite3_bind_text(insert_stmt, 3, ab_contact_get_email(contact), -1, SQLITE_STATIC);
   if (rc != SQLITE_OK) {
     fprintf(stderr, "ERROR: sqlite3_bind_text failed: %s\n",
             sqlite3_errmsg(hdb));
@@ -424,7 +424,7 @@ int _db_update_contact(ab_contact_t* contact) {
     return -1;
   }
 
-  rc = sqlite3_bind_text(update_stmt, 1, contact->fname, -1, SQLITE_STATIC);
+  rc = sqlite3_bind_text(update_stmt, 1, ab_contact_get_first_name(contact), -1, SQLITE_STATIC);
   if (rc != SQLITE_OK) {
     fprintf(stderr, "ERROR: sqlite3_bind_text failed: %s\n",
             sqlite3_errmsg(hdb));
@@ -432,7 +432,7 @@ int _db_update_contact(ab_contact_t* contact) {
     goto out;
   }
 
-  rc = sqlite3_bind_text(update_stmt, 2, contact->lname, -1, SQLITE_STATIC);
+  rc = sqlite3_bind_text(update_stmt, 2, ab_contact_get_last_name(contact), -1, SQLITE_STATIC);
   if (rc != SQLITE_OK) {
     fprintf(stderr, "ERROR: sqlite3_bind_text failed: %s\n",
             sqlite3_errmsg(hdb));
@@ -440,7 +440,7 @@ int _db_update_contact(ab_contact_t* contact) {
     goto out;
   }
 
-  rc = sqlite3_bind_text(update_stmt, 3, contact->email, -1, SQLITE_STATIC);
+  rc = sqlite3_bind_text(update_stmt, 3, ab_contact_get_email(contact), -1, SQLITE_STATIC);
   if (rc != SQLITE_OK) {
     fprintf(stderr, "ERROR: sqlite3_bind_text failed: %s\n",
             sqlite3_errmsg(hdb));
