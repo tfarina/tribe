@@ -332,9 +332,9 @@ int ab_enum_contacts(GList **pp_contact_list) {
     p_contact = ab_contact_new();
 
     p_contact->id = contacts[i].id;
-    p_contact->fname = g_strdup(contacts[i].fname);
-    p_contact->lname = g_strdup(contacts[i].lname);
-    p_contact->email = g_strdup(contacts[i].email);
+    ab_contact_set_first_name(p_contact, contacts[i].fname);
+    ab_contact_set_last_name(p_contact, contacts[i].lname);
+    ab_contact_set_email(p_contact, contacts[i].email);
 
     contact_list = g_list_append(contact_list, p_contact);
   }
@@ -603,20 +603,12 @@ int ab_get_contact_by_id(int id, ab_contact_t **pp_contact) {
 
   /* If rc is equal to SQLITE_ROW then a contact with the given id was found! */
   if (rc == SQLITE_ROW) {
-    char const *psz = NULL;
-
     contact = ab_contact_new();
 
     contact->id = sqlite3_column_int(stmt, 0);
-
-    psz = (char const *)sqlite3_column_text(stmt, 1);
-    contact->fname = g_strdup(psz);
-
-    psz = (char const *)sqlite3_column_text(stmt, 2);
-    contact->lname = g_strdup(psz);
-
-    psz = (char const *)sqlite3_column_text(stmt, 3);
-    contact->email = g_strdup(psz);
+    ab_contact_set_first_name(contact, (char const *)sqlite3_column_text(stmt, 1));
+    ab_contact_set_last_name(contact, (char const *)sqlite3_column_text(stmt, 2));
+    ab_contact_set_email(contact, (char const *)sqlite3_column_text(stmt, 3));
 
     *pp_contact = contact;
   }
