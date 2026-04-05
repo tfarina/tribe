@@ -12,6 +12,9 @@ typedef struct ab_contact_s
 ab_contact_t *ab_contact_new(void);
 void          ab_contact_free(ab_contact_t *contact);
 
+int         ab_contact_get_id(ab_contact_t *contact);
+void        ab_contact_set_id(ab_contact_t *contact, int id);
+
 char const *ab_contact_get_first_name(ab_contact_t *contact);
 void        ab_contact_set_first_name(ab_contact_t *contact, char const *fname);
 

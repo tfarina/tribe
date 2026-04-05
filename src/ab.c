@@ -275,7 +275,7 @@ int _db_enum_contacts(int *num_contacts, ab_contact_t **contacts_dst) {
     if (rc != SQLITE_ROW)
       break;
 
-    contacts[i].id = sqlite3_column_int(select_stmt, 0);
+    ab_contact_set_id(&contacts[i], sqlite3_column_int(select_stmt, 0));
     ab_contact_set_first_name(&contacts[i],
 			      (char const *)sqlite3_column_text(select_stmt, 1));
     ab_contact_set_last_name(&contacts[i],
@@ -314,7 +314,7 @@ int ab_enum_contacts(GList **pp_contact_list) {
   for (i = 0; i < num_contacts; i++) {
     p_contact = ab_contact_new();
 
-    p_contact->id = contacts[i].id;
+    ab_contact_set_id(p_contact, ab_contact_get_id(&contacts[i]));
     ab_contact_set_first_name(p_contact, ab_contact_get_first_name(&contacts[i]));
     ab_contact_set_last_name(p_contact, ab_contact_get_last_name(&contacts[i]));
     ab_contact_set_email(p_contact, ab_contact_get_email(&contacts[i]));
@@ -448,7 +448,7 @@ int _db_update_contact(ab_contact_t* contact) {
     goto out;
   }
 
-  rc = sqlite3_bind_int(update_stmt, 4, contact->id);
+  rc = sqlite3_bind_int(update_stmt, 4, ab_contact_get_id(contact));
   if (rc != SQLITE_OK) {
     fprintf(stderr, "ERROR: sqlite3_bind_int failed: %s\n",
             sqlite3_errmsg(hdb));
@@ -525,7 +525,7 @@ out:
 int ab_delete_contact(ab_contact_t *contact) {
   int rc;
 
-  rc = _db_delete_contact(contact->id);
+  rc = _db_delete_contact(ab_contact_get_id(contact));
   if (rc < 0)
     return -1;
 
@@ -588,7 +588,7 @@ int ab_get_contact_by_id(int id, ab_contact_t **pp_contact) {
   if (rc == SQLITE_ROW) {
     contact = ab_contact_new();
 
-    contact->id = sqlite3_column_int(stmt, 0);
+    ab_contact_set_id(contact, sqlite3_column_int(stmt, 0));
     ab_contact_set_first_name(contact, (char const *)sqlite3_column_text(stmt, 1));
     ab_contact_set_last_name(contact, (char const *)sqlite3_column_text(stmt, 2));
     ab_contact_set_email(contact, (char const *)sqlite3_column_text(stmt, 3));

@@ -26,6 +26,14 @@ void ab_contact_free(ab_contact_t *contact) {
   g_free(contact);
 }
 
+int ab_contact_get_id(ab_contact_t *contact) {
+  return contact->id;
+}
+
+void ab_contact_set_id(ab_contact_t *contact, int id) {
+  contact->id = id;
+}
+
 char const *ab_contact_get_first_name(ab_contact_t *contact) {
   return contact->fname;
 }
