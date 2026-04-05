@@ -271,34 +271,17 @@ int _db_enum_contacts(int *num_contacts, ab_contact_t **contacts_dst) {
   }
 
   for (i = 0; i < row_count; i++) {
-    char const *psz = NULL;
-
     rc = sqlite3_step(select_stmt);
     if (rc != SQLITE_ROW)
       break;
 
     contacts[i].id = sqlite3_column_int(select_stmt, 0);
-
-    psz = (char const *)sqlite3_column_text(select_stmt, 1);
-    contacts[i].fname = g_strdup(psz);
-    if (!contacts[i].fname) {
-      scode = -ENOMEM;
-      goto err;
-    }
-
-    psz = (char const *)sqlite3_column_text(select_stmt, 2);
-    contacts[i].lname = g_strdup(psz);
-    if (!contacts[i].lname) {
-      scode = -ENOMEM;
-      goto err;
-    }
-
-    psz = (char const *)sqlite3_column_text(select_stmt, 3);
-    contacts[i].email = g_strdup(psz);
-    if (!contacts[i].email) {
-      scode = -ENOMEM;
-      goto err;
-    }
+    ab_contact_set_first_name(&contacts[i],
+			      (char const *)sqlite3_column_text(select_stmt, 1));
+    ab_contact_set_last_name(&contacts[i],
+			     (char const *)sqlite3_column_text(select_stmt, 2));
+    ab_contact_set_email(&contacts[i],
+			 (char const *)sqlite3_column_text(select_stmt, 3));
 
     num_rows++;
   }
