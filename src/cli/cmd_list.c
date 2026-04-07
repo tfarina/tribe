@@ -11,7 +11,7 @@ int cmd_list(int argc, char **argv) {
   int status = 0;
   char const *dbdir;
   int num_contacts = 0;
-  ab_contact_t *contacts = NULL;
+  ABContact *contacts = NULL;
 
   if (!dirs_init())
   {

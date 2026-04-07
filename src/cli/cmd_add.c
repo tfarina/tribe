@@ -9,7 +9,7 @@ int cmd_add(int argc, char **argv) {
   int rc;
   int status = 0;
   char const *dbdir;
-  ab_contact_t *contact = NULL;
+  ABContact *contact = NULL;
 
   if (argc != 4) {
     fprintf(stderr, "usage: %s <first-name> <last-name> <e-mail>\n", argv[0]);

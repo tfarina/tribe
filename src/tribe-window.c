@@ -270,9 +270,9 @@ static GtkRadioActionEntry menubar_radio_entries[] =
  * Prototype declarations
  */
 
-static void _append_item_to_list_store(TribeWindow *window, ab_contact_t *contact);
-static void _on_contact_dialog_create_response(GtkWidget *dialog, ab_contact_t *contact, gpointer user_data);
-static void _on_contact_dialog_edit_response(GtkWidget *dialog, ab_contact_t *contact, gpointer user_data);
+static void _append_item_to_list_store(TribeWindow *window, ABContact *contact);
+static void _on_contact_dialog_create_response(GtkWidget *dialog, ABContact *contact, gpointer user_data);
+static void _on_contact_dialog_edit_response(GtkWidget *dialog, ABContact *contact, gpointer user_data);
 
 static void
 _edit_selection(TribeWindow *window)
@@ -283,7 +283,7 @@ _edit_selection(TribeWindow *window)
   GtkTreeIter iter;
   GList *paths;
   GList *cur;
-  ab_contact_t *contact;
+  ABContact *contact;
   GtkWidget *dialog;
 
   priv = window->priv;
@@ -298,7 +298,7 @@ _edit_selection(TribeWindow *window)
 	  continue;
 	}
 
-      gtk_tree_model_get(model, &iter, COL_PTR, (ab_contact_t *)&contact, -1);
+      gtk_tree_model_get(model, &iter, COL_PTR, (ABContact *)&contact, -1);
       if (!contact)
 	{
 	  continue;
@@ -327,7 +327,7 @@ _remove_selection(TribeWindow *window)
   GList *references = NULL;
   GList *row;
   GtkTreeIter iter;
-  ab_contact_t *contact;
+  ABContact *contact;
   gboolean has_row = FALSE;
   gint n;
 
@@ -371,7 +371,7 @@ _remove_selection(TribeWindow *window)
 
       if (gtk_tree_model_get_iter(model, &iter, path))
       {
-        gtk_tree_model_get(model, &iter, COL_PTR, (ab_contact_t *)&contact, -1);
+        gtk_tree_model_get(model, &iter, COL_PTR, (ABContact *)&contact, -1);
         ab_delete_contact_v2(contact->id);
         has_row = gtk_list_store_remove(GTK_LIST_STORE(model), &iter);
       }
@@ -701,7 +701,7 @@ _on_list_button_press_cb(GtkTreeView *widget,
   GtkTreePath *path;
   GtkTreeViewColumn *column;
   GtkTreeIter iter;
-  ab_contact_t *contact;
+  ABContact *contact;
 
   window = TRIBE_WINDOW(data);
   priv = window->priv;
@@ -818,7 +818,7 @@ _on_list_key_press_cb(GtkWidget *widget, GdkEventKey *event, gpointer data)
  */
 
 static void
-_on_contact_dialog_create_response(GtkWidget *dialog, ab_contact_t *contact, gpointer user_data)
+_on_contact_dialog_create_response(GtkWidget *dialog, ABContact *contact, gpointer user_data)
 {
   TribeWindow *window;
 
@@ -828,7 +828,7 @@ _on_contact_dialog_create_response(GtkWidget *dialog, ab_contact_t *contact, gpo
 }
 
 static void
-_on_contact_dialog_edit_response(GtkWidget *dialog, ab_contact_t *contact, gpointer user_data)
+_on_contact_dialog_edit_response(GtkWidget *dialog, ABContact *contact, gpointer user_data)
 {
   TribeWindow *window;
   TribeWindowPrivate *priv;
@@ -866,7 +866,7 @@ _on_contact_dialog_edit_response(GtkWidget *dialog, ab_contact_t *contact, gpoin
  */
 
 static void
-_append_item_to_list_store(TribeWindow *window, ab_contact_t *contact)
+_append_item_to_list_store(TribeWindow *window, ABContact *contact)
 {
   TribeWindowPrivate *priv;
   GtkTreeModel *model;
@@ -1050,7 +1050,7 @@ _populate_list_view(TribeWindow *window, GList *list)
 
   for (item = list; item; item = g_list_next(item))
     {
-      _append_item_to_list_store(window, (ab_contact_t *)item->data);
+      _append_item_to_list_store(window, (ABContact *)item->data);
     }
 }
 

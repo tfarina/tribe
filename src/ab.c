@@ -231,13 +231,13 @@ out:
   return scode;
 }
 
-int _db_enum_contacts(int *num_contacts, ab_contact_t **contacts_dst) {
+int _db_enum_contacts(int *num_contacts, ABContact **contacts_dst) {
   int rc;
   int scode = 0;
   int row_count = 0;
   char const select_sql[] = "SELECT * FROM contacts";
   sqlite3_stmt *select_stmt = NULL;
-  ab_contact_t *contacts = NULL;
+  ABContact *contacts = NULL;
   int i;
   int num_rows = 0;
 
@@ -252,7 +252,7 @@ int _db_enum_contacts(int *num_contacts, ab_contact_t **contacts_dst) {
 
   /* Allocate the contacts array
    */
-  contacts = malloc(row_count * sizeof(ab_contact_t));
+  contacts = malloc(row_count * sizeof(ABContact));
   if (!contacts) {
     scode = -ENOMEM;
     goto err;
@@ -260,7 +260,7 @@ int _db_enum_contacts(int *num_contacts, ab_contact_t **contacts_dst) {
 
   /* Zero init it
    */
-  memset(contacts, 0, row_count * sizeof(ab_contact_t));
+  memset(contacts, 0, row_count * sizeof(ABContact));
 
   rc = sqlite3_prepare_v2(hdb, select_sql, -1, &select_stmt, NULL);
   if (rc != SQLITE_OK) {
@@ -302,9 +302,9 @@ err:
 int ab_enum_contacts(GList **pp_contact_list) {
   int rc;
   int num_contacts = 0;
-  ab_contact_t *contacts = NULL;
+  ABContact *contacts = NULL;
   int i;
-  ab_contact_t *p_contact = NULL;
+  ABContact *p_contact = NULL;
 
   rc = _db_enum_contacts(&num_contacts, &contacts);
   if (rc < 0) {
@@ -333,11 +333,11 @@ exit:
   return rc;
 }
 
-int ab_enum_contacts_v2(int *num_contacts, ab_contact_t **contacts_dst) {
+int ab_enum_contacts_v2(int *num_contacts, ABContact **contacts_dst) {
   return _db_enum_contacts(num_contacts, contacts_dst);
 }
 
-int _db_insert_contact(ab_contact_t *contact) {
+int _db_insert_contact(ABContact *contact) {
   int rc = 0;
   int scode = 0;
   char const insert_sql[] =
@@ -391,7 +391,7 @@ out:
 /*
  * Adds the specified contact to the address book database.
  */
-int ab_add_contact(ab_contact_t *contact) {
+int ab_add_contact(ABContact *contact) {
   int rc;
 
   rc = _db_insert_contact(contact);
@@ -406,11 +406,11 @@ int ab_add_contact(ab_contact_t *contact) {
 /*
  * Adds the specified contact to the address book database.
  */
-int ab_add_contact_v2(ab_contact_t *contact) {
+int ab_add_contact_v2(ABContact *contact) {
   return _db_insert_contact(contact);
 }
 
-int _db_update_contact(ab_contact_t* contact) {
+int _db_update_contact(ABContact *contact) {
   int rc;
   int scode = 0;
   char const update_sql[] =
@@ -472,7 +472,7 @@ out:
 /*
  * Updates an existing contact in the address book database.
  */
-int ab_update_contact(ab_contact_t *contact) {
+int ab_update_contact(ABContact *contact) {
   return _db_update_contact(contact);
 }
 
@@ -522,7 +522,7 @@ out:
 /*
  * Deletes a contact from the address book database.
  */
-int ab_delete_contact(ab_contact_t *contact) {
+int ab_delete_contact(ABContact *contact) {
   int rc;
 
   rc = _db_delete_contact(ab_contact_get_id(contact));
@@ -554,12 +554,12 @@ int ab_delete_contact_v2(int id) {
  *
  * @return 0 if successful, -1 if it was not found.
  */
-int ab_get_contact_by_id(int id, ab_contact_t **pp_contact) {
+int ab_get_contact_by_id(int id, ABContact **pp_contact) {
   int rc;
   int scode = 0;
   char const query[] = "SELECT * FROM contacts WHERE id=?";
   sqlite3_stmt *stmt = NULL;
-  ab_contact_t *contact = NULL;
+  ABContact *contact = NULL;
 
   rc = sqlite3_prepare_v2(hdb, query, -1, &stmt, NULL);
   if (rc != SQLITE_OK) {

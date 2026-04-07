@@ -1,27 +1,27 @@
 #ifndef AB_CONTACT_H
 #define AB_CONTACT_H
 
-typedef struct ab_contact_s
+typedef struct _ABContact
 {
   int id;
   char *fname;
   char *lname;
   char *email;
-} ab_contact_t;
+} ABContact;
 
-ab_contact_t *ab_contact_new(void);
-void          ab_contact_free(ab_contact_t *contact);
+ABContact *ab_contact_new(void);
+void       ab_contact_free(ABContact *contact);
 
-int         ab_contact_get_id(ab_contact_t *contact);
-void        ab_contact_set_id(ab_contact_t *contact, int id);
+int         ab_contact_get_id(ABContact *contact);
+void        ab_contact_set_id(ABContact *contact, int id);
 
-char const *ab_contact_get_first_name(ab_contact_t *contact);
-void        ab_contact_set_first_name(ab_contact_t *contact, char const *fname);
+char const *ab_contact_get_first_name(ABContact *contact);
+void        ab_contact_set_first_name(ABContact *contact, char const *fname);
 
-char const *ab_contact_get_last_name(ab_contact_t *contact);
-void        ab_contact_set_last_name(ab_contact_t *contact, char const *lname);
+char const *ab_contact_get_last_name(ABContact *contact);
+void        ab_contact_set_last_name(ABContact *contact, char const *lname);
 
-char const *ab_contact_get_email(ab_contact_t *contact);
-void        ab_contact_set_email(ab_contact_t *contact, char const *email);
+char const *ab_contact_get_email(ABContact *contact);
+void        ab_contact_set_email(ABContact *contact, char const *email);
 
 #endif /* AB_CONTACT_H */

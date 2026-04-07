@@ -11,7 +11,7 @@ int cmd_delete(int argc, char **argv) {
   int status = 0;
   char const *dbdir;
   int id;
-  ab_contact_t *contact = NULL;
+  ABContact *contact = NULL;
 
   if (argc != 2) {
     fprintf(stderr, "usage: %s <id>\n", argv[0]);

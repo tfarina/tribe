@@ -9,7 +9,7 @@
 
 typedef struct
 {
-  ab_contact_t *contact;
+  ABContact *contact;
   TribeContactDialogMode mode;
   TribeContactDialogResponseFunc response_func;
   gpointer window_data;
@@ -25,7 +25,7 @@ tribe_contact_dialog_response_cb(GtkDialog *dialog,
 				 gpointer   user_data)
 {
   DialogData *data;
-  ab_contact_t *contact;
+  ABContact *contact;
 
   data = g_object_get_data(G_OBJECT(dialog), DIALOG_DATA_KEY);
 
@@ -89,7 +89,7 @@ tribe_contact_dialog_map_cb(GtkWidget *widget, gpointer user_data)
 
 GtkWidget*
 tribe_contact_dialog_new(GtkWindow                      *parent,
-			 ab_contact_t                   *contact,
+			 ABContact                      *contact,
 			 TribeContactDialogMode          mode,
 			 TribeContactDialogResponseFunc  response_cb,
 			 gpointer                        user_data)
