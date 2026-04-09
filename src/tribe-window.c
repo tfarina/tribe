@@ -4,6 +4,7 @@
 
 #include "config.h"
 
+#include <stdlib.h>
 #include <string.h>
 
 #include <gtk/gtk.h>
@@ -23,6 +24,8 @@ struct _TribeWindowPrivate
   GtkWidget    *list_view;
   GtkWidget    *statusbar;
   guint         statusbar_cid;
+
+  GList        *contacts_list;
 };
 
 G_DEFINE_TYPE (TribeWindow, tribe_window, GTK_TYPE_WINDOW)
@@ -821,10 +824,14 @@ static void
 _on_contact_dialog_create_response(GtkWidget *dialog, ABContact *contact, gpointer user_data)
 {
   TribeWindow *window;
+  TribeWindowPrivate *priv;
 
   window = TRIBE_WINDOW(user_data);
+  priv = window->priv;
 
   _append_item_to_list_store(window, contact);
+
+  priv->contacts_list = g_list_append(priv->contacts_list, contact);
 }
 
 static void
@@ -1059,6 +1066,8 @@ tribe_window_finalize(GObject *object)
 {
   TribeWindow *window = TRIBE_WINDOW(object);
 
+  g_list_free_full(window->priv->contacts_list, g_free);
+
   G_OBJECT_CLASS(tribe_window_parent_class)->finalize(object);
 }
 
@@ -1087,7 +1096,10 @@ tribe_window_new(TribeApplication *application)
   GtkWidget *menubar;
   GtkWidget *menuitem;
   GtkWidget *scrolledwin;
-  GList *list;
+  int num_contacts = 0;
+  ABContact *contacts = NULL;
+  int i;
+  ABContact *contact = NULL;
 
   /*
    * Main window
@@ -1153,9 +1165,27 @@ tribe_window_new(TribeApplication *application)
 
   gtk_widget_grab_focus(priv->list_view);
 
-  ab_enum_contacts(&list);
+  if (ab_enum_contacts_v2(&num_contacts, &contacts) < 0)
+    goto exit;
 
-  _populate_list_view(window, list);
+  for (i = 0; i < num_contacts; i++) {
+    contact = ab_contact_new();
+
+    ab_contact_set_id(contact, ab_contact_get_id(&contacts[i]));
+    ab_contact_set_first_name(contact, ab_contact_get_first_name(&contacts[i]));
+    ab_contact_set_last_name(contact, ab_contact_get_last_name(&contacts[i]));
+    ab_contact_set_email(contact, ab_contact_get_email(&contacts[i]));
+
+    priv->contacts_list = g_list_append(priv->contacts_list, contact);
+  }
+
+  _populate_list_view(window, priv->contacts_list);
+
+exit:
+  if (contacts) {
+    free(contacts);
+    contacts = NULL;
+  }
 
   return GTK_WIDGET(window);
 }

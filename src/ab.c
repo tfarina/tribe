@@ -22,8 +22,6 @@
 
 static sqlite3 *hdb = NULL;  /* SQLite db handle */
 
-static GList *contact_list;
-
 static int _db_close(void) {
   int rc;
   int scode = 0; /* success */
@@ -187,8 +185,6 @@ int ab_init(char const *db_dir) {
 int ab_fini(void) {
   int rc;
 
-  g_list_free_full(contact_list, g_free);
-
   rc = _db_close();
   if (rc < 0) {
     return -1;
@@ -299,40 +295,6 @@ err:
   return scode;
 }
 
-int ab_enum_contacts(GList **pp_contact_list) {
-  int rc;
-  int num_contacts = 0;
-  ABContact *contacts = NULL;
-  int i;
-  ABContact *p_contact = NULL;
-
-  rc = _db_enum_contacts(&num_contacts, &contacts);
-  if (rc < 0) {
-    goto exit;
-  }
-
-  for (i = 0; i < num_contacts; i++) {
-    p_contact = ab_contact_new();
-
-    ab_contact_set_id(p_contact, ab_contact_get_id(&contacts[i]));
-    ab_contact_set_first_name(p_contact, ab_contact_get_first_name(&contacts[i]));
-    ab_contact_set_last_name(p_contact, ab_contact_get_last_name(&contacts[i]));
-    ab_contact_set_email(p_contact, ab_contact_get_email(&contacts[i]));
-
-    contact_list = g_list_append(contact_list, p_contact);
-  }
-
-  *pp_contact_list = contact_list;
-
-exit:
-  if (contacts) {
-    free(contacts);
-    contacts = NULL;
-  }
-
-  return rc;
-}
-
 int ab_enum_contacts_v2(int *num_contacts, ABContact **contacts_dst) {
   return _db_enum_contacts(num_contacts, contacts_dst);
 }
@@ -397,8 +359,6 @@ int ab_add_contact(ABContact *contact) {
   rc = _db_insert_contact(contact);
   if (rc < 0)
     return -1;
-
-  contact_list = g_list_append(contact_list, contact);
 
   return 0;
 }

@@ -1,14 +1,11 @@
 #ifndef AB_H_
 #define AB_H_
 
-#include <glib.h>
-
 #include "ab_contact.h"
 
 int ab_init(char const *db_dir);
 int ab_fini(void);
 
-int ab_enum_contacts(GList **pp_contact_list);
 int ab_enum_contacts_v2(int *num_contacts, ABContact **contacts_dst);
 
 int ab_add_contact(ABContact *contact);
