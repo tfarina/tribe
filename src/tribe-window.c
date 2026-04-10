@@ -1066,7 +1066,7 @@ tribe_window_finalize(GObject *object)
 {
   TribeWindow *window = TRIBE_WINDOW(object);
 
-  g_list_free_full(window->priv->contacts_list, g_free);
+  g_list_free_full(window->priv->contacts_list, (GDestroyNotify)ab_contact_free);
 
   G_OBJECT_CLASS(tribe_window_parent_class)->finalize(object);
 }
