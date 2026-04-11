@@ -1097,7 +1097,7 @@ tribe_window_new(TribeApplication *application)
   GtkWidget *menuitem;
   GtkWidget *scrolledwin;
   int num_contacts = 0;
-  ABContact *contacts = NULL;
+  ABContact **contacts = NULL;
   int i;
   ABContact *contact = NULL;
 
@@ -1171,10 +1171,10 @@ tribe_window_new(TribeApplication *application)
   for (i = 0; i < num_contacts; i++) {
     contact = ab_contact_new();
 
-    ab_contact_set_id(contact, ab_contact_get_id(&contacts[i]));
-    ab_contact_set_first_name(contact, ab_contact_get_first_name(&contacts[i]));
-    ab_contact_set_last_name(contact, ab_contact_get_last_name(&contacts[i]));
-    ab_contact_set_email(contact, ab_contact_get_email(&contacts[i]));
+    ab_contact_set_id(contact, ab_contact_get_id(contacts[i]));
+    ab_contact_set_first_name(contact, ab_contact_get_first_name(contacts[i]));
+    ab_contact_set_last_name(contact, ab_contact_get_last_name(contacts[i]));
+    ab_contact_set_email(contact, ab_contact_get_email(contacts[i]));
 
     priv->contacts_list = g_list_append(priv->contacts_list, contact);
   }

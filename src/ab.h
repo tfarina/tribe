@@ -6,7 +6,7 @@
 int ab_init(char const *db_dir);
 int ab_fini(void);
 
-int ab_enum_contacts_v2(int *num_contacts, ABContact **contacts_dst);
+int ab_enum_contacts_v2(int *num_contacts, ABContact ***contacts_dst);
 
 int ab_add_contact(ABContact *contact);
 int ab_add_contact_v2(ABContact *contact);

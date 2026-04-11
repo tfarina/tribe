@@ -227,13 +227,13 @@ out:
   return scode;
 }
 
-int _db_enum_contacts(int *num_contacts, ABContact **contacts_dst) {
+int _db_enum_contacts(int *num_contacts, ABContact ***contacts_dst) {
   int rc;
   int scode = 0;
   int row_count = 0;
   char const select_sql[] = "SELECT * FROM contacts";
   sqlite3_stmt *select_stmt = NULL;
-  ABContact *contacts = NULL;
+  ABContact **contacts = NULL;
   int i;
   int num_rows = 0;
 
@@ -248,7 +248,7 @@ int _db_enum_contacts(int *num_contacts, ABContact **contacts_dst) {
 
   /* Allocate the contacts array
    */
-  contacts = malloc(row_count * sizeof(ABContact));
+  contacts = malloc(row_count * sizeof(ABContact *));
   if (!contacts) {
     scode = -ENOMEM;
     goto err;
@@ -256,7 +256,7 @@ int _db_enum_contacts(int *num_contacts, ABContact **contacts_dst) {
 
   /* Zero init it
    */
-  memset(contacts, 0, row_count * sizeof(ABContact));
+  memset(contacts, 0, row_count * sizeof(ABContact *));
 
   rc = sqlite3_prepare_v2(hdb, select_sql, -1, &select_stmt, NULL);
   if (rc != SQLITE_OK) {
@@ -271,15 +271,16 @@ int _db_enum_contacts(int *num_contacts, ABContact **contacts_dst) {
     if (rc != SQLITE_ROW)
       break;
 
-    ab_contact_set_id(&contacts[i], sqlite3_column_int(select_stmt, 0));
-    ab_contact_set_first_name(&contacts[i],
+    ABContact *contact = ab_contact_new();
+    ab_contact_set_id(contact, sqlite3_column_int(select_stmt, 0));
+    ab_contact_set_first_name(contact,
 			      (char const *)sqlite3_column_text(select_stmt, 1));
-    ab_contact_set_last_name(&contacts[i],
+    ab_contact_set_last_name(contact,
 			     (char const *)sqlite3_column_text(select_stmt, 2));
-    ab_contact_set_email(&contacts[i],
+    ab_contact_set_email(contact,
 			 (char const *)sqlite3_column_text(select_stmt, 3));
 
-    num_rows++;
+    contacts[num_rows++] = contact;
   }
 
   *num_contacts = num_rows;
@@ -295,7 +296,7 @@ err:
   return scode;
 }
 
-int ab_enum_contacts_v2(int *num_contacts, ABContact **contacts_dst) {
+int ab_enum_contacts_v2(int *num_contacts, ABContact ***contacts_dst) {
   return _db_enum_contacts(num_contacts, contacts_dst);
 }
 
