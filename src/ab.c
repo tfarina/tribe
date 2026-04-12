@@ -288,6 +288,9 @@ int _db_enum_contacts(int *num_contacts, ABContact ***contacts_dst) {
 
 err:
   if (scode < 0) {
+    for (i = 0; i < num_rows; i++) {
+      ab_contact_free(contacts[i]);
+    }
     free(contacts);
     contacts = NULL;
   }

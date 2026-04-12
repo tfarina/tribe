@@ -1183,6 +1183,9 @@ tribe_window_new(TribeApplication *application)
 
 exit:
   if (contacts) {
+    for (i = 0; i < num_contacts; i++) {
+      ab_contact_free(contacts[i]);
+    }
     free(contacts);
     contacts = NULL;
   }
