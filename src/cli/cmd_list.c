@@ -12,6 +12,7 @@ int cmd_list(int argc, char **argv) {
   char const *dbdir;
   int num_contacts = 0;
   ABContact **contacts = NULL;
+  int i;
 
   if (!dirs_init())
   {
@@ -36,6 +37,9 @@ int cmd_list(int argc, char **argv) {
 
 out:
   if (contacts) {
+    for (i = 0; i < num_contacts; i++) {
+      ab_contact_free(contacts[i]);
+    }
     free(contacts);
     contacts = NULL;
   }
