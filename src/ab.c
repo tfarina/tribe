@@ -227,17 +227,17 @@ out:
   return scode;
 }
 
-int _db_enum_contacts(ABContact ***contacts_dst, int *num_contacts) {
+int _db_enum_contacts(ABContact ***contacts, int *count) {
   int rc;
   int scode = 0;
   int row_count = 0;
   char const select_sql[] = "SELECT * FROM contacts";
   sqlite3_stmt *select_stmt = NULL;
-  ABContact **contacts = NULL;
+  ABContact **contacts_array = NULL;
   int i;
   int num_rows = 0;
 
-  if (!num_contacts || !contacts_dst) {
+  if (!contacts || !count) {
     return -EINVAL;  /* Invalid args */
   }
 
@@ -248,15 +248,15 @@ int _db_enum_contacts(ABContact ***contacts_dst, int *num_contacts) {
 
   /* Allocate the contacts array
    */
-  contacts = malloc(row_count * sizeof(ABContact *));
-  if (!contacts) {
+  contacts_array = malloc(row_count * sizeof(ABContact *));
+  if (!contacts_array) {
     scode = -ENOMEM;
     goto err;
   }
 
   /* Zero init it
    */
-  memset(contacts, 0, row_count * sizeof(ABContact *));
+  memset(contacts_array, 0, row_count * sizeof(ABContact *));
 
   rc = sqlite3_prepare_v2(hdb, select_sql, -1, &select_stmt, NULL);
   if (rc != SQLITE_OK) {
@@ -280,27 +280,27 @@ int _db_enum_contacts(ABContact ***contacts_dst, int *num_contacts) {
     ab_contact_set_email(contact,
 			 (char const *)sqlite3_column_text(select_stmt, 3));
 
-    contacts[num_rows++] = contact;
+    contacts_array[num_rows++] = contact;
   }
 
-  *num_contacts = num_rows;
-  *contacts_dst = contacts;
+  *contacts = contacts_array;
+  *count = num_rows;
 
 err:
   if (scode < 0) {
     for (i = 0; i < num_rows; i++) {
-      ab_contact_free(contacts[i]);
+      ab_contact_free(contacts_array[i]);
     }
-    free(contacts);
-    contacts = NULL;
+    free(contacts_array);
+    contacts_array = NULL;
   }
   sqlite3_finalize(select_stmt);
 
   return scode;
 }
 
-int ab_enum_contacts_v2(ABContact ***contacts_dst, int *num_contacts) {
-  return _db_enum_contacts(contacts_dst, num_contacts);
+int ab_enum_contacts_v2(ABContact ***contacts, int *count) {
+  return _db_enum_contacts(contacts, count);
 }
 
 int _db_insert_contact(ABContact *contact) {
