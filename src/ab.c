@@ -227,7 +227,7 @@ out:
   return scode;
 }
 
-int _db_enum_contacts(int *num_contacts, ABContact ***contacts_dst) {
+int _db_enum_contacts(ABContact ***contacts_dst, int *num_contacts) {
   int rc;
   int scode = 0;
   int row_count = 0;
@@ -299,8 +299,8 @@ err:
   return scode;
 }
 
-int ab_enum_contacts_v2(int *num_contacts, ABContact ***contacts_dst) {
-  return _db_enum_contacts(num_contacts, contacts_dst);
+int ab_enum_contacts_v2(ABContact ***contacts_dst, int *num_contacts) {
+  return _db_enum_contacts(contacts_dst, num_contacts);
 }
 
 int _db_insert_contact(ABContact *contact) {

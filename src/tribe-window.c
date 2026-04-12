@@ -1165,7 +1165,7 @@ tribe_window_new(TribeApplication *application)
 
   gtk_widget_grab_focus(priv->list_view);
 
-  if (ab_enum_contacts_v2(&num_contacts, &contacts) < 0)
+  if (ab_enum_contacts_v2(&contacts, &num_contacts) < 0)
     goto exit;
 
   for (i = 0; i < num_contacts; i++) {

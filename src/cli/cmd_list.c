@@ -27,13 +27,13 @@ int cmd_list(int argc, char **argv) {
     goto out;
   }
 
-  rc = ab_enum_contacts_v2(&num_contacts, &contacts);
+  rc = ab_enum_contacts_v2(&contacts, &num_contacts);
   if (rc < 0) {
     status = 1;
     goto out;
   }
 
-  rc = print_contact_list_v2(num_contacts, contacts);
+  rc = print_contact_list_v2(contacts, num_contacts);
 
 out:
   if (contacts) {

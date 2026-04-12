@@ -42,7 +42,7 @@ int print_contact_list(GList *contact_list) {
   return 0;
 }
 
-int print_contact_list_v2(int count, ABContact **contacts_list) {
+int print_contact_list_v2(ABContact **contacts_list, int count) {
   ft_table_t *table;
   char const *table_str;
   int i;
