@@ -9,7 +9,6 @@ int ab_fini(void);
 int ab_enum_contacts_v2(ABContact ***contacts, int *count);
 
 int ab_add_contact(ABContact *contact);
-int ab_add_contact_v2(ABContact *contact);
 
 int ab_update_contact(ABContact *contact);
 

@@ -356,21 +356,12 @@ out:
 
 /*
  * Adds the specified contact to the address book database.
+ *
+ * Returns:
+ *   >= 0 on success (implementation-defined, e.g., row id)
+ *   < 0 on failure
  */
 int ab_add_contact(ABContact *contact) {
-  int rc;
-
-  rc = _db_insert_contact(contact);
-  if (rc < 0)
-    return -1;
-
-  return 0;
-}
-
-/*
- * Adds the specified contact to the address book database.
- */
-int ab_add_contact_v2(ABContact *contact) {
   return _db_insert_contact(contact);
 }
 

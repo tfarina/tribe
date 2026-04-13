@@ -35,7 +35,7 @@ int cmd_add(int argc, char **argv) {
   ab_contact_set_email(contact, argv[3]);
 
   /* It's okay to add duplicate records. */
-  rc = ab_add_contact_v2(contact);
+  rc = ab_add_contact(contact);
   if (rc < 0) {
     fputs("Error: Failed to create a new contact.\n", stderr);
     status = 1;
