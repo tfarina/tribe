@@ -478,28 +478,8 @@ out:
  * Deletes a contact from the address book database.
  */
 int ab_delete_contact(ABContact *contact) {
-  int rc;
-
-  rc = _db_delete_contact(ab_contact_get_id(contact));
-  if (rc < 0)
-    return -1;
-
-  return 0;
+  return _db_delete_contact(ab_contact_get_id(contact));
 }
-
-/*
- * Deletes a contact with the given id from the address book database.
- */
-int ab_delete_contact_v2(int id) {
-  int rc;
-
-  rc = _db_delete_contact(id);
-  if (rc < 0)
-    return -1;
-
-  return 0;
-}
-
 
 /*
  * Retrieves a contact for the given id.

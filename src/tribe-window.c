@@ -375,7 +375,7 @@ _remove_selection(TribeWindow *window)
       if (gtk_tree_model_get_iter(model, &iter, path))
       {
         gtk_tree_model_get(model, &iter, COL_PTR, (ABContact *)&contact, -1);
-        ab_delete_contact_v2(contact->id);
+        ab_delete_contact(contact);
         has_row = gtk_list_store_remove(GTK_LIST_STORE(model), &iter);
       }
 

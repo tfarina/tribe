@@ -41,7 +41,7 @@ int cmd_delete(int argc, char **argv) {
     goto out;
   }
 
-  rc = ab_delete_contact_v2(id);
+  rc = ab_delete_contact(contact);
   if (rc < 0) {
     status = 1;
     goto out;
