@@ -42,7 +42,7 @@ int print_contact_list(GList *contact_list) {
   return 0;
 }
 
-int print_contact_list_v2(ABContact **contacts_list, int count) {
+int print_contact_list_v2(ABContactArray *contacts) {
   ft_table_t *table;
   char const *table_str;
   int i;
@@ -55,8 +55,8 @@ int print_contact_list_v2(ABContact **contacts_list, int count) {
   ft_set_cell_prop(table, 0, FT_ANY_COLUMN, FT_CPROP_ROW_TYPE, FT_ROW_HEADER);
   ft_write_ln(table, "ID", "First Name", "Last Name", "Email");
 
-  for (i = 0; i < count; i++) {
-    ABContact *contact = contacts_list[i];
+  for (i = 0; i < contacts->num_elements; i++) {
+    ABContact *contact = contacts->elements[i];
     int length = snprintf(NULL, 0, "%d", contact->id);
     char* idstr = malloc(length + 1);
     snprintf(idstr, length + 1, "%d", contact->id);

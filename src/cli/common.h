@@ -13,6 +13,6 @@ int print_contact_list(GList *contact_list);
 /**
  * Prints to standard output all the contacts found in the database.
  */
-int print_contact_list_v2(ABContact **contacts_list, int count);
+int print_contact_list_v2(ABContactArray *contacts);
 
 #endif /* COMMON_H */

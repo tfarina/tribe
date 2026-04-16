@@ -10,8 +10,7 @@ int cmd_list(int argc, char **argv) {
   int rc;
   int status = 0;
   char const *dbdir;
-  int num_contacts = 0;
-  ABContact **contacts = NULL;
+  ABContactArray *contacts = NULL;
   int i;
 
   if (!dirs_init())
@@ -27,19 +26,20 @@ int cmd_list(int argc, char **argv) {
     goto out;
   }
 
-  rc = ab_enum_contacts_v2(&contacts, &num_contacts);
+  rc = ab_enum_contacts_v2(&contacts);
   if (rc < 0) {
     status = 1;
     goto out;
   }
 
-  rc = print_contact_list_v2(contacts, num_contacts);
+  rc = print_contact_list_v2(contacts);
 
 out:
   if (contacts) {
-    for (i = 0; i < num_contacts; i++) {
-      ab_contact_free(contacts[i]);
+    for (i = 0; i < contacts->num_elements; i++) {
+      ab_contact_free(contacts->elements[i]);
     }
+    free(contacts->elements);
     free(contacts);
     contacts = NULL;
   }

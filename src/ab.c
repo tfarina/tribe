@@ -227,17 +227,16 @@ out:
   return scode;
 }
 
-int _db_enum_contacts(ABContact ***contacts, int *count) {
+int _db_enum_contacts(ABContactArray **contacts) {
   int rc;
   int scode = 0;
   int row_count = 0;
   char const select_sql[] = "SELECT * FROM contacts";
   sqlite3_stmt *select_stmt = NULL;
-  ABContact **contacts_array = NULL;
+  ABContactArray *contacts_array = NULL;
   int i;
-  int num_rows = 0;
 
-  if (!contacts || !count) {
+  if (!contacts) {
     return -EINVAL;  /* Invalid args */
   }
 
@@ -246,17 +245,27 @@ int _db_enum_contacts(ABContact ***contacts, int *count) {
     return -1;
   }
 
+  /* Allocate the container
+   */
+  contacts_array = malloc(sizeof(ABContactArray));
+  if (!contacts_array) {
+    scode = -ENOMEM;
+    goto err;
+  }
+
+  contacts_array->num_elements = 0;
+
   /* Allocate the contacts array
    */
-  contacts_array = malloc(row_count * sizeof(ABContact *));
-  if (!contacts_array) {
+  contacts_array->elements = malloc(row_count * sizeof(ABContact *));
+  if (!contacts_array->elements) {
     scode = -ENOMEM;
     goto err;
   }
 
   /* Zero init it
    */
-  memset(contacts_array, 0, row_count * sizeof(ABContact *));
+  memset(contacts_array->elements, 0, row_count * sizeof(ABContact *));
 
   rc = sqlite3_prepare_v2(hdb, select_sql, -1, &select_stmt, NULL);
   if (rc != SQLITE_OK) {
@@ -280,27 +289,29 @@ int _db_enum_contacts(ABContact ***contacts, int *count) {
     ab_contact_set_email(contact,
 			 (char const *)sqlite3_column_text(select_stmt, 3));
 
-    contacts_array[num_rows++] = contact;
+    contacts_array->elements[contacts_array->num_elements++] = contact;
   }
 
   *contacts = contacts_array;
-  *count = num_rows;
 
 err:
   if (scode < 0) {
-    for (i = 0; i < num_rows; i++) {
-      ab_contact_free(contacts_array[i]);
+    if (contacts_array) {
+      for (i = 0; i < contacts_array->num_elements; i++) {
+	ab_contact_free(contacts_array->elements[i]);
+      }
+      free(contacts_array->elements);
+      free(contacts_array);
+      contacts_array = NULL;
     }
-    free(contacts_array);
-    contacts_array = NULL;
   }
   sqlite3_finalize(select_stmt);
 
   return scode;
 }
 
-int ab_enum_contacts_v2(ABContact ***contacts, int *count) {
-  return _db_enum_contacts(contacts, count);
+int ab_enum_contacts_v2(ABContactArray **contacts) {
+  return _db_enum_contacts(contacts);
 }
 
 int _db_insert_contact(ABContact *contact) {

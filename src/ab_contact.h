@@ -9,6 +9,12 @@ typedef struct _ABContact
   char *email;
 } ABContact;
 
+typedef struct _ABContactArray
+{
+  int num_elements;
+  ABContact **elements;
+} ABContactArray;
+
 ABContact *ab_contact_new(void);
 void       ab_contact_free(ABContact *contact);
 

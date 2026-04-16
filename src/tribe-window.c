@@ -1096,8 +1096,7 @@ tribe_window_new(TribeApplication *application)
   GtkWidget *menubar;
   GtkWidget *menuitem;
   GtkWidget *scrolledwin;
-  int num_contacts = 0;
-  ABContact **contacts = NULL;
+  ABContactArray *contacts = NULL;
   int i;
   ABContact *contact = NULL;
 
@@ -1165,16 +1164,16 @@ tribe_window_new(TribeApplication *application)
 
   gtk_widget_grab_focus(priv->list_view);
 
-  if (ab_enum_contacts_v2(&contacts, &num_contacts) < 0)
+  if (ab_enum_contacts_v2(&contacts) < 0)
     goto exit;
 
-  for (i = 0; i < num_contacts; i++) {
+  for (i = 0; i < contacts->num_elements; i++) {
     contact = ab_contact_new();
 
-    ab_contact_set_id(contact, ab_contact_get_id(contacts[i]));
-    ab_contact_set_first_name(contact, ab_contact_get_first_name(contacts[i]));
-    ab_contact_set_last_name(contact, ab_contact_get_last_name(contacts[i]));
-    ab_contact_set_email(contact, ab_contact_get_email(contacts[i]));
+    ab_contact_set_id(contact, ab_contact_get_id(contacts->elements[i]));
+    ab_contact_set_first_name(contact, ab_contact_get_first_name(contacts->elements[i]));
+    ab_contact_set_last_name(contact, ab_contact_get_last_name(contacts->elements[i]));
+    ab_contact_set_email(contact, ab_contact_get_email(contacts->elements[i]));
 
     priv->contacts_list = g_list_append(priv->contacts_list, contact);
   }
@@ -1183,9 +1182,10 @@ tribe_window_new(TribeApplication *application)
 
 exit:
   if (contacts) {
-    for (i = 0; i < num_contacts; i++) {
-      ab_contact_free(contacts[i]);
+    for (i = 0; i < contacts->num_elements; i++) {
+      ab_contact_free(contacts->elements[i]);
     }
+    free(contacts->elements);
     free(contacts);
     contacts = NULL;
   }
