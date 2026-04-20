@@ -6,6 +6,14 @@
 
 #include <glib.h>
 
+struct _ABContact
+{
+  int id;
+  char *fname;
+  char *lname;
+  char *email;
+};
+
 ABContact* ab_contact_new(void) {
   ABContact *contact;
 

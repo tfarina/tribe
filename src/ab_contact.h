@@ -1,13 +1,7 @@
 #ifndef AB_CONTACT_H
 #define AB_CONTACT_H
 
-typedef struct _ABContact
-{
-  int id;
-  char *fname;
-  char *lname;
-  char *email;
-} ABContact;
+typedef struct _ABContact ABContact;
 
 typedef struct _ABContactArray
 {
