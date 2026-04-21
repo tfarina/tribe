@@ -1084,13 +1084,6 @@ tribe_window_class_init(TribeWindowClass *klass)
 static void
 tribe_window_init(TribeWindow *window)
 {
-  window->priv = G_TYPE_INSTANCE_GET_PRIVATE(window, TRIBE_TYPE_WINDOW, TribeWindowPrivate);
-}
-
-GtkWidget *
-tribe_window_new(TribeApplication *application)
-{
-  TribeWindow *window;
   TribeWindowPrivate *priv;
   GtkWidget *vbox;
   GtkWidget *menubar;
@@ -1100,10 +1093,11 @@ tribe_window_new(TribeApplication *application)
   int i;
   ABContact *contact = NULL;
 
+  window->priv = G_TYPE_INSTANCE_GET_PRIVATE(window, TRIBE_TYPE_WINDOW, TribeWindowPrivate);
+
   /*
    * Main window
    */
-  window = g_object_new(TRIBE_TYPE_WINDOW, NULL);
   priv = window->priv;
   gtk_window_set_title(GTK_WINDOW(window), APPTITLE);
   gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
@@ -1189,6 +1183,10 @@ exit:
     free(contacts);
     contacts = NULL;
   }
+}
 
-  return GTK_WIDGET(window);
+GtkWidget *
+tribe_window_new(TribeApplication *application)
+{
+  return g_object_new(TRIBE_TYPE_WINDOW, NULL);
 }
