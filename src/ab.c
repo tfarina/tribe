@@ -230,19 +230,13 @@ out:
 int _db_enum_contacts(ABContactArray **contacts) {
   int rc;
   int scode = 0;
-  int row_count = 0;
   char const select_sql[] = "SELECT * FROM contacts";
   sqlite3_stmt *select_stmt = NULL;
   ABContactArray *contacts_array = NULL;
-  int i;
+  GPtrArray *array = NULL;
 
   if (!contacts) {
     return -EINVAL;  /* Invalid args */
-  }
-
-  rc = _db_get_contacts_row_count(&row_count);
-  if (rc < 0) {
-    return -1;
   }
 
   /* Allocate the container
@@ -254,18 +248,7 @@ int _db_enum_contacts(ABContactArray **contacts) {
   }
 
   contacts_array->num_elements = 0;
-
-  /* Allocate the contacts array
-   */
-  contacts_array->elements = malloc(row_count * sizeof(ABContact *));
-  if (!contacts_array->elements) {
-    scode = -ENOMEM;
-    goto err;
-  }
-
-  /* Zero init it
-   */
-  memset(contacts_array->elements, 0, row_count * sizeof(ABContact *));
+  contacts_array->elements = NULL;
 
   rc = sqlite3_prepare_v2(hdb, select_sql, -1, &select_stmt, NULL);
   if (rc != SQLITE_OK) {
@@ -275,11 +258,9 @@ int _db_enum_contacts(ABContactArray **contacts) {
     goto err;
   }
 
-  for (i = 0; i < row_count; i++) {
-    rc = sqlite3_step(select_stmt);
-    if (rc != SQLITE_ROW)
-      break;
+  array = g_ptr_array_new_with_free_func((GDestroyNotify)ab_contact_free);
 
+  while (sqlite3_step(select_stmt) == SQLITE_ROW) {
     ABContact *contact = ab_contact_new();
     ab_contact_set_id(contact, sqlite3_column_int(select_stmt, 0));
     ab_contact_set_first_name(contact,
@@ -289,18 +270,19 @@ int _db_enum_contacts(ABContactArray **contacts) {
     ab_contact_set_email(contact,
 			 (char const *)sqlite3_column_text(select_stmt, 3));
 
-    contacts_array->elements[contacts_array->num_elements++] = contact;
+    g_ptr_array_add(array, contact);
   }
 
+  contacts_array->num_elements = array->len;
+  contacts_array->elements = (ABContact **)g_ptr_array_free(array, FALSE);
   *contacts = contacts_array;
 
 err:
   if (scode < 0) {
+    if (array) {
+      g_ptr_array_free(array, TRUE);
+    }
     if (contacts_array) {
-      for (i = 0; i < contacts_array->num_elements; i++) {
-	ab_contact_free(contacts_array->elements[i]);
-      }
-      free(contacts_array->elements);
       free(contacts_array);
       contacts_array = NULL;
     }
