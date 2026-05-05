@@ -248,7 +248,7 @@ int _db_enum_contacts(ABContactArray **contacts) {
 
   array = g_ptr_array_new_with_free_func((GDestroyNotify)ab_contact_free);
 
-  while (sqlite3_step(select_stmt) == SQLITE_ROW) {
+  while ((rc = sqlite3_step(select_stmt)) == SQLITE_ROW) {
     ABContact *contact = ab_contact_new();
     ab_contact_set_id(contact, sqlite3_column_int(select_stmt, 0));
     ab_contact_set_first_name(contact,
@@ -261,9 +261,22 @@ int _db_enum_contacts(ABContactArray **contacts) {
     g_ptr_array_add(array, contact);
   }
 
+  if (rc != SQLITE_DONE) {
+    fprintf(stderr, "ERROR: sqlite3_step failed: %s\n",
+	    sqlite3_errmsg(hdb));
+    scode = -1;
+    goto err;
+  }
+
   *contacts = array;
 
 err:
+  if (scode < 0) {
+    if (array) {
+      g_ptr_array_free(array, TRUE);
+      array = NULL;
+    }
+  }
   sqlite3_finalize(select_stmt);
 
   return scode;
