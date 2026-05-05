@@ -53,8 +53,8 @@ int print_contact_list_v2(ABContactArray *contacts) {
   ft_set_cell_prop(table, 0, FT_ANY_COLUMN, FT_CPROP_ROW_TYPE, FT_ROW_HEADER);
   ft_write_ln(table, "ID", "First Name", "Last Name", "Email");
 
-  for (i = 0; i < contacts->num_elements; i++) {
-    ABContact *contact = contacts->elements[i];
+  for (i = 0; i < contacts->len; i++) {
+    ABContact *contact = g_ptr_array_index(contacts, i);
     char *idstr = g_strdup_printf("%d", ab_contact_get_id(contact));
     ft_write_ln(table, idstr,
 		ab_contact_get_first_name(contact),

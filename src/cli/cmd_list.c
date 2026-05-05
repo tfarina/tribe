@@ -36,12 +36,7 @@ int cmd_list(int argc, char **argv) {
 
 out:
   if (contacts) {
-    for (i = 0; i < contacts->num_elements; i++) {
-      ab_contact_free(contacts->elements[i]);
-    }
-    free(contacts->elements);
-    free(contacts);
-    contacts = NULL;
+    g_ptr_array_free(contacts, TRUE);
   }
 
   ab_fini();

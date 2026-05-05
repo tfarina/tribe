@@ -1,13 +1,11 @@
 #ifndef AB_CONTACT_H
 #define AB_CONTACT_H
 
+#include <glib.h>
+
 typedef struct _ABContact ABContact;
 
-typedef struct _ABContactArray
-{
-  int num_elements;
-  ABContact **elements;
-} ABContactArray;
+typedef GPtrArray ABContactArray;
 
 ABContact *ab_contact_new(void);
 void       ab_contact_free(ABContact *contact);

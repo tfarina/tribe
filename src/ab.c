@@ -232,23 +232,11 @@ int _db_enum_contacts(ABContactArray **contacts) {
   int scode = 0;
   char const select_sql[] = "SELECT * FROM contacts";
   sqlite3_stmt *select_stmt = NULL;
-  ABContactArray *contacts_array = NULL;
   GPtrArray *array = NULL;
 
   if (!contacts) {
     return -EINVAL;  /* Invalid args */
   }
-
-  /* Allocate the container
-   */
-  contacts_array = malloc(sizeof(ABContactArray));
-  if (!contacts_array) {
-    scode = -ENOMEM;
-    goto err;
-  }
-
-  contacts_array->num_elements = 0;
-  contacts_array->elements = NULL;
 
   rc = sqlite3_prepare_v2(hdb, select_sql, -1, &select_stmt, NULL);
   if (rc != SQLITE_OK) {
@@ -273,20 +261,9 @@ int _db_enum_contacts(ABContactArray **contacts) {
     g_ptr_array_add(array, contact);
   }
 
-  contacts_array->num_elements = array->len;
-  contacts_array->elements = (ABContact **)g_ptr_array_free(array, FALSE);
-  *contacts = contacts_array;
+  *contacts = array;
 
 err:
-  if (scode < 0) {
-    if (array) {
-      g_ptr_array_free(array, TRUE);
-    }
-    if (contacts_array) {
-      free(contacts_array);
-      contacts_array = NULL;
-    }
-  }
   sqlite3_finalize(select_stmt);
 
   return scode;

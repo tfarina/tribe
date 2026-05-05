@@ -1161,13 +1161,13 @@ tribe_window_init(TribeWindow *window)
   if (ab_enum_contacts_v2(&contacts) < 0)
     goto exit;
 
-  for (i = 0; i < contacts->num_elements; i++) {
+  for (i = 0; i < contacts->len; i++) {
     contact = ab_contact_new();
 
-    ab_contact_set_id(contact, ab_contact_get_id(contacts->elements[i]));
-    ab_contact_set_first_name(contact, ab_contact_get_first_name(contacts->elements[i]));
-    ab_contact_set_last_name(contact, ab_contact_get_last_name(contacts->elements[i]));
-    ab_contact_set_email(contact, ab_contact_get_email(contacts->elements[i]));
+    ab_contact_set_id(contact, ab_contact_get_id(contacts->pdata[i]));
+    ab_contact_set_first_name(contact, ab_contact_get_first_name(contacts->pdata[i]));
+    ab_contact_set_last_name(contact, ab_contact_get_last_name(contacts->pdata[i]));
+    ab_contact_set_email(contact, ab_contact_get_email(contacts->pdata[i]));
 
     priv->contacts_list = g_list_append(priv->contacts_list, contact);
   }
@@ -1176,12 +1176,7 @@ tribe_window_init(TribeWindow *window)
 
 exit:
   if (contacts) {
-    for (i = 0; i < contacts->num_elements; i++) {
-      ab_contact_free(contacts->elements[i]);
-    }
-    free(contacts->elements);
-    free(contacts);
-    contacts = NULL;
+    g_ptr_array_free(contacts, TRUE);
   }
 }
 
