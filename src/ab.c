@@ -238,6 +238,8 @@ int _db_enum_contacts(ABContactArray **contacts) {
     return -EINVAL;  /* Invalid args */
   }
 
+  *contacts = NULL;
+
   rc = sqlite3_prepare_v2(hdb, select_sql, -1, &select_stmt, NULL);
   if (rc != SQLITE_OK) {
     fprintf(stderr, "ERROR: sqlite3_prepare_v2 failed: %s\n",
