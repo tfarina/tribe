@@ -6,7 +6,8 @@ dnl **************************
 m4_define([tri_version_major], [0])
 m4_define([tri_version_minor], [0])
 m4_define([tri_version_micro], [0])
-m4_define([tri_version], [tri_version_major.tri_version_minor.tri_version_micro])
+m4_define([tri_version_extra], [])
+m4_define([tri_version], [tri_version_major.tri_version_minor.tri_version_micro()tri_version_extra])
 
 dnl *************************
 dnl Define bug-report address
