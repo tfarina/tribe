@@ -9,7 +9,7 @@ project(tribe C)
 # For a release, leave VERSION_SUFFIX empty.
 # Example: set(VERSION_SUFFIX "")
 set(VERSION_MAJOR "0")
-set(VERSION_MINOR "1")
+set(VERSION_MINOR "0")
 set(VERSION_MICRO "0")
 set(VERSION_SUFFIX "")
 set(VERSION "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_MICRO}${VERSION_SUFFIX}")
