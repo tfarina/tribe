@@ -792,6 +792,7 @@ _on_list_button_press_cb(GtkTreeView *widget,
 					TRIBE_CONTACT_DIALOG_MODE_EDIT,
 					_on_contact_dialog_edit_response,
 					window);
+      gtk_widget_show_all(dialog);
     }
 
     return TRUE;
