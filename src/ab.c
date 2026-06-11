@@ -331,6 +331,8 @@ int _db_insert_contact(ABContact *contact) {
     fprintf(stderr, "ERROR: sqlite3_step failed: %s\n",
             sqlite3_errmsg(hdb));
     scode = -1;
+  } else {
+    ab_contact_set_id(contact, sqlite3_last_insert_rowid(hdb));
   }
 
 out:
