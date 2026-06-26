@@ -1,5 +1,6 @@
 #include "common.h"
 
+#include <inttypes.h>
 #include <stdio.h>
 
 #include "ab_contact.h"
@@ -20,7 +21,7 @@ int print_contact_list(GList *contact_list) {
 
   for (item = contact_list; item; item = g_list_next(item)) {
     ABContact *contact = (ABContact *)item->data;
-    char *idstr = g_strdup_printf("%d", ab_contact_get_id(contact));
+    char *idstr = g_strdup_printf("%" PRId64, ab_contact_get_id(contact));
     ft_write_ln(table, idstr,
 		ab_contact_get_first_name(contact),
 		ab_contact_get_last_name(contact),
@@ -55,7 +56,7 @@ int print_contact_list_v2(ABContactArray *contacts) {
 
   for (i = 0; i < contacts->len; i++) {
     ABContact *contact = g_ptr_array_index(contacts, i);
-    char *idstr = g_strdup_printf("%d", ab_contact_get_id(contact));
+    char *idstr = g_strdup_printf("%" PRId64, ab_contact_get_id(contact));
     ft_write_ln(table, idstr,
 		ab_contact_get_first_name(contact),
 		ab_contact_get_last_name(contact),

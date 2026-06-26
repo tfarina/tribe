@@ -14,6 +14,6 @@ int ab_update_contact(ABContact *contact);
 
 int ab_delete_contact(ABContact *contact);
 
-int ab_get_contact_by_id(int id, ABContact **pp_contact);
+int ab_get_contact_by_id(ABContactId id, ABContact **pp_contact);
 
 #endif  /* AB_H_ */

@@ -252,7 +252,7 @@ int _db_enum_contacts(ABContactArray **contacts) {
 
   while ((rc = sqlite3_step(select_stmt)) == SQLITE_ROW) {
     ABContact *contact = ab_contact_new();
-    ab_contact_set_id(contact, sqlite3_column_int(select_stmt, 0));
+    ab_contact_set_id(contact, sqlite3_column_int64(select_stmt, 0));
     ab_contact_set_first_name(contact,
 			      (char const *)sqlite3_column_text(select_stmt, 1));
     ab_contact_set_last_name(contact,
@@ -390,9 +390,9 @@ int _db_update_contact(ABContact *contact) {
     goto out;
   }
 
-  rc = sqlite3_bind_int(update_stmt, 4, ab_contact_get_id(contact));
+  rc = sqlite3_bind_int64(update_stmt, 4, ab_contact_get_id(contact));
   if (rc != SQLITE_OK) {
-    fprintf(stderr, "ERROR: sqlite3_bind_int failed: %s\n",
+    fprintf(stderr, "ERROR: sqlite3_bind_int64 failed: %s\n",
             sqlite3_errmsg(hdb));
     scode = -1;
     goto out;
@@ -418,7 +418,7 @@ int ab_update_contact(ABContact *contact) {
   return _db_update_contact(contact);
 }
 
-static int _db_delete_contact(int id) {
+static int _db_delete_contact(ABContactId id) {
   int rc;
   int scode = 0;
   char const delete_sql[] = "DELETE FROM contacts WHERE id=?";
@@ -432,9 +432,9 @@ static int _db_delete_contact(int id) {
     return -1;
   }
 
-  rc = sqlite3_bind_int(delete_stmt, 1, id);
+  rc = sqlite3_bind_int64(delete_stmt, 1, id);
   if (rc != SQLITE_OK) {
-    fprintf(stderr, "ERROR: sqlite3_bind_int failed: %s\n",
+    fprintf(stderr, "ERROR: sqlite3_bind_int64 failed: %s\n",
 	    sqlite3_errmsg(hdb));
     scode = -1;
     goto out;
@@ -476,7 +476,7 @@ int ab_delete_contact(ABContact *contact) {
  *
  * @return 0 if successful, -1 if it was not found.
  */
-int ab_get_contact_by_id(int id, ABContact **pp_contact) {
+int ab_get_contact_by_id(ABContactId id, ABContact **pp_contact) {
   int rc;
   int scode = 0;
   char const query[] = "SELECT * FROM contacts WHERE id=?";
@@ -490,9 +490,9 @@ int ab_get_contact_by_id(int id, ABContact **pp_contact) {
     return -1;
   }
 
-  rc = sqlite3_bind_int(stmt, 1, id);
+  rc = sqlite3_bind_int64(stmt, 1, id);
   if (rc != SQLITE_OK) {
-    fprintf(stderr, "ERROR: sqlite3_bind_int failed: %s\n",
+    fprintf(stderr, "ERROR: sqlite3_bind_int64 failed: %s\n",
 	    sqlite3_errmsg(hdb));
     scode = -1;
     goto out;
@@ -510,7 +510,7 @@ int ab_get_contact_by_id(int id, ABContact **pp_contact) {
   if (rc == SQLITE_ROW) {
     contact = ab_contact_new();
 
-    ab_contact_set_id(contact, sqlite3_column_int(stmt, 0));
+    ab_contact_set_id(contact, sqlite3_column_int64(stmt, 0));
     ab_contact_set_first_name(contact, (char const *)sqlite3_column_text(stmt, 1));
     ab_contact_set_last_name(contact, (char const *)sqlite3_column_text(stmt, 2));
     ab_contact_set_email(contact, (char const *)sqlite3_column_text(stmt, 3));

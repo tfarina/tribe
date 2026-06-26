@@ -8,7 +8,7 @@
 
 struct _ABContact
 {
-  int id;
+  ABContactId id;
   char *fname;
   char *lname;
   char *email;
@@ -34,11 +34,11 @@ void ab_contact_free(ABContact *contact) {
   g_free(contact);
 }
 
-int ab_contact_get_id(ABContact *contact) {
+ABContactId ab_contact_get_id(ABContact *contact) {
   return contact->id;
 }
 
-void ab_contact_set_id(ABContact *contact, int id) {
+void ab_contact_set_id(ABContact *contact, ABContactId id) {
   contact->id = id;
 }
 
