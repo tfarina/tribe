@@ -9,7 +9,7 @@ project(tribe C)
 # For a release, leave VERSION_EXTRA empty.
 # Example: set(VERSION_EXTRA "")
 set(VERSION_MAJOR "0")
-set(VERSION_MINOR "0")
+set(VERSION_MINOR "1")
 set(VERSION_MICRO "0")
 set(VERSION_EXTRA "")
 set(VERSION "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_MICRO}${VERSION_EXTRA}")
