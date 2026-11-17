@@ -15,12 +15,10 @@ G_BEGIN_DECLS
 
 typedef struct _TribeApplication        TribeApplication;
 typedef struct _TribeApplicationClass   TribeApplicationClass;
-typedef struct _TribeApplicationPrivate TribeApplicationPrivate;
 
 struct _TribeApplication
 {
-  GObject                  parent;
-  TribeApplicationPrivate *priv;
+  GObject parent;
 };
 
 struct _TribeApplicationClass
