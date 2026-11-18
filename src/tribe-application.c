@@ -2,6 +2,16 @@
 
 #include "tribe-window.h"
 
+struct _TribeApplicationClass
+{
+  GObjectClass parent_class;
+};
+
+struct _TribeApplication
+{
+  GObject parent;
+};
+
 G_DEFINE_TYPE (TribeApplication, tribe_application, G_TYPE_OBJECT)
 
 static void
