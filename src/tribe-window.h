@@ -3,8 +3,6 @@
 
 #include <gtk/gtk.h>
 
-#include "tribe-application.h"
-
 G_BEGIN_DECLS
 
 #define TRIBE_TYPE_WINDOW            (tribe_window_get_type ())
@@ -31,7 +29,7 @@ struct _TribeWindowClass
 
 GType               tribe_window_get_type                (void) G_GNUC_CONST;
 
-GtkWidget *         tribe_window_new                     (TribeApplication *application);
+GtkWidget *         tribe_window_new                     (void);
 
 G_END_DECLS
 

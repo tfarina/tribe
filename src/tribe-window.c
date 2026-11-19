@@ -1182,7 +1182,7 @@ exit:
 }
 
 GtkWidget *
-tribe_window_new(TribeApplication *application)
+tribe_window_new(void)
 {
   return g_object_new(TRIBE_TYPE_WINDOW, NULL);
 }
