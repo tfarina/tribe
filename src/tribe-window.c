@@ -408,20 +408,6 @@ _remove_selection(TribeWindow *window)
 }
 
 /*
- * Window callbacks
- */
-
-static void
-_on_size_allocate_cb(GtkWidget		*widget,
-                     GtkAllocation	*allocation)
-{
-#if 0
-  printf("%d\n", allocation->width);
-  printf("%d\n", allocation->height);
-#endif
-}
-
-/*
  * Menubar callbacks
  */
 
@@ -1106,10 +1092,7 @@ tribe_window_init(TribeWindow *window)
 			      INIT_WINDOW_WIDTH,
 			      INIT_WINDOW_HEIGHT);
 
-  g_signal_connect(G_OBJECT(window), "size-allocate",
-                   G_CALLBACK(_on_size_allocate_cb), NULL);
-
-    /*
+  /*
    * Vertical box
    */
   vbox = gtk_vbox_new(FALSE, 0);
